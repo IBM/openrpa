@@ -12,6 +12,7 @@
         <File Id="OpenRPA.RDServiceMonitor.exe" Source="!(wix.RDServicePluginSource)\OpenRPA.RDServiceMonitor.exe" />
         <File Id="OpenRPA.RDServiceMonitor.exe.config" Source="!(wix.RDServicePluginSource)\OpenRPA.RDServiceMonitor.exe.config" />
         <File Id="OpenRPA.RDServicePlugin.dll" Source="!(wix.RDServicePluginSource)\OpenRPA.RDServicePlugin.dll" />
+        <File Id="SimpleImpersonation.dll" Source="!(wix.RDServicePluginSource)\SimpleImpersonation.dll" />        
       </Component>
 
       <Component Id='RDServicePluginComponentx64' Win64='yes' Directory="RDServicePluginx64" Guid='{81AD9BB8-D6A8-4509-A5B8-C36159A36B2B}'>
@@ -78,6 +79,12 @@
       <Component Id='RDServicePluginComponentru' Win64='yes' Directory="RDServicePluginru" Guid='{CBEFB416-771B-482C-BDCD-A8E0DEEAFE7A}'>
         <File Id="OpenRPA.RDServicePlugin.resources.dll_ru" Source="!(wix.RDServicePluginSource)\ru\OpenRPA.RDServicePlugin.resources.dll" />
       </Component>
+      <Component Id='RDServicePluginComponentja' Win64='yes' Directory="RDServicePluginja" Guid='{17C3DC65-5CE6-45AD-9DA4-592A2E7D7D26}'>
+        <File Id="OpenRPA.RDServicePlugin.resources.dll_ja" Source="!(wix.RDServicePluginSource)\ja\OpenRPA.RDServicePlugin.resources.dll" />
+      </Component>
+      <Component Id='RDServicePluginComponentzh' Win64='yes' Directory="RDServicePluginzh" Guid='{F5D5D51C-6071-4087-B2C7-1461DFD280FE}'>
+        <File Id="OpenRPA.RDServicePlugin.resources.dll_zh" Source="!(wix.RDServicePluginSource)\zh\OpenRPA.RDServicePlugin.resources.dll" />
+      </Component>
 
     </ComponentGroup>
     <DirectoryRef Id="INSTALLDIR">
@@ -88,6 +95,8 @@
       <Directory Id="RDServicePluginpt" Name="pt" />
       <Directory Id="RDServicePluginro" Name="ro" />
       <Directory Id="RDServicePluginru" Name="ru" />
+      <Directory Id="RDServicePluginja" Name="ja" />
+      <Directory Id="RDServicePluginzh" Name="zh" />
     </DirectoryRef>
 
   </Fragment>

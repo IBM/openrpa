@@ -57,8 +57,9 @@
     <WixVariable Id="UpdaterSource" Overridable="yes" Value="c:\Code\OpenRPA\OpenRPA.Updater\bin\PrepInstaller\$(var.netver)"/>
     <WixVariable Id="DatabaseSource" Overridable="yes" Value="c:\Code\OpenRPA\OpenRPA.Database\bin\PrepInstaller\$(var.netver)"/>
     <WixVariable Id="SAPSource" Overridable="yes" Value="c:\Code\OpenRPA\OpenRPA.SAP\bin\PrepInstaller\$(var.netver)"/>
-
-
+    <WixVariable Id="MSSpeechSource" Overridable="yes" Value="c:\Code\OpenRPA\OpenRPA.MSSpeech\bin\PrepInstaller\$(var.netver)"/>
+    <WixVariable Id="PSSource" Overridable="yes" Value="c:\Code\OpenRPA\OpenRPA.PS\bin\PrepInstaller\$(var.netver)"/>
+    
 
 
     <Feature Id="MainFeature" Title="OpenRPA Core Components" Level="1" Absent='disallow' AllowAdvertise='no' ConfigurableDirectory='INSTALLDIR' TypicalDefault="install" >
@@ -70,6 +71,10 @@
     </Feature>
     <Feature Id="OpenFlowDBFeature" Title="OpenFlow specific activities" Level="1" Absent='allow' AllowAdvertise='yes' ConfigurableDirectory='INSTALLDIR' TypicalDefault="install" >
       <ComponentGroupRef Id="OpenFlowDBComponents" />
+    </Feature>
+    <Feature Id="PSFeature" Title="PowerShell module mangement tools" Level="1" Absent='allow' AllowAdvertise='yes' ConfigurableDirectory='INSTALLDIR' TypicalDefault="install" >
+      <ComponentGroupRef Id="PSComponents" />
+      <!--<ComponentRef Id="PSRegistryEntries"/>-->
     </Feature>
     <Feature Id="OfficeFeature" Title="Microsoft Office Integration" Level="1" Absent='allow' AllowAdvertise='yes' ConfigurableDirectory='INSTALLDIR' TypicalDefault="install" >
       <Condition Level="0"><![CDATA[NOT(INSTALLOFFICEFEATURE~="TRUE")]]></Condition>
@@ -95,6 +100,9 @@
     </Feature>
     <Feature Id="DatabaseFeature" Title="Microsoft ADO/Database Integration" Level="1" Absent='allow' AllowAdvertise='yes' ConfigurableDirectory='INSTALLDIR' TypicalDefault="advertise" >
       <ComponentGroupRef Id="DatabaseComponents" />
+    </Feature>
+    <Feature Id="MSSpeechFeature" Title="Microsoft speech recognition and speech synthesis" Level="1" Absent='allow' AllowAdvertise='yes' ConfigurableDirectory='INSTALLDIR' TypicalDefault="advertise" >
+      <ComponentGroupRef Id="MSSpeechComponents" />
     </Feature>
     <Feature Id="SAPFeature" Title="SAP NetWeaver Plugin" Level="1" Absent='allow' AllowAdvertise='yes' ConfigurableDirectory='INSTALLDIR' TypicalDefault="advertise" >
       <ComponentGroupRef Id="SAPComponents" />

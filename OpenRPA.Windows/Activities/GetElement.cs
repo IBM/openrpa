@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Reflection;
+using FlaUI.Core.Input;
 
 namespace OpenRPA.Windows
 {
@@ -37,6 +38,8 @@ namespace OpenRPA.Windows
         public InArgument<string> Selector { get; set; }
         // public InArgument<UIElement> From { get; set; }
         public InArgument<IElement> From { get; set; }
+        public InArgument<bool> ClearCache { get; set; }
+        public InArgument<bool> Interactive { get; set; }
         public OutArgument<UIElement[]> Elements { get; set; }
         [Browsable(false)]
         public string Image { get; set; }
@@ -52,6 +55,12 @@ namespace OpenRPA.Windows
             sw.Start();
             Log.Selector(string.Format("Windows.GetElement::begin {0:mm\\:ss\\.fff}", sw.Elapsed));
 
+            if(ClearCache != null && ClearCache.Get(context))
+            {
+                Log.Selector(string.Format("Windows.GetElement::Clearing windows element cache {0:mm\\:ss\\.fff}", sw.Elapsed));
+                WindowsSelectorItem.ClearCache();
+            }
+
             UIElement[] elements = null;
             var selector = Selector.Get(context);
             selector = OpenRPA.Interfaces.Selector.Selector.ReplaceVariables(selector, context.DataContext);
@@ -60,17 +69,8 @@ namespace OpenRPA.Windows
             var maxresults = MaxResults.Get(context);
             var minresults = MinResults.Get(context);
             if (maxresults < 1) maxresults = 1;
+            var interactive = Interactive.Get(context);
             var from = From.Get(context);
-
-            //            double _timeout = 250;
-            double _timeout = 5000;
-            if (PluginConfig.search_descendants)
-            {
-                _timeout = 5000;
-            }
-            //#if DEBUG
-            //            _timeout = _timeout * 8;
-            //#endif
             int failcounter = 0;
             do
             {
@@ -91,7 +91,7 @@ namespace OpenRPA.Windows
                             Log.Error(ex, "");
                         }
                         return new UIElement[] { };
-                    }, TimeSpan.FromMilliseconds(_timeout)).Result;
+                    }, PluginConfig.search_timeout).Result;
                 }
                 else
                 {
@@ -112,11 +112,11 @@ namespace OpenRPA.Windows
                     WindowsSelectorItem.ClearCache();
                 }
             } while (elements != null && elements.Length == 0 && sw.Elapsed < timeout);
-            //if (PluginConfig.get_elements_in_different_thread && elements.Length > 0)
-            //{
-            //    // Get them again, we need the COM objects to be loaded in the UI thread
-            //    elements = WindowsSelector.GetElementsWithuiSelector(sel, from, maxresults);
-            //}
+            if (PluginConfig.get_elements_in_different_thread && elements.Length > 0)
+            {
+                // Get them again, we need the COM objects to be loaded in the UI thread
+                elements = WindowsSelector.GetElementsWithuiSelector(sel, from, maxresults);
+            }
             context.SetValue(Elements, elements);
 
             var lastelements = context.GetValue(_lastelements);
@@ -135,6 +135,11 @@ namespace OpenRPA.Windows
             }
             if (more)
             {
+                if(interactive)
+                {
+                    var testelement = _enum.Current;
+                    Wait.UntilResponsive(testelement.RawElement, PluginConfig.search_timeout);
+                }
                 context.SetValue(_elements, _enum);
                 context.SetValue(_sw, sw);
                 Log.Selector(string.Format("Windows.GetElement::end:: call ScheduleAction: {0:mm\\:ss\\.fff}", sw.Elapsed));

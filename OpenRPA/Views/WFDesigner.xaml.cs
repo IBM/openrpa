@@ -105,10 +105,10 @@ namespace OpenRPA.Views
         public Action<WFDesigner> OnChanged { get; set; }
         public WorkflowDesigner WorkflowDesigner { get; private set; }
         public Workflow Workflow { get; private set; }
-        public bool HasChanged { get; private set; }
+        public bool HasChanged { get; set; }
         public void forceHasChanged(bool value) { HasChanged = value; }
         public ModelItem SelectedActivity { get; private set; }
-        public Project Project
+        public IProject Project
         {
             get
             {
@@ -696,7 +696,6 @@ namespace OpenRPA.Views
         {
             if (Config.local.recording_add_to_designer)
             {
-                Type t = plugin.GetType();
                 var rootObject = GetRootElement();
                 Microsoft.VisualBasic.Activities.VisualBasicSettings vbsettings = Microsoft.VisualBasic.Activities.VisualBasic.GetSettings(rootObject);
                 if (vbsettings == null)
@@ -746,13 +745,16 @@ namespace OpenRPA.Views
                             Import = typeof(Microsoft.VisualBasic.Collection).Namespace
                         });
                 }
-
-                vbsettings.ImportReferences.Add(
-                    new Microsoft.VisualBasic.Activities.VisualBasicImportReference
-                    {
-                        Assembly = t.Assembly.GetName().Name,
-                        Import = t.Namespace
-                    });
+                if(plugin!=null)
+                {
+                    Type t = plugin.GetType();
+                    vbsettings.ImportReferences.Add(
+                        new Microsoft.VisualBasic.Activities.VisualBasicImportReference
+                        {
+                            Assembly = t.Assembly.GetName().Name,
+                            Import = t.Namespace
+                        });
+                }
                 Microsoft.VisualBasic.Activities.VisualBasic.SetSettings(rootObject, vbsettings);
                 //DynamicAssemblyMonitor(t.Assembly.GetName().Name, t.Assembly, true);
                 return AddActivity(a);
@@ -1678,7 +1680,7 @@ Union(modelService.Find(modelService.Root, typeof(System.Activities.Debugger.Sta
                     handler.SetValue(currentSequence);
                 }
             }
-            else if (currentSequence != null && comment.Parent.Properties["Handler"] != null)
+            else if (currentSequence != null && comment.Parent != null && comment.Parent.Properties["Handler"] != null)
             {
                 var handler = comment.Parent.Properties["Handler"];
                 handler.SetValue(currentSequence);
@@ -1690,6 +1692,7 @@ Union(modelService.Find(modelService.Root, typeof(System.Activities.Debugger.Sta
             var pri = thisselection.PrimarySelection;
             if (pri == null) return;
             //var movethis = selectedActivity;
+
             var lastSequence = GetActivitiesScope(SelectedActivity.Parent);
             if (lastSequence == null) lastSequence = GetActivitiesScope(SelectedActivity);
             ModelItemCollection Activities = null;
@@ -1702,7 +1705,29 @@ Union(modelService.Find(modelService.Root, typeof(System.Activities.Debugger.Sta
                 Activities = lastSequence.Properties["Nodes"].Collection;
             }
 
-            if (thisselection.SelectionCount > 1 || thisselection.PrimarySelection.ItemType == typeof(Sequence))
+            if (SelectedActivity.ItemType == typeof(Sequence))
+            {
+                var parent = SelectedActivity.Parent;
+                if (SelectedActivity.Parent.ItemType == typeof(ActivityBuilder)) return;
+                if (parent.Properties["Activities"] != null)
+                {
+                    Activities = parent.Properties["Activities"].Collection;
+                }
+                var co = new Activities.CommentOut
+                {
+                    Body = SelectedActivity.GetCurrentValue() as Activity
+                };
+                if(Activities == null)
+                {
+                    var item = thisselection.PrimarySelection.Parent.Properties["Handler"].SetValue(co);
+                }
+                else
+                {
+                    Activities.Remove(SelectedActivity);
+                    Activities.Add(co);
+                }
+            }
+            else if (thisselection.SelectionCount > 1 || thisselection.PrimarySelection.ItemType == typeof(Sequence))
             {
                 if (lastSequence.Properties["Nodes"] != null) return;
                 var co = new Activities.CommentOut

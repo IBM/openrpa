@@ -47,34 +47,24 @@ namespace OpenRPA
         public bool loginInProgress = false;
         private bool first_connect = true;
         private static readonly object statelock = new object();
-        public MainWindow MainWindow { get; set; }
+        // public MainWindow MainWindow { get; set; }
         public IMainWindow Window { get; set; }
-        public AgentWindow AgentWindow { get; set; }
-        public Views.WFDesigner[] Designers
+        // public AgentWindow AgentWindow { get; set; }
+        public List<IWorkflowInstance> WorkflowInstances
         {
             get
             {
-                if (MainWindow == null || MainWindow.DManager == null) return new Views.WFDesigner[] { };
-                var result = new List<Views.WFDesigner>();
-                try
-                {
-                    var las = MainWindow.DManager.Layout.Descendents().OfType<LayoutAnchorable>().ToList();
-                    foreach (var dp in las)
-                    {
-                        if (dp.Content is Views.WFDesigner view) result.Add(view);
-
-                    }
-                    var ld = MainWindow.DManager.Layout.Descendents().OfType<LayoutDocument>().ToList();
-                    foreach (var document in ld)
-                    {
-                        if (document.Content is Views.WFDesigner view) result.Add(view);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(ex.ToString());
-                }
-                return result.ToArray();
+                var result = new List<IWorkflowInstance>();
+                foreach (var wi in WorkflowInstance.Instances) result.Add(wi);
+                return result;
+            }
+        }
+        public IDesigner[] Designers
+        {
+            get
+            {
+                if (Window == null) return new Views.WFDesigner[] { };
+                return Window.Designers;
             }
         }
         public bool AutoReloading
@@ -233,6 +223,7 @@ namespace OpenRPA
                     Log.Debug("Get detectors from server " + string.Format("{0:mm\\:ss\\.fff}", sw.Elapsed));
                     var detectors = await global.webSocketClient.Query<Interfaces.entity.Detector>("openrpa", "{_type: 'detector'}");
                     Log.Debug("Done getting workflows and projects " + string.Format("{0:mm\\:ss\\.fff}", sw.Elapsed));
+                    CreateMainWindow();
                     SetStatus("Initialize detecors");
                     foreach (var d in detectors)
                     {
@@ -259,8 +250,11 @@ namespace OpenRPA
                     SetStatus("Initialize projects and workflows ");
                     foreach (var p in projects)
                     {
+                        SetStatus("Install project dependencies");
+                        await p.InstallDependencies(true);
+                        SetStatus("Initialize " + p.name);
                         p.Path = System.IO.Path.Combine(Interfaces.Extensions.ProjectsDirectory, p.name);
-                        p.Workflows = new System.Collections.ObjectModel.ObservableCollection<Workflow>();
+                        p.Workflows = new System.Collections.ObjectModel.ObservableCollection<IWorkflow>();
                         foreach (var workflow in workflows)
                         {
                             if (workflow.projectid == p._id)
@@ -295,7 +289,7 @@ namespace OpenRPA
                     var workflows = await global.webSocketClient.Query<Workflow>("openrpa", "{_type: 'workflow'}", orderby: "{\"projectid\":-1,\"name\":-1}", top: 5000);
                     SetStatus("Fetching detectors");
                     var detectors = await global.webSocketClient.Query<Interfaces.entity.Detector>("openrpa", "{_type: 'detector'}");
-                    GenericTools.RunUI(() =>
+                    GenericTools.RunUI(async () =>
                     {
                         foreach (var project in projects)
                         {
@@ -311,6 +305,8 @@ namespace OpenRPA
                                     project.SaveFile();
                                     RobotInstance.instance.Projects.Remove(exists);
                                     RobotInstance.instance.Projects.Insert(index, project);
+                                    SetStatus("Install project dependencies");
+                                    await project.InstallDependencies(true);
                                 }
                                 catch (Exception ex)
                                 {
@@ -327,7 +323,7 @@ namespace OpenRPA
                         }
                         foreach (var workflow in workflows)
                         {
-                            Workflow exists = null;
+                            IWorkflow exists = null;
                             Project project = RobotInstance.instance.Projects.Where(x => x._id == workflow.projectid).FirstOrDefault();
                             workflow.Project = project;
 
@@ -337,7 +333,7 @@ namespace OpenRPA
                                 {
                                     if (exists == null)
                                     {
-                                        if (p.Workflows == null) p.Workflows = new System.Collections.ObjectModel.ObservableCollection<Workflow>();
+                                        if (p.Workflows == null) p.Workflows = new System.Collections.ObjectModel.ObservableCollection<IWorkflow>();
                                         var temp = p.Workflows.Where(x => x.IDOrRelativeFilename == workflow.IDOrRelativeFilename).FirstOrDefault();
                                         if (temp != null)
                                         {
@@ -357,7 +353,7 @@ namespace OpenRPA
                                     int index = -1;
                                     try
                                     {
-                                        if (project.Workflows == null) project.Workflows = new System.Collections.ObjectModel.ObservableCollection<Workflow>();
+                                        if (project.Workflows == null) project.Workflows = new System.Collections.ObjectModel.ObservableCollection<IWorkflow>();
                                         index = project.Workflows.IndexOf(exists);
                                         project.Workflows.Remove(exists);
                                         project.Workflows.Insert(index, workflow);
@@ -386,7 +382,7 @@ namespace OpenRPA
                                         project.Workflows.Insert(index, workflow);
                                         workflow.SaveFile();
                                         project.NotifyPropertyChanged("Workflows");
-                                        MainWindow.OnOpenWorkflow(workflow);
+                                        Window.OnOpenWorkflow(workflow);
                                     }
                                     else
                                     {
@@ -401,7 +397,7 @@ namespace OpenRPA
                                 {
                                     Log.Information("Adding " + workflow.name + " to project " + project.name);
                                     workflow.Project = project;
-                                    if (project.Workflows == null) project.Workflows = new System.Collections.ObjectModel.ObservableCollection<Workflow>();
+                                    if (project.Workflows == null) project.Workflows = new System.Collections.ObjectModel.ObservableCollection<IWorkflow>();
                                     project.Workflows.Add(workflow);
                                     workflow.SaveFile();
                                     project.NotifyPropertyChanged("Workflows");
@@ -456,7 +452,7 @@ namespace OpenRPA
                             try
                             {
                                 Workflow wfexists = null;
-                                if (p.Workflows == null) p.Workflows = new System.Collections.ObjectModel.ObservableCollection<Workflow>();
+                                if (p.Workflows == null) p.Workflows = new System.Collections.ObjectModel.ObservableCollection<IWorkflow>();
                                 foreach (var workflow in p.Workflows.ToList())
                                 {
                                     wfexists = workflows.Where(x => x.IDOrRelativeFilename == workflow.IDOrRelativeFilename).FirstOrDefault();
@@ -535,7 +531,7 @@ namespace OpenRPA
             Log.Function("RobotInstance", "SetStatus", "Window.SetStatus");
             try
             {
-                Window.SetStatus(message);
+                if(Window!=null) Window.SetStatus(message);
             }
             catch (Exception ex)
             {
@@ -562,7 +558,7 @@ namespace OpenRPA
                             designer.BreakpointLocations = null;
                             var instance = workflow.CreateInstance(options, "", "", designer.IdleOrComplete, designer.OnVisualTracking);
                             instance.caller = "commandline"; // To stop maximizing
-                            designer.Run(MainWindow.VisualTracking, MainWindow.SlowMotion, instance);
+                            designer.Run(Window.VisualTracking, Window.SlowMotion, instance);
                         }
                         else
                         {
@@ -583,9 +579,11 @@ namespace OpenRPA
         {
             ParseCommandLineArgs(Environment.GetCommandLineArgs());
         }
-        public void init()
+        public async Task init()
         {
             Log.FunctionIndent("RobotInstance", "init");
+            SetStatus("Checking for updates");
+            Config.Save();
             SetStatus("Checking for updates");
             _ = CheckForUpdatesAsync();
             try
@@ -593,6 +591,7 @@ namespace OpenRPA
 
                 if (string.IsNullOrEmpty(Config.local.wsurl))
                 {
+                    CreateMainWindow();
                     SetStatus("loading detectors");
                     var Detectors = Interfaces.entity.Detector.loadDetectors(Interfaces.Extensions.ProjectsDirectory);
                     foreach (var d in Detectors)
@@ -611,8 +610,6 @@ namespace OpenRPA
                     Log.Error(ex.ToString());
                     throw;
                 }
-                // ExpressionEditor.EditorUtil.Init();
-                _ = CodeEditor.init.Initialize();
             }
             catch (Exception ex)
             {
@@ -632,7 +629,7 @@ namespace OpenRPA
                 else
                 {
                     SetStatus("loading projects and workflows");
-                    var _Projects = Project.LoadProjects(Interfaces.Extensions.ProjectsDirectory);
+                    var _Projects = await Project.LoadProjects(Interfaces.Extensions.ProjectsDirectory);
                     RobotInstance.instance.Projects = new System.Collections.ObjectModel.ObservableCollection<Project>();
                     foreach (Project p in _Projects)
                     {
@@ -684,6 +681,49 @@ namespace OpenRPA
                 if (Window != null) Window.Hide();
             });
             Log.FunctionOutdent("RobotInstance", "Hide");
+        }
+        private void CreateMainWindow()
+        {
+            if (Window == null)
+            {
+                var isagent = Config.local.isagent;
+                AutomationHelper.syncContext.Send(o =>
+                {
+                    if(!Config.local.isagent && global.webSocketClient != null)
+                    {
+                        if(global.webSocketClient.user != null)
+                        {
+                            if(global.webSocketClient.user.hasRole("robot agent users"))
+                            {
+                                isagent = true;
+                            }
+                        }
+                    }
+                    SetStatus("Creating main window");
+                    if (!isagent)
+                    {
+                        var win = new MainWindow();
+                        App.Current.MainWindow = win;
+                        Window = win;
+                        Window.ReadyForAction += MainWindowReadyForAction;
+                        Window.Status += MainWindowStatus;
+                        GenericTools.MainWindow = win;
+                    }
+                    else
+                    {
+                        var win = new AgentWindow();
+                        App.Current.MainWindow = win;
+                        Window = win;
+                        Window.ReadyForAction += MainWindowReadyForAction;
+                        Window.Status += MainWindowStatus;
+                        GenericTools.MainWindow = win;
+                    }
+                    // ExpressionEditor.EditorUtil.Init();
+                    _ = CodeEditor.init.Initialize();
+                }, null);
+
+            }
+
         }
         private void Show()
         {
@@ -763,7 +803,7 @@ namespace OpenRPA
                             {
                                 Config.local.username = user.username;
                                 Config.local.password = new byte[] { };
-                                Config.Save();
+                                // Config.Save();
                                 Log.Debug("Signed in as " + Config.local.username + " " + string.Format("{0:mm\\:ss\\.fff}", sw.Elapsed));
                                 SetStatus("Connected to " + Config.local.wsurl + " as " + user.name);
                             }
@@ -788,7 +828,9 @@ namespace OpenRPA
                                 {
                                     try
                                     {
+                                        Log.Debug("Create SigninWindow " + string.Format("{0:mm\\:ss\\.fff}", sw.Elapsed));
                                         var signinWindow = new Views.SigninWindow(url, true);
+                                        Log.Debug("ShowDialog " + string.Format("{0:mm\\:ss\\.fff}", sw.Elapsed));
                                         signinWindow.ShowDialog();
                                         jwt = signinWindow.jwt;
                                         if (!string.IsNullOrEmpty(jwt))
@@ -805,6 +847,7 @@ namespace OpenRPA
                                         }
                                         else
                                         {
+                                            Log.Debug("Call close " + string.Format("{0:mm\\:ss\\.fff}", sw.Elapsed));
                                             Close();
                                         }
 
@@ -1014,6 +1057,12 @@ namespace OpenRPA
                     if (workflow == null) throw new ArgumentException("Unknown workflow " + command.workflowid);
                     lock (statelock)
                     {
+                        if (!Config.local.remote_allowed)
+                        {
+                            // Don't fail, just say busy and let the message expire
+                            // so if this was send to a robot in a role, another robot can pick this up.
+                            e.isBusy = true; return;
+                        }
                         int RunningCount = 0;
                         int RemoteRunningCount = 0;
                         foreach (var i in WorkflowInstance.Instances.ToList())
@@ -1118,7 +1167,7 @@ namespace OpenRPA
                                 {
                                     designer.BreakpointLocations = null;
                                     instance = workflow.CreateInstance(param, message.replyto, message.correlationId, designer.IdleOrComplete, designer.OnVisualTracking);
-                                    designer.Run(MainWindow.VisualTracking, MainWindow.SlowMotion, instance);
+                                    designer.Run(Window.VisualTracking, Window.SlowMotion, instance);
                                 }
                                 else
                                 {

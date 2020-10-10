@@ -228,6 +228,33 @@ namespace OpenRPA.NM
                 }
             }
         }
+        private static void downloadcomplete(NativeMessagingMessage msg)
+        {
+            var json = msg.data;
+            var download = JsonConvert.DeserializeObject<Download>(json);
+            foreach(var p in Plugins.detectorPlugins)
+            {
+                if(p is DownloadDetectorPlugin plugin)
+                {
+                    plugin.RaiseDetector(download);
+                }
+            }
+            var e = new DetectorEvent(download);
+            foreach (var wi in Plugin.client.WorkflowInstances.ToList())
+            {
+                if (wi.isCompleted) continue;
+                if (wi.Bookmarks != null)
+                {
+                    foreach (var b in wi.Bookmarks)
+                    {
+                        if (b.Key == "DownloadDetectorPlugin")
+                        {
+                            wi.ResumeBookmark(b.Key, e);
+                        }
+                    }
+                }
+            }
+        }
         private static void Client_OnReceivedMessage(NativeMessagingMessage message)
         {
             try
@@ -260,6 +287,7 @@ namespace OpenRPA.NM
                 if (msg.functionName == "tabremoved") tabremoved(msg);
                 if (msg.functionName == "tabupdated") tabupdated(msg);
                 if (msg.functionName == "tabactivated") tabactivated(msg);
+                if (msg.functionName == "downloadcomplete") downloadcomplete(msg);
                 Task.Run(() => { onMessage?.Invoke(msg); });
             }
             catch (Exception ex)
@@ -393,7 +421,7 @@ namespace OpenRPA.NM
             message.windowId = tab.windowId;
             if (connected)
             {
-                result = sendMessageResult(message, true, TimeSpan.FromSeconds(2));
+                result = sendMessageResult(message, true, PluginConfig.protocol_timeout);
             }
         }
         //public static void HighlightTab(NativeMessagingMessageTab tab)

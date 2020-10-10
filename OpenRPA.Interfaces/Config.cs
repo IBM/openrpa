@@ -10,58 +10,62 @@ using System.Threading.Tasks;
 
 namespace OpenRPA
 {
-    public class Config : AppSettings<Config>
+    public class Config
     {
-        public string wsurl = "wss://tm-auth.my-invenio.com/openflow/";
-        public string username = "";
-        public byte[] jwt;
-        public byte[] password;
-        public byte[] entropy;
-        public string cancelkey = "{ESCAPE}";
-        public bool isagent = false;
-        public bool showloadingscreen = true;
-        public string culture = "";
-        public string ocrlanguage = "eng";
-        public string[] openworkflows = new string[] { };
-        public System.Drawing.Rectangle mainwindow_position = System.Drawing.Rectangle.Empty;
-        public string designerlayout = "";
-        public Dictionary<string, object> properties = new Dictionary<string, object>();
-        public bool record_overlay = false;
-        public int querypagesize = 50;
-        public DateTime lastupdatecheck = DateTime.Now;
-        public TimeSpan updatecheckinterval = TimeSpan.FromDays(1);
-        public bool doupdatecheck = true;
-        public bool autoupdateupdater = true;
-        public bool log_to_file = false;
-        public int log_file_level_minimum = NLog.LogLevel.Info.Ordinal;
-        public int log_file_level_maximum = NLog.LogLevel.Fatal.Ordinal;
-        public bool log_verbose = false;
-        public bool log_activity = false;
-        public bool log_debug = false;
-        public bool log_selector = false;
-        public bool log_selector_verbose = false;
-        public bool log_information = true;
-        public bool log_output = true;
-        public bool log_warning = true;
-        public bool log_error = true;
-        public bool use_sendkeys = false;
-        public bool use_virtual_click = true;
-        public bool use_animate_mouse = false;
-        public TimeSpan use_postwait = TimeSpan.Zero;
-        public bool minimize = true;
-        public bool recording_add_to_designer = true;
-        public TimeSpan reloadinterval = TimeSpan.FromMinutes(5);
-        public TimeSpan move_animation_run_time = TimeSpan.FromMilliseconds(500);
-        public int move_animation_steps = 20;
-        public bool remote_allow_multiple_running = false;
-        public int remote_allow_multiple_running_max = 2;
-        public string cef_useragent = "";
-        public bool show_getting_started = true;
-        // public bool notify_on_workflow_start = false;
-        public bool notify_on_workflow_remote_start = true;
-        public bool notify_on_workflow_end = true;
-        public bool notify_on_workflow_remote_end = false;
-        public bool log_busy_warning = true;
+        public Dictionary<string, object> settings = new Dictionary<string, object>();
+        public Dictionary<string, object> _properties = null;
+        public Dictionary<string, object> properties { get { return GetProperty(null, new Dictionary<string, object>()); } set { SetProperty(null, value); } }
+        public string wsurl { get { return GetProperty(null, "wss://app.openiap.io/"); } set { SetProperty(null, value); } }
+        public string username { get { return GetProperty(null, ""); } set { SetProperty(null, value); } }
+        public byte[] jwt { get { return GetProperty<byte[]>(null, null); } set { SetProperty(null, value); } }
+        public byte[] password { get { return GetProperty<byte[]>(null, null); } set { SetProperty(null, value); } }
+        public byte[] entropy { get { return GetProperty<byte[]>(null, null); } set { SetProperty(null, value); } }
+        public string cancelkey { get { return GetProperty(null, "{ESCAPE}"); } set { SetProperty(null, value); } }
+        public bool isagent { get { return GetProperty(null, false); } set { SetProperty(null, value); } }
+        public bool showloadingscreen { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public string culture { get { return GetProperty(null, "en"); } set { SetProperty(null, value); } }
+        public string ocrlanguage { get { return GetProperty(null, "eng"); } set { SetProperty(null, value); } }
+        public string[] openworkflows { get { return GetProperty(null, new string[] { }); } set { SetProperty(null, value); } }
+        public string[] files_pending_deletion { get { return GetProperty(null, new string[] { }); } set { SetProperty(null, value); } }
+        public System.Drawing.Rectangle mainwindow_position { get { return GetProperty(null, System.Drawing.Rectangle.Empty); } set { SetProperty(null, value); } }
+        public string designerlayout { get { return GetProperty(null, ""); } set { SetProperty(null, value); } }
+        public bool record_overlay { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public int querypagesize { get { return GetProperty(null, 50); } set { SetProperty(null, value); } }
+        public DateTime lastupdatecheck { get { return GetProperty(null, DateTime.Now); } set { SetProperty(null, value); } }
+        public TimeSpan updatecheckinterval { get { return GetProperty(null, TimeSpan.FromDays(1)); } set { SetProperty(null, value); } }
+        public bool doupdatecheck { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public bool autoupdateupdater { get { return GetProperty(null, false); } set { SetProperty(null, value); } }
+        public bool log_to_file { get { return GetProperty(null, false); } set { SetProperty(null, value); } }
+        public int log_file_level_minimum { get { return GetProperty(null, NLog.LogLevel.Info.Ordinal); } set { SetProperty(null, value); } }
+        public int log_file_level_maximum { get { return GetProperty(null, NLog.LogLevel.Fatal.Ordinal); } set { SetProperty(null, value); } }
+        public bool log_verbose { get { return GetProperty(null, false); } set { SetProperty(null, value); } }
+        public bool log_activity { get { return GetProperty(null, false); } set { SetProperty(null, value); } }
+        public bool log_debug { get { return GetProperty(null, false); } set { SetProperty(null, value); } }
+        public bool log_selector { get { return GetProperty(null, false); } set { SetProperty(null, value); } }
+        public bool log_selector_verbose { get { return GetProperty(null, false); } set { SetProperty(null, value); } }
+        public bool log_information { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public bool log_output { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public bool log_warning { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public bool log_error { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public bool use_sendkeys { get { return GetProperty(null, false); } set { SetProperty(null, value); } }
+        public bool use_virtual_click { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public bool use_animate_mouse { get { return GetProperty(null, false); } set { SetProperty(null, value); } }
+        public TimeSpan use_postwait { get { return GetProperty(null, TimeSpan.Zero); } set { SetProperty(null, value); } }
+        public bool minimize { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public bool recording_add_to_designer { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public TimeSpan reloadinterval { get { return GetProperty(null, TimeSpan.FromMinutes(5)); } set { SetProperty(null, value); } }
+        public TimeSpan move_animation_run_time { get { return GetProperty(null, TimeSpan.FromMilliseconds(500)); } set { SetProperty(null, value); } }
+        public int move_animation_steps { get { return GetProperty(null, 20); } set { SetProperty(null, value); } }
+        public bool remote_allow_multiple_running { get { return GetProperty(null, false); } set { SetProperty(null, value); } }
+        public bool remote_allowed { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public int remote_allow_multiple_running_max { get { return GetProperty(null, 2); } set { SetProperty(null, value); } }
+        public string cef_useragent { get { return GetProperty(null, ""); } set { SetProperty(null, value); } }
+        public bool show_getting_started { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public string getting_started_url { get { return GetProperty(null, ""); } set { SetProperty(null, value); } }
+        public bool notify_on_workflow_remote_start { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public bool notify_on_workflow_end { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
+        public bool notify_on_workflow_remote_end { get { return GetProperty(null, false); } set { SetProperty(null, value); } }
+        public bool log_busy_warning { get { return GetProperty(null, true); } set { SetProperty(null, value); } }
         private void loadEntropy()
         {
             if (entropy == null || entropy.Length == 0)
@@ -124,8 +128,15 @@ namespace OpenRPA
                         // Will create a new file in ProjectsDirectory
                         filename = System.IO.Path.Combine(Extensions.ProjectsDirectory, "settings.json");
                     }
-                    _local = Load(filename);
-                    if(_local.wsurl == "wss://tm-auth.my-invenio.com/openflow/" || _local.wsurl == "wss://tm-auth.my-invenio.com/openflow")
+                    _local = new Config();
+                    if (System.IO.File.Exists(filename))
+                    {
+                        var json = System.IO.File.ReadAllText(filename);
+                        _local.settings = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+                    }
+                    // _local = Load(filename);
+                    // Hack to force updating old clients for new domain names
+                    if (_local.wsurl == "wss://tm-auth.my-invenio.com/openflow/" || _local.wsurl == "wss://tm-auth.my-invenio.com/openflow/")
                     {
                         _local.wsurl = "wss://tm-auth.my-invenio.com/openflow/";
                     }
@@ -137,7 +148,75 @@ namespace OpenRPA
         {
             try
             {
-                local.Save(System.IO.Path.Combine(Extensions.ProjectsDirectory, "settings.json"));
+                _local.Save(System.IO.Path.Combine(Extensions.ProjectsDirectory, "settings.json"));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.ToString());
+            }
+        }
+        public void Save(string filename)
+        {
+            try
+            {
+                _ = wsurl;
+                _ = username;
+                _ = jwt;
+                _ = password;
+                _ = entropy;
+                _ = cancelkey;
+                _ = isagent;
+                _ = showloadingscreen;
+                _ = culture;
+                _ = ocrlanguage;
+                _ = openworkflows;
+                _ = mainwindow_position;
+                _ = designerlayout;
+                _ = record_overlay;
+                _ = querypagesize;
+                _ = lastupdatecheck;
+                _ = updatecheckinterval;
+                _ = doupdatecheck;
+                _ = autoupdateupdater;
+                _ = log_to_file;
+                _ = log_file_level_minimum;
+                _ = log_file_level_maximum;
+                _ = log_verbose;
+                _ = log_activity;
+                _ = log_debug;
+                _ = log_selector;
+                _ = log_selector_verbose;
+                _ = log_information;
+                _ = log_output;
+                _ = log_warning;
+                _ = log_error;
+                _ = use_sendkeys;
+                _ = use_virtual_click;
+                _ = use_animate_mouse;
+                _ = use_postwait;
+                _ = minimize;
+                _ = recording_add_to_designer;
+                _ = reloadinterval;
+                _ = move_animation_run_time;
+                _ = move_animation_steps;
+                _ = remote_allow_multiple_running;
+                _ = remote_allow_multiple_running_max;
+                _ = remote_allowed;
+                _ = cef_useragent;
+                _ = show_getting_started;
+                _ = getting_started_url;
+                _ = notify_on_workflow_remote_start;
+                _ = notify_on_workflow_end;
+                _ = notify_on_workflow_remote_end;
+                _ = log_busy_warning;
+                // settings
+                // _properties
+                var p = this.settings.OrderByDescending(kvp => kvp.Key);
+                var d = new Dictionary<string, object>();
+                foreach (var k in p) if (k.Key != "properties") d.Add(k.Key, k.Value);
+                d.Add("properties", properties);
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(d, Newtonsoft.Json.Formatting.Indented);
+                System.IO.File.WriteAllText(filename, json);
             }
             catch (Exception ex)
             {
@@ -148,6 +227,71 @@ namespace OpenRPA
         {
             _local = null;
         }
+        private bool? hasLocalMachine = null;
+        private bool? hasCurrentUser = null;
+        public bool GetRegistryProperty(string propertyname, out object value)
+        {
+            value = null;
+            try
+            {
+                Microsoft.Win32.RegistryKey rk = null;
+                if (hasLocalMachine == null)
+                {
+                    hasLocalMachine = false;
+                    try
+                    {
+                        rk = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\OpenRPA", false);
+                        if (rk != null) hasLocalMachine = true;
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                else if (hasLocalMachine == true)
+                {
+                    rk = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\OpenRPA", false);
+                }
+                if (rk != null)
+                {
+                    var tempvalue = rk.GetValue(propertyname);
+                    if (tempvalue != null)
+                    {
+                        value = tempvalue;
+                        return true;
+                    }
+
+                }
+                if (hasCurrentUser == null)
+                {
+                    hasCurrentUser = false;
+                    try
+                    {
+                        rk = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OpenRPA", false);
+                        if (rk != null) hasCurrentUser = true;
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                else if (hasCurrentUser == true)
+                {
+                    rk = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OpenRPA", false);
+                }
+                if (rk != null)
+                {
+                    var tempvalue = rk.GetValue(propertyname);
+                    if (tempvalue != null)
+                    {
+                        value = tempvalue;
+                        return true;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return false;
+        }
         public T GetProperty<T>(string pluginname, T mydefault, [System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
         {
             try
@@ -156,10 +300,67 @@ namespace OpenRPA
                 {
                     throw new ArgumentNullException(nameof(propertyName));
                 }
+                string _propertyName = pluginname + "_" + propertyName;
+                if (string.IsNullOrEmpty(pluginname)) _propertyName = propertyName;
                 object value;
-                if (properties.TryGetValue(pluginname + "_" + propertyName, out value))
+                if(GetRegistryProperty(_propertyName, out value))
                 {
+                }
+                else if(propertyName != "properties")
+                {
+                    if (properties != null && !properties.TryGetValue(pluginname + "_" + propertyName, out value))
+                    {
+                    }
+                }
+                if (string.IsNullOrEmpty(pluginname) && value == null)
+                {
+                    if (settings != null && settings.TryGetValue(propertyName, out value))
+                    {
+                    }
+                }
+                if (value != null)
+                {
+                    if (typeof(T) == typeof(Dictionary<string, object>))
+                    {
+                        if (value.GetType() == typeof(Dictionary<string, object>))
+                        {
+                            return (T)value;
+                        }
+                        else if (!string.IsNullOrEmpty(value.ToString()))
+                        {
+                            value = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(value.ToString());
+                        }
+                        else
+                        {
+                            return default(T);
+                        }
+                    }
+                    if (typeof(T) == typeof(byte[]))
+                    {
+                        if (value is string && !string.IsNullOrEmpty(value.ToString()))
+                        {
+                            value = Newtonsoft.Json.JsonConvert.DeserializeObject<byte[]>("\"" + value.ToString() + "\"");
+                        }
+                        else if (value is byte[])
+                        {
+                            return (T)value;
+                        } else
+                        {
+                            return default(T);
+                        }
+                    }
                     if (typeof(T) == typeof(int) && value is long) value = int.Parse(value.ToString());
+                    if (typeof(T) == typeof(bool)) value = bool.Parse(value.ToString());
+                    if (typeof(T) == typeof(System.Drawing.Rectangle)) {
+                        if (value.GetType() == typeof(System.Drawing.Rectangle))
+                        {
+                        } 
+                        else
+                        {
+                            var c = new System.Drawing.RectangleConverter();
+                            value = c.ConvertFromString(null, new System.Globalization.CultureInfo("en-US"), value.ToString());
+                        }
+                    }
                     if (typeof(T) == typeof(TimeSpan) && value != null)
                     {
                         TimeSpan ts = TimeSpan.Zero;
@@ -194,8 +395,17 @@ namespace OpenRPA
                 {
                     throw new ArgumentNullException(nameof(propertyName));
                 }
-                // if (IsEqual(GetProperty<T>(pluginname + "_" + propertyName, default(T)), newValue)) return false;
-                properties[pluginname + "_" + propertyName] = newValue;
+                if (string.IsNullOrEmpty(pluginname))
+                {
+                    if (settings == null) settings = new Dictionary<string, object>();
+                    settings[propertyName] = newValue;
+                }
+                else
+                {
+                    if (properties == null) properties = new Dictionary<string, object>();
+                    properties[pluginname + "_" + propertyName] = newValue;
+                    properties = properties;
+                }
                 Type typeParameterType = typeof(T);
                 if (typeParameterType.Name.ToLower().Contains("readonly"))
                 {

@@ -90,6 +90,8 @@ namespace OpenRPA.Office.Activities
         public virtual InArgument<string> ReadPassword { get; set; }
         [System.ComponentModel.Category("Misc")]
         public virtual InArgument<string> WritePassword { get; set; }
+        [System.ComponentModel.Category("Misc")]
+        public virtual InArgument<string> SheetPassword { get; set; }
         [System.ComponentModel.Category("Input")]
         public virtual InArgument<string> Filename { get; set; }
         [System.ComponentModel.Category("Input")]
@@ -155,7 +157,6 @@ namespace OpenRPA.Office.Activities
                 }
             }
             if(workbook == null) workbook = officewrap.application.ActiveWorkbook;
-
         }
 
         //public void cleanup()
@@ -212,9 +213,10 @@ namespace OpenRPA.Office.Activities
             if (!string.IsNullOrEmpty(_worksheet))
             {
                 bool found = false;
-                foreach (Microsoft.Office.Interop.Excel.Worksheet s in workbook.Sheets)
+                foreach (object obj in workbook.Sheets)
                 {
-                    if (s.Name == _worksheet)
+                    Worksheet s = obj as Worksheet;
+                    if (s != null && s.Name == _worksheet)
                     {
                         s.Activate();
                         worksheet = s;
@@ -229,6 +231,12 @@ namespace OpenRPA.Office.Activities
                 }
             }
             if (Workbook != null) Workbook.Set(context, workbook);
+            var sheetPassword = SheetPassword.Get(context);
+            if (string.IsNullOrEmpty(sheetPassword)) sheetPassword = null;
+            if (!string.IsNullOrEmpty(sheetPassword) && worksheet != null)
+            {
+                worksheet.Unprotect(sheetPassword);
+            }
         }
     }
 
@@ -239,6 +247,12 @@ namespace OpenRPA.Office.Activities
         {
             Visible = true;
         }
+        [System.ComponentModel.Category("Misc")]
+        public virtual InArgument<string> ReadPassword { get; set; }
+        [System.ComponentModel.Category("Misc")]
+        public virtual InArgument<string> WritePassword { get; set; }
+        [System.ComponentModel.Category("Misc")]
+        public virtual InArgument<string> SheetPassword { get; set; }
         public InArgument<string> Filename { get; set; }
         //[RequiredArgument]
         [System.ComponentModel.Browsable(false)]
@@ -254,6 +268,10 @@ namespace OpenRPA.Office.Activities
         internal Microsoft.Office.Interop.Excel.Worksheet worksheet;
         protected override void Execute(NativeActivityContext context)
         {
+            var readPassword = ReadPassword.Get(context);
+            if (string.IsNullOrEmpty(readPassword)) readPassword = null;
+            var writePassword = WritePassword.Get(context);
+            if (string.IsNullOrEmpty(writePassword)) writePassword = null;
             filename = Filename.Get(context);
             officewrap.application.Visible = true;
             // officewrap.application.Visible = Visible.Get(context);
@@ -292,7 +310,9 @@ namespace OpenRPA.Office.Activities
                     //application.AutomationSecurity = Microsoft.Office.Core.MsoAutomationSecurity.msoAutomationSecurityLow;
                     if (System.IO.File.Exists(filename))
                     {
-                        workbook = officewrap.application.Workbooks.Open(filename, ReadOnly: false);
+                        //workbook = officewrap.application.Workbooks.Open(filename, ReadOnly: false);
+                        workbook = officewrap.application.Workbooks.Open(filename, ReadOnly: false,
+                                Password: readPassword, WriteResPassword: writePassword);
                     }
                     else
                     {
@@ -313,16 +333,22 @@ namespace OpenRPA.Office.Activities
             worksheet = workbook.ActiveSheet as Microsoft.Office.Interop.Excel.Worksheet;
             if (!string.IsNullOrEmpty(_worksheet))
             {
-                foreach (Microsoft.Office.Interop.Excel.Worksheet s in workbook.Sheets)
+                foreach (object obj in workbook.Sheets)
                 {
-                    if (s.Name == _worksheet)
+                    Worksheet s = obj as Worksheet;
+                    if (s != null && s.Name == _worksheet)
                     {
                         s.Activate();
                         worksheet = s;
                     }
                 }
             }
-
+            var sheetPassword = SheetPassword.Get(context);
+            if (string.IsNullOrEmpty(sheetPassword)) sheetPassword = null;
+            if (!string.IsNullOrEmpty(sheetPassword) && worksheet != null)
+            {
+                worksheet.Unprotect(sheetPassword);
+            }
             //Application.Set(context, application);
             Workbook.Set(context, workbook);
         }

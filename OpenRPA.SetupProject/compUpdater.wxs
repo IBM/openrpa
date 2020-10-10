@@ -14,6 +14,12 @@
         <File Id="NuGet.Versioning.dll_updater" Source="!(wix.UpdaterSource)\NuGet.Versioning.dll" />
         <File Id="OpenRPA.Updater.exe_updater" Source="!(wix.UpdaterSource)\OpenRPA.Updater.exe" />
         <File Id="OpenRPA.Updater.exe.config_updater" Source="!(wix.UpdaterSource)\OpenRPA.Updater.exe.config" />
+
+        <File Id="System.IO.Compression.dll_updater" Source="!(wix.UpdaterSource)\System.IO.Compression.dll" />
+        <File Id="System.IO.Compression.ZipFile.dll_updater" Source="!(wix.UpdaterSource)\System.IO.Compression.ZipFile.dll" />
+        <File Id="System.Net.Http.dll_updater" Source="!(wix.UpdaterSource)\System.Net.Http.dll" />
+        <File Id="System.Runtime.InteropServices.RuntimeInformation.dll_updater" Source="!(wix.UpdaterSource)\System.Runtime.InteropServices.RuntimeInformation.dll" />
+        <File Id="System.Security.Cryptography.Algorithms.dll_updater" Source="!(wix.UpdaterSource)\System.Security.Cryptography.Algorithms.dll" />
       </Component>
       <Component Id='UpdaterComponentde' Win64='yes' Directory="Updaterde" Guid='{067B6379-A3C2-4A4A-90E9-59D2A65296FF}'>
         <File Id="OpenRPA.Updater.resources.dll_de" Source="!(wix.UpdaterSource)\de\OpenRPA.Updater.resources.dll" />
@@ -33,6 +39,12 @@
       <Component Id='UpdaterComponentru' Win64='yes' Directory="Updaterru" Guid='{5BC43351-A674-4981-959C-F90C9782854F}'>
         <File Id="OpenRPA.Updater.resources.dll_ru" Source="!(wix.UpdaterSource)\ru\OpenRPA.Updater.resources.dll" />
       </Component>
+      <Component Id='UpdaterComponentja' Win64='yes' Directory="Updaterja" Guid='{144CD4E4-241D-42E2-A79B-9FC6B7859B87}'>
+        <File Id="OpenRPA.Updater.resources.dll_ja" Source="!(wix.UpdaterSource)\ja\OpenRPA.Updater.resources.dll" />
+      </Component>
+      <Component Id='UpdaterComponentzh' Win64='yes' Directory="Updaterzh" Guid='{5928C6DD-802B-4514-A69B-039A7299D0B7}'>
+        <File Id="OpenRPA.Updater.resources.dll_zh" Source="!(wix.UpdaterSource)\zh\OpenRPA.Updater.resources.dll" />
+      </Component>
 
     </ComponentGroup>
     <DirectoryRef Id="INSTALLDIR">
@@ -48,6 +60,10 @@
         <Directory Id="Updaterro" Name="ro">
         </Directory>
         <Directory Id="Updaterru" Name="ru">
+        </Directory>
+        <Directory Id="Updaterja" Name="ja">
+        </Directory>
+        <Directory Id="Updaterzh" Name="zh">
         </Directory>
       </Directory>
     </DirectoryRef>

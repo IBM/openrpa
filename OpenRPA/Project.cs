@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using NuGet.Versioning;
 using OpenRPA.Interfaces;
 using OpenRPA.Interfaces.entity;
 using System;
@@ -9,21 +11,23 @@ using System.Threading.Tasks;
 
 namespace OpenRPA
 {
-    public class Project : apibase
+    public class Project : apibase, IProject
     {
+        public Newtonsoft.Json.Linq.JObject dependencies { get; set; }
+        public bool disable_local_caching { get { return GetProperty<bool>(); } set { SetProperty(value); } }
         public string Filename { get { return GetProperty<string>(); } set { SetProperty(value); } }
         [JsonIgnore]
-        public System.Collections.ObjectModel.ObservableCollection<Workflow> Workflows { get; set; }
+        public System.Collections.ObjectModel.ObservableCollection<IWorkflow> Workflows { get; set; }
         [JsonIgnore]
         public string Path { get { return GetProperty<string>(); } set { SetProperty(value); } }
-        public static Project[] LoadProjects(string Path)
+        public static async Task<Project[]> LoadProjects(string Path)
         {
             var ProjectFiles = System.IO.Directory.EnumerateFiles(Path, "*.rpaproj", System.IO.SearchOption.AllDirectories).OrderBy((x) => x).ToArray();
             var Projects = new List<Project>();
-            foreach (string file in ProjectFiles) Projects.Add(FromFile(file));
+            foreach (string file in ProjectFiles) Projects.Add(await FromFile(file));
             return Projects.ToArray();
         }
-        public static Project FromFile(string Filepath)
+        public static async Task<Project> FromFile(string Filepath)
         {
             Project project = JsonConvert.DeserializeObject<Project>(System.IO.File.ReadAllText(Filepath));
             project.Filename = System.IO.Path.GetFileName(Filepath);
@@ -31,6 +35,7 @@ namespace OpenRPA
             project.Path = System.IO.Path.GetDirectoryName(Filepath);
             project._type = "project";
             project.Init();
+            await project.InstallDependencies(true);
             return project;
         }
         [JsonIgnore]
@@ -86,7 +91,7 @@ namespace OpenRPA
                 name = Name,
                 Path = System.IO.Path.GetDirectoryName(Filepath),
                 Filename = System.IO.Path.GetFileName(Filepath),
-                Workflows = new System.Collections.ObjectModel.ObservableCollection<Workflow>()
+                Workflows = new System.Collections.ObjectModel.ObservableCollection<IWorkflow>()
             };
             await p.Save(false);
             if(addDefault)
@@ -101,7 +106,7 @@ namespace OpenRPA
         {
             var Path = System.IO.Path.GetDirectoryName(System.IO.Path.Combine(this.Path, Filename));
             var ProjectFiles = System.IO.Directory.EnumerateFiles(Path, "*.xaml", System.IO.SearchOption.AllDirectories).OrderBy((x) => x).ToArray();
-            Workflows = new System.Collections.ObjectModel.ObservableCollection<Workflow>();
+            Workflows = new System.Collections.ObjectModel.ObservableCollection<IWorkflow>();
             foreach (string file in ProjectFiles) Workflows.Add(Workflow.FromFile(this, file));
             //return Workflows.ToArray();
         }
@@ -115,7 +120,7 @@ namespace OpenRPA
             if (!string.IsNullOrEmpty(rootpath)) projectpath = System.IO.Path.Combine(rootpath, name);
             if (!System.IO.Directory.Exists(projectpath)) System.IO.Directory.CreateDirectory(projectpath);
 
-            if (Workflows == null) Workflows = new System.Collections.ObjectModel.ObservableCollection<Workflow>();
+            if (Workflows == null) Workflows = new System.Collections.ObjectModel.ObservableCollection<IWorkflow>();
 
             var projectfilepath = System.IO.Path.Combine(projectpath, Filename);
             System.IO.File.WriteAllText(projectfilepath, JsonConvert.SerializeObject(this));
@@ -189,6 +194,21 @@ namespace OpenRPA
         public override string ToString()
         {
             return name;
+        }
+        public async Task InstallDependencies(bool LoadDlls)
+        {
+            if (dependencies == null) return;
+            foreach (JProperty jp in (JToken)dependencies)
+            {
+                var ver_range = VersionRange.Parse((string)jp.Value);
+                if (ver_range.IsMinInclusive)
+                {
+                    var target_ver = NuGet.Versioning.NuGetVersion.Parse(ver_range.MinVersion.ToString());
+                    await NuGetPackageManager.Instance.DownloadAndInstall(this, new NuGet.Packaging.Core.PackageIdentity(jp.Name, target_ver), LoadDlls);
+                }
+            }
+            // Plugins.LoadPlugins(RobotInstance.instance, Interfaces.Extensions.ProjectsDirectory);
+            Plugins.LoadPlugins(RobotInstance.instance);
         }
     }
 }

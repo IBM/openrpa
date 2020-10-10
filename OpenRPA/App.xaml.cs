@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -69,6 +70,23 @@ namespace OpenRPA
                     System.Globalization.CultureInfo.DefaultThreadCurrentCulture = cultur;
                     System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = cultur;
                     ProcessThreadCollection currentThreads = Process.GetCurrentProcess().Threads;
+                    foreach (object obj in currentThreads)
+                    {
+                        try
+                        {
+                            Thread t = obj as Thread;
+                            if (t != null)
+                            {
+                                t.CurrentUICulture = cultur;
+                                t.CurrentCulture = cultur;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
+
+
                 }
                 catch (Exception)
                 {
@@ -209,33 +227,44 @@ namespace OpenRPA
             System.Threading.Thread.CurrentThread.Name = "UIThread";
             if (!Config.local.isagent)
             {
-                RobotInstance.instance.MainWindow = new MainWindow();
-                RobotInstance.instance.Window = RobotInstance.instance.MainWindow;
-                RobotInstance.instance.MainWindow.ReadyForAction += RobotInstance.instance.MainWindowReadyForAction;
-                RobotInstance.instance.MainWindow.Status += RobotInstance.instance.MainWindowStatus;
-                GenericTools.MainWindow = RobotInstance.instance.MainWindow;
-                MainWindow = RobotInstance.instance.MainWindow;
                 if(!Config.local.showloadingscreen) notifyIcon.Visible = true;
-            } else
+            }
+            else
             {
-                RobotInstance.instance.AgentWindow = new AgentWindow();
-                RobotInstance.instance.Window = RobotInstance.instance.AgentWindow;
-                RobotInstance.instance.AgentWindow.ReadyForAction += RobotInstance.instance.MainWindowReadyForAction;
-                RobotInstance.instance.AgentWindow.Status += RobotInstance.instance.MainWindowStatus;
-                GenericTools.MainWindow = RobotInstance.instance.AgentWindow;
-                MainWindow = RobotInstance.instance.AgentWindow;
                 notifyIcon.Visible = true;
+            }
+            if(Config.local.files_pending_deletion.Length > 0)
+            {
+                bool sucess = true;
+                foreach(var f in Config.local.files_pending_deletion)
+                {
+                    try
+                    {
+                        if(System.IO.File.Exists(f)) System.IO.File.Delete(f);
+                    }
+                    catch (Exception ex)
+                    {
+                        sucess = false;
+                        Log.Error(ex.ToString());
+                    }
+                }
+                if(sucess)
+                {
+                    Config.local.files_pending_deletion = new string[] { };
+                    Config.Save();
+                }
             }
             RobotInstance.instance.Status += App_Status;
             Input.InputDriver.Instance.initCancelKey(Config.local.cancelkey);
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 try
                 {
                     if (Config.local.showloadingscreen) splash.BusyContent = "loading plugins";
-                    Plugins.LoadPlugins(RobotInstance.instance, Interfaces.Extensions.PluginsDirectory);
+                    // Plugins.LoadPlugins(RobotInstance.instance, Interfaces.Extensions.ProjectsDirectory);
+                    Plugins.LoadPlugins(RobotInstance.instance, Interfaces.Extensions.PluginsDirectory, false);
                     if (Config.local.showloadingscreen) splash.BusyContent = "Initialize main window";
-                    RobotInstance.instance.init();
+                    await RobotInstance.instance.init();
                 }
                 catch (Exception ex)
                 {

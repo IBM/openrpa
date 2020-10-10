@@ -43,6 +43,38 @@ namespace OpenRPA.Views
         // public ICommand DeleteCommand { get { return new RelayCommand<object>(MainWindow.instance.OnDelete, MainWindow.instance.CanDelete); } }
         public ICommand CopyIDCommand { get { return new RelayCommand<object>(MainWindow.instance.OnCopyID, MainWindow.instance.CanCopyID); } }
         public ICommand CopyRelativeFilenameCommand { get { return new RelayCommand<object>(MainWindow.instance.OnCopyRelativeFilename, MainWindow.instance.CanCopyID); } }
+        public ICommand DisableCachingCommand { get { return new RelayCommand<object>(OnDisableCaching, CanDisableCaching); } }
+        internal bool CanDisableCaching(object _item)
+        {
+            try
+            {
+                if (!MainWindow.instance.IsConnected) return false;
+                if (MainWindow.instance.SelectedContent is Views.OpenProject view)
+                {
+                    var val = view.listWorkflows.SelectedValue;
+                    if (val == null) return false;
+                    if (view.listWorkflows.SelectedValue is Project p) return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.ToString());
+                return false;
+            }
+        }
+        internal async void OnDisableCaching(object _item)
+        {
+            if (MainWindow.instance.SelectedContent is Views.OpenProject view)
+            {
+                var val = view.listWorkflows.SelectedValue;
+                if (val == null) return;
+                if (view.listWorkflows.SelectedValue is Project project)
+                {
+                    await project.Save(false);
+                }
+            }
+        }
         public System.Collections.ObjectModel.ObservableCollection<Project> Projects
         {
             get
@@ -64,6 +96,56 @@ namespace OpenRPA.Views
                 Log.Error(ex.ToString());
             }
             Log.FunctionOutdent("OpenProject", "OpenProject");
+        }
+        private string _FilterText = "";
+        public string FilterText
+        {
+            get
+            {
+                return _FilterText;
+            }
+            set
+            {
+                _FilterText = value;
+                var workflows = new List<string>();
+                if (string.IsNullOrEmpty(_FilterText))
+                {
+                    foreach (var designer in RobotInstance.instance.Designers)
+                    {
+                        if (string.IsNullOrEmpty(designer.Workflow._id) && !string.IsNullOrEmpty(designer.Workflow.Filename))
+                        {
+                            workflows.Add(designer.Workflow.RelativeFilename);
+                        }
+                        else if (!string.IsNullOrEmpty(designer.Workflow._id))
+                        {
+                            workflows.Add(designer.Workflow._id);
+
+                        }
+                    }
+                }
+                foreach (var p in Projects)
+                {
+                    bool expand = false;
+                    foreach(var _wf in p.Workflows)
+                    {
+                        if(_wf is Workflow wf)
+                        {
+                            if (string.IsNullOrEmpty(_FilterText))
+                            {
+                                wf.IsVisible = true;
+                                if(workflows.Contains(wf.IDOrRelativeFilename)) expand = true;
+                            }
+                            else
+                            {
+                                wf.IsVisible = wf.name.ToLower().Contains(_FilterText);
+                                if (wf.IsVisible) expand = true;
+                            }
+                        }
+                    }
+                    p.IsExpanded = expand;
+                }
+                NotifyPropertyChanged("FilterText");
+            }
         }
         private void ListWorkflows_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -149,7 +231,7 @@ namespace OpenRPA.Views
             {
                 if (listWorkflows.SelectedItem == null) return null;
                 if (listWorkflows.SelectedItem is Project) return listWorkflows.SelectedItem as Project;
-                if (listWorkflows.SelectedItem is Workflow wf) return wf.Project;
+                if (listWorkflows.SelectedItem is Workflow wf) return wf.Project as Project;
                 return null;
             }
             set
@@ -160,7 +242,82 @@ namespace OpenRPA.Views
         {
             NotifyPropertyChanged("Workflow");
             NotifyPropertyChanged("Project");
+            NotifyPropertyChanged("IsWorkflowSelected");
+            NotifyPropertyChanged("IsWorkflowOrProjectSelected");
             onSelectedItemChanged?.Invoke();
+        }
+        public bool IsWorkflowSelected
+        {
+            get
+            {
+                if (listWorkflows.SelectedItem == null) return false;
+                if (listWorkflows.SelectedItem is Workflow wf) return true;
+                return false;
+            }
+            set { }
+        }
+        public bool IsWorkflowOrProjectSelected
+        {
+            get
+            {
+                if (listWorkflows.SelectedItem == null) return false;
+                if (listWorkflows.SelectedItem is Workflow wf) return true;
+                if (listWorkflows.SelectedItem is Project p) return true;
+                return false;
+            }
+            set { }
+        }
+        public bool IncludePrerelease { get; set; }
+        private async void ButtonOpenPackageManager(object sender, RoutedEventArgs e)
+        {
+            Log.FunctionIndent("OpenProject", "ButtonOpenPackageManager");
+            try
+            {
+                if (listWorkflows.SelectedItem is Project project)
+                {
+                    try
+                    {
+                        var f = new PackageManager(project);
+                        if (RobotInstance.instance.Window is MainWindow main) f.Owner = main;
+                        f.ShowDialog();
+                        if (f.NeedsReload)
+                        {
+                            await project.InstallDependencies(true);
+                            WFToolbox.Instance.InitializeActivitiesToolbox();
+                        }                        
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex.ToString());
+                        System.Windows.MessageBox.Show("ButtonOpenPackageManager: " + ex.Message);
+                    }
+                }
+                if (listWorkflows.SelectedItem is Workflow workflow)
+                {
+                    try
+                    {
+                        Project p = workflow.Project as Project;
+                        var f = new PackageManager(p);
+                        if(RobotInstance.instance.Window is MainWindow main) f.Owner = main;
+                        f.ShowDialog();
+                        if(f.NeedsReload)
+                        {
+                            await p.InstallDependencies(true);
+                            WFToolbox.Instance.InitializeActivitiesToolbox();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex.ToString());
+                        System.Windows.MessageBox.Show("ButtonOpenPackageManager: " + ex.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.ToString());
+            }
+            Log.FunctionOutdent("OpenProject", "ButtonEditXAML");
         }
     }
 }

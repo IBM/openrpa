@@ -4,6 +4,7 @@ using OpenRPA.Input;
 using OpenRPA.Interfaces;
 using OpenRPA.Interfaces.entity;
 using OpenRPA.Net;
+using OpenRPA.Views;
 using System;
 using System.Activities;
 using System.Activities.Core.Presentation;
@@ -126,7 +127,7 @@ namespace OpenRPA
                         try
                         {
                             Project project = await Project.Create(Interfaces.Extensions.ProjectsDirectory, Name, true);
-                            Workflow workflow = project.Workflows.First();
+                            IWorkflow workflow = project.Workflows.First();
                             workflow.Project = project;
                             RobotInstance.instance.Projects.Add(project);
                             OnOpenWorkflow(workflow);
@@ -143,7 +144,9 @@ namespace OpenRPA
 
                         if (Config.local.show_getting_started)
                         {
-
+                            var url = Config.local.getting_started_url;
+                            if (string.IsNullOrEmpty(url)) url = "https://www.my-invenio.com/";
+                            if (!string.IsNullOrEmpty(global.openflowconfig.getting_started_url)) url = global.openflowconfig.getting_started_url;
                             LayoutDocument layoutDocument = new LayoutDocument { Title = "Getting started" };
                             layoutDocument.ContentId = "GettingStarted";
                             Views.GettingStarted view = new Views.GettingStarted("https://www.my-invenio.com/");
@@ -221,6 +224,33 @@ namespace OpenRPA
             set { }
         }
         private bool SkipLayoutSaving = false;
+        public IDesigner[] Designers
+        {
+            get
+            {
+                if (DManager == null) return new Views.WFDesigner[] { };
+                var result = new List<Views.WFDesigner>();
+                try
+                {
+                    var las = DManager.Layout.Descendents().OfType<LayoutAnchorable>().ToList();
+                    foreach (var dp in las)
+                    {
+                        if (dp.Content is Views.WFDesigner view) result.Add(view);
+
+                    }
+                    var ld = DManager.Layout.Descendents().OfType<LayoutDocument>().ToList();
+                    foreach (var document in ld)
+                    {
+                        if (document.Content is Views.WFDesigner view) result.Add(view);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex.ToString());
+                }
+                return result.ToArray();
+            }
+        }
         public uilocal defaultuilocal
         {
             get
@@ -245,8 +275,8 @@ namespace OpenRPA
                         if (System.IO.File.Exists(System.IO.Path.Combine(Interfaces.Extensions.ProjectsDirectory, "layout.config")))
                         {
                             System.IO.File.Delete(System.IO.Path.Combine(Interfaces.Extensions.ProjectsDirectory, "layout.config"));
-                            SkipLayoutSaving = true;
                         }
+                        SkipLayoutSaving = true;
                         //System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(Config.local.culture);
                         //InitializeComponent();
                         MessageBox.Show("Please restart the robot for the change to take fully effect");
@@ -330,8 +360,9 @@ namespace OpenRPA
                         }
                         else
                         {
+                            var d = designer as WFDesigner;
                             designer.forceHasChanged(false);
-                            designer.tab.Close();
+                            d.tab.Close();
                         }
                     }
                 }
@@ -1157,12 +1188,12 @@ namespace OpenRPA
                 {
                     wf = op.listWorkflows.SelectedItem as Workflow;
                     p = op.listWorkflows.SelectedItem as Project;
-                    if (wf != null) p = wf.Project;
+                    if (wf != null) p = wf.Project as Project;
                 }
                 else if (SelectedContent is Views.WFDesigner)
                 {
                     wf = designer.Workflow;
-                    p = wf.Project;
+                    p = wf.Project as Project;
                 }
                 var dialogOpen = new Microsoft.Win32.OpenFileDialog
                 {
@@ -1202,12 +1233,12 @@ namespace OpenRPA
                         Log.Information("Loading empty projects are not supported");
                         return;
                     }
-                    project = Project.FromFile(System.IO.Path.Combine(projectpath, name + ".rpaproj"));
+                    project = await Project.FromFile(System.IO.Path.Combine(projectpath, name + ".rpaproj"));
                     RobotInstance.instance.Projects.Add(project);
                     project.name = name;
                     project._id = null;
                     await project.Save(false);
-                    Workflow workflow = project.Workflows.First();
+                    IWorkflow workflow = project.Workflows.First();
                     workflow.Project = project;
                     OnOpenWorkflow(workflow);
                     return;
@@ -1255,7 +1286,24 @@ namespace OpenRPA
             try
             {
                 if (!IsConnected) return false;
-                return (SelectedContent is Views.WFDesigner || SelectedContent is Views.OpenProject || SelectedContent == null);
+                if(SelectedContent is Views.WFDesigner designer)
+                {
+                    return !designer.Project.disable_local_caching;
+                }
+                if(SelectedContent is Views.OpenProject open)
+                {
+                    var val = open.listWorkflows.SelectedValue;
+                    if (val == null) return false;
+                    if (open.listWorkflows.SelectedValue is Workflow wf)
+                    {
+                        return !wf.Project.disable_local_caching;
+                    }
+                    if (open.listWorkflows.SelectedValue is Project p)
+                    {
+                        return !p.disable_local_caching;
+                    }
+                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -1652,12 +1700,10 @@ namespace OpenRPA
             }, null);
             Log.FunctionOutdent("MainWindow", "OnOpen");
         }
-
         private void View_onSelectedItemChanged()
         {
             NotifyPropertyChanged("CurrentWorkflow");
         }
-
         private void OnDetectors(object _item)
         {
             Log.FunctionIndent("MainWindow", "OnDetectors");
@@ -1929,7 +1975,7 @@ namespace OpenRPA
             Log.FunctionOutdent("MainWindow", "LoadLayout");
         }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "IDE1006")]
-        public void _onOpenWorkflow(Workflow workflow, bool HasChanged = false)
+        public void _onOpenWorkflow(IWorkflow workflow, bool HasChanged = false)
         {
             Log.FunctionIndent("MainWindow", "_onOpenWorkflow");
             if (RobotInstance.instance.GetWorkflowDesignerByIDOrRelativeFilename(workflow.IDOrRelativeFilename) is Views.WFDesigner designer)
@@ -1944,7 +1990,7 @@ namespace OpenRPA
                 // foreach (var p in Plugins.recordPlugins) { types.Add(p.GetType()); }
                 LayoutDocument layoutDocument = new LayoutDocument { Title = workflow.name };
                 layoutDocument.ContentId = workflow._id;
-                Views.WFDesigner view = new Views.WFDesigner(layoutDocument, workflow, types.ToArray())
+                Views.WFDesigner view = new Views.WFDesigner(layoutDocument, workflow as Workflow, types.ToArray())
                 {
                     OnChanged = WFDesigneronChanged
                 };
@@ -1961,7 +2007,7 @@ namespace OpenRPA
             }
             Log.FunctionOutdent("MainWindow", "_onOpenWorkflow");
         }
-        public void OnOpenWorkflow(Workflow workflow)
+        public void OnOpenWorkflow(IWorkflow workflow)
         {
             GenericTools.RunUI(() =>
             {
@@ -2124,7 +2170,7 @@ namespace OpenRPA
                 }
                 //string Name = "New project";
                 Project project = await Project.Create(Interfaces.Extensions.ProjectsDirectory, Name, true);
-                Workflow workflow = project.Workflows.First();
+                IWorkflow workflow = project.Workflows.First();
                 workflow.Project = project;
                 RobotInstance.instance.Projects.Add(project);
                 OnOpenWorkflow(workflow);
@@ -2806,7 +2852,7 @@ namespace OpenRPA
                 if (Config.local.record_overlay) p.OnMouseMove -= OnMouseMove;
                 p.Stop();
 
-                p = Plugins.recordPlugins.Where(x => x.Name == "SAP").First();
+                p = Plugins.recordPlugins.Where(x => x.Name == "SAP").FirstOrDefault();
                 if (p != null && (all == true || all == false))
                 {
                     p.OnUserAction -= OnUserAction;
@@ -2944,6 +2990,7 @@ namespace OpenRPA
                             };
                             isRecording = false;
                             InputDriver.Instance.CallNext = true;
+                            win.Owner = this;
                             if (win.ShowDialog() == true)
                             {
                                 e.ClickHandled = true;
@@ -2970,6 +3017,7 @@ namespace OpenRPA
                                 Topmost = true
                             };
                             isRecording = false;
+                            win.Owner = this;
                             if (win.ShowDialog() == true)
                             {
                                 e.a.AddInput(win.Text, e.Element);
@@ -3289,6 +3337,7 @@ namespace OpenRPA
                     {
                         if (arg.Name.ToLower().Contains(text))
                         {
+
                             AddOption(designer, arg, suboptions);
                         }
                     }
@@ -3348,7 +3397,7 @@ namespace OpenRPA
                 SearchBox.Focus();
             }
         }
-        private void AddOption(Views.WFDesigner designer, System.Activities.Presentation.Model.ModelItem item, List<QuickLaunchItem> options)
+        private void AddOption(IDesigner designer, System.Activities.Presentation.Model.ModelItem item, List<QuickLaunchItem> options)
         {
             Log.FunctionIndent("MainWindow", "AddOption");
             try
@@ -3398,7 +3447,7 @@ namespace OpenRPA
                 options.Add(new QuickLaunchItem()
                 {
                     Text = displayname,
-                    designer = designer,
+                    designer = designer as Views.WFDesigner,
                     originalitem = item,
                     item = _item,
                     ImageSource = ImageSource
@@ -3410,7 +3459,7 @@ namespace OpenRPA
             }
             Log.FunctionOutdent("MainWindow", "AddOption");
         }
-        private void AddOption(Views.WFDesigner designer, DynamicActivityProperty arg, List<QuickLaunchItem> options)
+        private void AddOption(IDesigner designer, DynamicActivityProperty arg, List<QuickLaunchItem> options)
         {
             Log.FunctionIndent("MainWindow", "AddOption");
             try
@@ -3420,7 +3469,7 @@ namespace OpenRPA
                 options.Add(new QuickLaunchItem()
                 {
                     Text = displayname,
-                    designer = designer,
+                    designer = designer as WFDesigner,
                     argument = arg,
                     ImageSource = ImageSource
                 });
@@ -3470,6 +3519,13 @@ namespace OpenRPA
         private void SearchBox_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (SearchBox.IsDropDownOpen) e.Handled = true;
+        }
+        private void SearchBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (SelectedContent is Views.OpenProject op)
+            {
+                op.FilterText = SearchBox.Text;
+            }
         }
     }
     public class QuickLaunchItem

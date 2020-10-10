@@ -6,11 +6,14 @@
     <Product>OpenRPA</Product>
     <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/open-rpa/openrpa</PackageProjectUrl>
-    <Version>1.0.27</Version>
+    <Version>1.0.30</Version>
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <StartupObject />
-    <PackageReleaseNotes>1.0.27 Fix addon after firefox update breaking things
+    <PackageReleaseNotes>1.0.30 Add support to update div value
+1.0.29 Fix utf encoding with setvalue
+1.0.28 Add support for checkboxes
+1.0.27 Fix addon after firefox update breaking things
 1.0.26 Filter out google sheet in chrome extension
 1.0.25 Allow custom unique ids for xpath generation in nm
 1.0.24 Add cords for GetElement

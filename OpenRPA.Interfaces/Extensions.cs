@@ -37,6 +37,58 @@ namespace OpenRPA.Interfaces
     }
     public static class Extensions
     {
+        public static string Base64Encode(string plainText)
+        {
+            if (string.IsNullOrEmpty(plainText)) plainText = "";
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+        public static string Base64Decode(string base64EncodedData)
+        {
+            if (string.IsNullOrEmpty(base64EncodedData)) return null;
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+        static public string GetStringFromResource(string resourceName)
+        {
+            return GetStringFromResource(typeof(Extensions), resourceName);
+        }
+        static public string GetStringFromResource(Type t, string resourceName)
+        {
+            string[] names = t.Assembly.GetManifestResourceNames();
+            foreach (var name in names)
+            {
+                if (name.EndsWith(resourceName))
+                {
+                    using (var stream = t.Assembly.GetManifestResourceStream(name))
+                    using (var reader = new System.IO.StreamReader(stream))
+                    {
+                        string result = reader.ReadToEnd();
+                        return result;
+                    }
+                }
+            }
+            return null;
+        }
+        public static Type FindType(string qualifiedTypeName)
+        {
+            Type t = Type.GetType(qualifiedTypeName);
+
+            if (t != null)
+            {
+                return t;
+            }
+            else
+            {
+                foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    t = asm.GetType(qualifiedTypeName);
+                    if (t != null)
+                        return t;
+                }
+                return null;
+            }
+        }
         public static System.Data.DataTable ToDataTable(this Newtonsoft.Json.Linq.JArray jArray)
         {
             var result = new System.Data.DataTable();

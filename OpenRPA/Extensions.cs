@@ -13,6 +13,26 @@ namespace OpenRPA
 {
     public static class Extensions
     {
+        /// <summary>
+        /// Select specified item in a TreeView
+        /// </summary>
+        public static void SelectItem(this System.Windows.Controls.TreeView treeView, object item)
+        {
+            var tvItem = treeView.ItemContainerGenerator.ContainerFromItem(item) as System.Windows.Controls.TreeViewItem;
+            if (tvItem == null)
+            {
+                treeView.UpdateLayout();
+                tvItem = treeView.ItemContainerGenerator.ContainerFromItem(item) as System.Windows.Controls.TreeViewItem;
+            }
+            if (tvItem == null)
+            {
+                tvItem = treeView.ItemContainerGenerator.ContainerFromIndex(0) as System.Windows.Controls.TreeViewItem;
+            }            
+            if (tvItem != null)
+            {
+                tvItem.IsSelected = true;
+            }
+        }
         public static object PropertyValue(this object obj, string propertyName)
         {
             try

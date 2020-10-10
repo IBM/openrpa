@@ -84,7 +84,7 @@ namespace OpenRPA.NM
             NativeMessagingMessage result = null;
             try
             {
-                result = NMHook.sendMessageResult(getelement, true, TimeSpan.FromSeconds(3));
+                result = NMHook.sendMessageResult(getelement, true, PluginConfig.protocol_timeout);
             }
             catch (Exception)
             {
@@ -127,13 +127,19 @@ namespace OpenRPA.NM
             if (nmanchor != null)
             {
                 var element = GetElementsWithSelector(nmanchor);
+                if(string.IsNullOrEmpty(nmitem.NMElement.cssselector))
+                {
+                    nmitem.NMElement.Refresh();
+                }
                 return new NMSelector(nmitem.NMElement, nmanchor, true, (NMElement)element.FirstOrDefault());
 
             }
             return new NMSelector(nmitem.NMElement, nmanchor, true, null);
         }
+        public static IOpenRPAClient client { get; set; }
         public void Initialize(IOpenRPAClient client)
         {
+            Plugin.client = client;
             NMHook.registreChromeNativeMessagingHost(false);
             NMHook.registreffNativeMessagingHost(false);
             NMHook.checkForPipes(true, true, true );
@@ -307,6 +313,10 @@ namespace OpenRPA.NM
             if (LastElement.message.tab == null)
             {
                 LastElement.message.tab = NMHook.tabs.Where(x => x.id == LastElement.message.tabid && x.browser == LastElement.message.browser && x.windowId == LastElement.message.windowId).FirstOrDefault();
+            }
+            if (p.ProcessName.ToLower() == "chrome" || p.ProcessName.ToLower() == "msedge")
+            {
+                if (e.UIElement.FrameworkId != "chrome" && e.UIElement.FrameworkId != "Chrome") return false;
             }
             var selector = new NMSelector(LastElement, null, true, null);
             var a = new GetElement { DisplayName = LastElement.id + " " + LastElement.type + " " + LastElement.Name };

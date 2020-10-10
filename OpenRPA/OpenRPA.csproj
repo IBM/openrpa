@@ -10,8 +10,41 @@
     <Description>Base UI of OpenRPA, used as part of OpenRPA robot</Description>
     <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/open-rpa/openrpa</PackageProjectUrl>
-    <Version>1.0.142</Version>
-    <PackageReleaseNotes>1.0.142 Update for generic database providers
+    <Version>1.1.2</Version>
+    <PackageReleaseNotes>1.1.2 Minor improvements
+1.1.1 Re-Add NuGet Package support - BETA
+1.0.175 Beta: Add PowerShell support
+1.0.174 Test implementation of support for Arabic for readpdf
+1.0.171 Improve pagination for nm, bugfix for office close workbook, add firefox ready addon
+1.0.170 Fix a few issues with argument parsing for invoke openflow. Fix argument mapping UI for Invoke OpenRPA when robot is offline
+1.0.169 Fix excel sheet enumeration bug
+1.0.168 Add passwords for write/read cell, add support for removing password with close workbook, add protect worksheet/unprotect worksheet
+1.0.167 Improve rdservice, add support for running without freerdp as a service
+1.0.166 Add support to update div value
+1.0.165 Load extensions from project folder as well
+1.0.164 Fix selector variables for Open and Close Application
+1.0.163 Fix UTF8 encoding issue with nm extension
+1.0.162 Add OpenRPA.MSSpeech addon
+1.0.161 Add support for multiple file extensions in filter / remove debug from sap / add more ja translations
+1.0.160 Improve error message in invoke openrpa / add option to disable remote invoke with remote_allowed
+1.0.159 Add more ja translations / Add SelectFile Activity / preload all settings from settings.json
+1.0.158 upgrade flaui / Add ClearCache to windows.getelement / add ja translation
+1.0.157 Fix issue with recording keyboard
+1.0.156 Improve nm.WaitForDownload
+1.0.155 Add custom timeout on nm plugin messages
+1.0.154 Fix a few issues, refactor some interfaces, implement controlling isagent from a role
+1.0.153 Fix login error (not saving byte array properly)
+1.0.152 script.Add implementation variables to code designer
+1.0.151 Fix threading error in windows.getelement
+1.0.150 Fix reconnect issue
+1.0.149 Add disable local caching option on workflows
+1.0.148 Add support registry configuration / Add better support for windows elements in nm / fix bug in openrpa.Forms
+1.0.147 Add IsChecked to nmelement
+1.0.146 Add WaitForVanish to NMElement
+1.0.145 Fix type resolving / add recipient to rossum result
+1.0.144 Fix Download message from firefox
+1.0.143 Add WaitForDownload activity
+1.0.142 Update for generic database providers
 1.0.141 Update File Watcher / Add SelectFolder Activity / Fix Close tab for Edge
 1.0.140 ExecuteScript
 1.0.139 Fix default name / stop importing all default namespaces
@@ -177,10 +210,14 @@ Add toggle between embedded and locally installed python, Add PipInstall activit
     <None Include="$(OutputPath)\OpenRPA.exe.config" Pack="true" PackagePath="build" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CefSharp.Wpf" Version="79.1.360" />
+    <PackageReference Include="CefSharp.Wpf" Version="83.4.20" />
     <PackageReference Include="DotNetProjects.Wpf.Toolkit" Version="5.0.43" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NuGet.Common" Version="5.4.0" />
+    <PackageReference Include="NuGet.Packaging" Version="5.4.0" />
+    <PackageReference Include="NuGet.Protocol" Version="5.4.0" />
+    <PackageReference Include="NuGet.Resolver" Version="5.4.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Activities\ClickElementDesigner.xaml" />
@@ -415,6 +452,7 @@ Add toggle between embedded and locally installed python, Add PipInstall activit
     <None Remove="Views\InsertText.xaml" />
     <None Remove="Views\KeyboardSeqWindow.xaml" />
     <None Remove="Views\OpenProject.xaml" />
+    <None Remove="Views\PackageManager.xaml" />
     <None Remove="Views\PermissionsWindow.xaml" />
     <None Remove="Views\RecorderPlugins.xaml" />
     <None Remove="Views\RunPlugins.xaml" />
@@ -483,6 +521,9 @@ Add toggle between embedded and locally installed python, Add PipInstall activit
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AgentViewProjects.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PackageManager.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WorkflowInstances.xaml">
