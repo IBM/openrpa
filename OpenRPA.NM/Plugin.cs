@@ -20,7 +20,7 @@ namespace OpenRPA.NM
             add { }
             remove { }
         }
-        private Views.RecordPluginView view; 
+        private Views.RecordPluginView view;
         public System.Windows.Controls.UserControl editor
         {
             get
@@ -68,7 +68,7 @@ namespace OpenRPA.NM
             };
             var tab = NMHook.tabs.Where(x => x.browser == browser && (x.active || x.selected)).FirstOrDefault();
             if (tab == null) NMHook.enumwindowandtabs();
-            if (tab!=null)
+            if (tab != null)
             {
                 getelement.tabid = tab.id;
                 getelement.windowId = tab.windowId;
@@ -102,7 +102,7 @@ namespace OpenRPA.NM
                 {
                     if (res.result != null)
                     {
-                        if(res.tab == null) { res.tab = NMHook.tabs.Where(x => x.browser == res.browser && x.id == res.tabid).FirstOrDefault(); }
+                        if (res.tab == null) { res.tab = NMHook.tabs.Where(x => x.browser == res.browser && x.id == res.tabid).FirstOrDefault(); }
                         var html = new NMElement(res);
                         rootelements.Add(new NMTreeElement(null, true, html));
                         //var html = new HtmlElement(getelement.xPath, getelement.cssPath, res.tabid, res.frameId, res.result);
@@ -136,7 +136,7 @@ namespace OpenRPA.NM
         {
             NMHook.registreChromeNativeMessagingHost(false);
             NMHook.registreffNativeMessagingHost(false);
-            NMHook.checkForPipes(true, true, true );
+            NMHook.checkForPipes(true, true, true);
             NMHook.onMessage += OnMessage;
             NMHook.Connected += OnConnected;
             NMHook.onDisconnected += OnDisconnected;
@@ -160,59 +160,51 @@ namespace OpenRPA.NM
         {
             try
             {
-                //lock(_lock)
-                //{
-
-                //    //if (dpiscale == 0)
-                //    //{
-                //    //    dpiscale = NativeMethods.getScalingFactor();
-                //    //} else
-                //    //{
-                //    //    dpiscale = NativeMethods.getScalingFactor();
-                //    //}
-                //    var dpi = NativeMethods.GetDpiForSystem();
-                //    dpiscale = 1;
-                //    if (dpi == 96) dpiscale = 1;
-                //    if (dpi == 120) dpiscale = 1.25f;
-                //    if (dpi == 144) dpiscale = 1.5f;
-                //    if (dpi == 192) dpiscale = 2;
-                //}
-                if (message.uiy > 0 && message.uix > 0 && message.uiwidth > 0 && message.uiheight > 0)
+                lock (_lock)
                 {
-                    //message.uiy = (int)(message.uiy * dpiscale);
-                    //message.uix = (int)(message.uix * dpiscale);
-                    //message.uiwidth = (int)(message.uiwidth * dpiscale);
-                    //message.uiheight = (int)(message.uiheight * dpiscale);
-                    if(dpiscale == 1.25)
+                    if (message.uiy > 0 && message.uix > 0 && message.uiwidth > 0 && message.uiheight > 0)
                     {
-                        message.uiy += 158;
-                    }
-                    LastElement = new NMElement(message);
-                }
-
-                if (message.functionName == "click" || message.functionName == "tab" || message.functionName == "change")
-                {
-                    if (IsRecording)
-                    {
-                        if (LastElement == null) return;
-                        var re = new RecordEvent
+                        if (dpiscale == 1.25)
                         {
-                            Button = Input.MouseButton.Left
-                        }; var a = new GetElement { DisplayName = LastElement.ToString() };
+                            message.uiy += 158;
+                        }
 
-                        message.tab = NMHook.tabs.FirstOrDefault(x => x.id == message.tabid && x.browser == message.browser && x.windowId == message.windowId);
+                        LastElement = new NMElement(message);
+                    }
 
-                        var selector = new NMSelector(LastElement, null, true, null);
-                        a.Selector = selector.ToString();
-                        a.Image = LastElement.ImageString();
-                        a.MaxResults = 1;
+                    var lastElement = LastElement;
 
-                        re.Selector = selector;
-                        re.a = new GetElementResult(a);
-                        re.SupportInput = LastElement.SupportInput;
-                        re.SupportSelect = false;
-                        re.ClickHandled = true;
-                        OnUserAction?.Invoke(this, re);
+                    if (LastElement != null && message.cssPath != null && message.cssPath.IndexOf("ms-dlgOverlay", StringComparison.CurrentCultureIgnoreCase) != -1)
+                    {
+                        lastElement = new NMElement(message);
+                    }
+
+                    if (message.functionName == "click" || message.functionName == "tab" || message.functionName == "change")
+                    {
+                        if (IsRecording)
+                        {
+                            if (LastElement == null) return;
+
+                            var re = new RecordEvent
+                            {
+                                Button = Input.MouseButton.Left
+                            }; var a = new GetElement { DisplayName = LastElement.ToString() };
+
+                            message.tab = NMHook.tabs.FirstOrDefault(x => x.id == message.tabid && x.browser == message.browser && x.windowId == message.windowId);
+
+                            var selector = new NMSelector(lastElement, null, true, null);
+                            a.Selector = selector.ToString();
+                            a.Image = LastElement.ImageString();
+                            a.MaxResults = 1;
+
+                            re.Selector = selector;
+                            re.a = new GetElementResult(a);
+                            re.SupportInput = LastElement.SupportInput;
+                            re.SupportSelect = false;
+                            re.Element = lastElement;
+                            re.ClickHandled = true;
+                            OnUserAction?.Invoke(this, re);
+                        }
                     }
                 }
             }
@@ -234,15 +226,15 @@ namespace OpenRPA.NM
             if (p != null) { url = p.Value; }
 
             NMHook.openurl(browser, url, false);
-            if(browser=="chrome")
+            if (browser == "chrome")
             {
                 foreach (var process in System.Diagnostics.Process.GetProcesses())
                 {
                     string pname = process.ProcessName.ToLower();
-                    if(pname.Contains("chrome"))
+                    if (pname.Contains("chrome"))
                     {
                         string title = process.MainWindowTitle;
-                        if(!string.IsNullOrEmpty(title))
+                        if (!string.IsNullOrEmpty(title))
                         {
                             var exists = NMHook.tabs.Where(x => x.title == title).FirstOrDefault();
                             var automation = AutomationUtil.getAutomation();
@@ -302,7 +294,7 @@ namespace OpenRPA.NM
                 return false;
             }
             if (LastElement == null) return false;
-            if(LastElement.message == null) return false;
+            if (LastElement.message == null) return false;
             if (LastElement.message.tab == null)
             {
                 LastElement.message.tab = NMHook.tabs.Where(x => x.id == LastElement.message.tabid && x.browser == LastElement.message.browser && x.windowId == LastElement.message.windowId).FirstOrDefault();
@@ -341,7 +333,7 @@ namespace OpenRPA.NM
             if (e.UIElement.ProcessId < 1) return false;
             var p = System.Diagnostics.Process.GetProcessById(e.UIElement.ProcessId);
             if (p.ProcessName.ToLower() != "chrome" && p.ProcessName.ToLower() != "firefox") return false;
-            if(LastElement==null) return false;
+            if (LastElement == null) return false;
             e.Element = LastElement;
             e.OffsetX = e.X - LastElement.Rectangle.X;
             e.OffsetY = e.Y - LastElement.Rectangle.Y;

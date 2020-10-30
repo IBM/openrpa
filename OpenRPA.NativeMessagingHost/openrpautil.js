@@ -16,6 +16,8 @@ if (true == false) {
     document.openrpautil = {};
 } else {
     if (window.openrpautil_contentlistner === null || window.openrpautil_contentlistner === undefined) {
+
+
         function remotePushEvent(evt) {
             if (evt.data != null && evt.data.functionName == "mousemove") {
                 openrpautil.parent = evt.data;
@@ -119,6 +121,65 @@ if (true == false) {
         }
         chrome.runtime.onMessage.addListener(runtimeOnMessage);
         window.openrpautil_contentlistner = true;
+
+        window.divOverlayObserver = (function () {
+            'use strict';
+            var current = "none";
+
+            return {
+                getStatus: function (node) {
+                    if (node.style === undefined) {
+                        return "";
+                    }
+
+                    if (current === "none" && node.style.display === "block") {
+                        current = "block";
+                        return "open";
+                    }
+
+                    if (current === "block" && node.style.display === "none") {
+                        current = "none";
+                        return "closed";
+                    }
+
+                    return "";
+                }
+            };
+        })();
+
+        window.myReady = function (event) {
+            var document = event.target;
+            var notifier = window.divOverlayObserver;
+            var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+
+            if (MutationObserver === undefined || !MutationObserver) {
+                return;
+            }
+
+            var observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    var current = mutation.target;
+                    if (current.nodeName === "DIV" && current.className === "ms-dlgOverlay") {
+                        var status = notifier.getStatus(current);
+                        if (status === "closed") {
+                            var evt = document.createEvent('Event');
+                            evt.initEvent('change', true, false);
+                            current.additions = openrpautil.getAdditions(window.__last_clicked_element);
+                            current.dispatchEvent(evt);
+                        }
+                    }
+                });
+            });
+
+            observer.observe(document, {
+                attributes: true,
+                childList: true,
+                attributeFilter: ['style', 'class'],
+                subtree: true,
+                characterData: true
+            });
+        };
+
         if (typeof document.openrpautil === 'undefined') {
             console.debug('declaring openrpautil class 1');
             document.openrpautil = {};
@@ -136,18 +197,27 @@ if (true == false) {
                         console.log("skip google docs *");
                         return;
                     }
+
+                    document.addEventListener("DOMContentLoaded", window.myReady);
+
                     document.addEventListener('mousemove', function (e) { openrpautil.pushEvent('mousemove', e); }, true);
                     if (inIframe()) return;
-                    document.addEventListener('click', function (e) { openrpautil.pushEvent('click', e); }, true);
+                    document.addEventListener('click', function (e) {
+                        if (e.target.type && e.target.nodeName === "INPUT") {
+                            window.__last_clicked_element = e.target;
+                        }
+                        openrpautil.pushEvent('click', e);
+                    }, true);
                     document.addEventListener('keydown', function (e) { openrpautil.pushEvent('keydown', e); }, true);
                     document.addEventListener('keypress', function (e) { openrpautil.pushEvent('keyup', e); }, true);
-                    document.addEventListener('keyup', function(e) {
+                    document.addEventListener('keyup', function (e) {
                         if (e.keyCode === KEYCODE_TAB) {
                             openrpautil.pushEvent('tab', e);
                         }
                     }, true);
                     document.addEventListener('change', function (e) {
-                        if (e.target.type === 'text' || e.target.type === 'select' || e.target.type === 'radio' || e.target.type === 'checkbox') {
+                        console.log("event sent", e);
+                        if (e.target.nodeName === 'DIV' || e.target.type === 'text' || e.target.type === 'select' || e.target.type === 'radio' || e.target.type === 'checkbox') {
                             openrpautil.pushEvent('change', e);
                         }
                     }, true);
@@ -582,9 +652,9 @@ if (true == false) {
                             message.uix += 7;
                             message.uiy -= 7;
                         }
-                    //} else {
-                    //    message.uix += 1;
-                    //    message.uiy += 1;
+                        //} else {
+                        //    message.uix += 1;
+                        //    message.uiy += 1;
                     }
                 },
                 // https://stackoverflow.com/questions/53056796/getboundingclientrect-from-within-iframe
@@ -630,7 +700,7 @@ if (true == false) {
                                             } else {
                                                 positions.push({ x: 0, y: 0 });
                                             }
-                                            
+
                                         }
                                     } catch (e) {
                                         // console.debug(e);
@@ -646,7 +716,7 @@ if (true == false) {
                                 break;
                             }
                     }
-                    
+
                     var result = positions.reduce((accumulator, currentValue) => {
                         return {
                             x: (accumulator.x + currentValue.x) | 0,
@@ -678,7 +748,7 @@ if (true == false) {
                     else {
                         // https://www.jeffersonscher.com/res/resolution.php
                         // https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
-                        var message = { functionName: action, frame: frame, parents: 0, xpaths: []};
+                        var message = { functionName: action, frame: frame, parents: 0, xpaths: [] };
                         var targetElement = null;
                         targetElement = event.target || event.srcElement;
                         if (targetElement == null) {
@@ -716,7 +786,6 @@ if (true == false) {
                         message.xPath = UTILS.xPath(targetElement, true);
                         message.zn_id = openrpautil.getuniqueid(targetElement);
                         message.c = targetElement.childNodes.length;
-
                         message.result = openrpautil.mapDOM(targetElement, true);
                         //if (targetElement.tagName == "IFRAME" || targetElement.tagName == "FRAME") {
                         message.xpaths.push(message.xPath);
@@ -760,7 +829,7 @@ if (true == false) {
                     delete message.script;
                     var test = JSON.parse(JSON.stringify(message));
                     if (document.openrpadebug) console.log(test);
-                    return test;                    
+                    return test;
                 },
                 fullPath: function (el) {
                     var names = [];
@@ -859,7 +928,9 @@ if (true == false) {
                     var maxiden = 40;
                     if (mapdom !== true) maxiden = 1;
                     if (maxiden === null || maxiden === undefined) maxiden = 20;
-                    var treeObject = {};
+                    var treeObject = {
+
+                    };
                     // If string convert to document Node
                     if (typeof element === "string") {
                         if (window.DOMParser) {
@@ -962,7 +1033,13 @@ if (true == false) {
                     treeObject["isvisibleonscreen"] = openrpautil.isVisibleOnScreen(element);
                     treeObject["disabled"] = element.disabled;
                     treeObject["innerText"] = element.innerText;
-                    treeObject["additions"] = openrpautil.getAdditions(element);
+
+                    if (!element.additions || element.additions.length === 0) {
+                        treeObject["additions"] = openrpautil.getAdditions(element);
+                    }
+                    else {
+                        treeObject["additions"] = element.additions;
+                    }
 
                     if (element.tagName && element.tagName.toLowerCase() == "options") {
                         treeObject["selected"] = element.selected;
@@ -973,7 +1050,7 @@ if (true == false) {
                             if (element.options[i].selected) {
                                 selectedvalues.push(element.options[i].value);
                             }
-                        } 
+                        }
                         treeObject["values"] = selectedvalues;
                     }
 
@@ -983,19 +1060,19 @@ if (true == false) {
                 },
                 getAdditions: function (elm) {
                     var additions = {};
-                    
+
                     try {
                         var cells = getTableRowCellsFrom(elm);
-                        
+
                         if (cells.length > 0) {
                             additions["tableRowCells"] = cells;
                         }
-                        
+
                         return additions;
-                    } 
+                    }
                     catch (e) {
                         //window.console.error(e);
-                        return { };
+                        return {};
                     }
 
                     function getTableRowCellsFrom(element) {
@@ -1113,6 +1190,11 @@ if (true == false) {
                             options.button, options.pointerX, options.pointerY, options.pointerX, options.pointerY,
                             options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, options.button, element);
                     }
+
+                    console.log('before dispatchEvent');
+                    console.log(element);
+
+
                     element.dispatchEvent(oEvent);
                 }
                 else {
@@ -1211,7 +1293,7 @@ if (true == false) {
                     case Node.ELEMENT_NODE:
                         ownValue = node.localName;
                         if (optimized) {
-                            
+
                             for (var i = 0; i < document.openrpauniquexpathids.length; i++) {
                                 var id = document.openrpauniquexpathids[i].toLowerCase();
                                 if (node.getAttribute(id))
@@ -1426,4 +1508,3 @@ if (true == false) {
         }
     }
 }
-
