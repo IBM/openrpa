@@ -22,11 +22,6 @@ namespace OpenRPA.SAPBridge
             this.Cell = Cell;
             this.Flat = flat;
             this.MaxItem = MaxItem;
-            Id = comp.Id;
-            this.SystemName = SystemName;
-            if (comp.Parent != null) Parent = ((SAPFEWSELib.GuiComponent)comp.Parent).Id;
-            ContainerType = comp.ContainerType;
-            type = comp.Type;
             if (comp is SAPFEWSELib.GuiTree tree)
             {
                 type = "GuiTree";
@@ -634,6 +629,18 @@ namespace OpenRPA.SAPBridge
             this.flat = flat;
             this.LoadChildren = LoadChildren;
             this.MaxItem = MaxItem;
+
+            // (re)Moved from load()
+            this.SystemName = SystemName;
+            Id = comp.Id;
+            ContainerType = comp.ContainerType;
+            type = comp.Type;
+            if (!string.IsNullOrEmpty(Id) && Id.Contains("/"))
+            {
+                Parent = Id.Substring(0, Id.LastIndexOf("/"));
+            }
+            // if (comp.Parent != null) Parent = ((SAPFEWSELib.GuiComponent)comp.Parent).Id;
+
             Load(session, comp, SystemName, all, Path, Cell, flat, LoadChildren, MaxItem, VisibleOnly);
         }
         public SAPEventElement(SAPFEWSELib.GuiComponent Element, string SystemName, string Parent, bool all)
