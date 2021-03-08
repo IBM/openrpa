@@ -58,7 +58,7 @@ namespace OpenRPA.SAPBridge
             {
                 System.Diagnostics.Trace.WriteLine(ele.ToString() + " " + ele.Rectangle);
             }
-            if (ele.Children == null) ele.Load(VisibleOnly);
+            if (ele.Children == null) ele.Load(session, VisibleOnly);
             if(ele.Children != null)
                 foreach (var child in ele.Children)
                 {
@@ -67,7 +67,7 @@ namespace OpenRPA.SAPBridge
         }
         private void GetUIElements(List<SAPEventElement> list, GuiSession session, string Parent, GuiComponent Element, bool VisibleOnly)
         {
-            var ele = new SAPEventElement(Element, session.Info.SystemName, false, null, null, false, true, 50, VisibleOnly);
+            var ele = new SAPEventElement(session, Element, session.Info.SystemName, false, null, null, false, true, 50, VisibleOnly);
             list.Add(ele);
             foreach(var child in ele.Children)
             {

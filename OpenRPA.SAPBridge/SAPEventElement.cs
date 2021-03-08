@@ -10,14 +10,13 @@ namespace OpenRPA.SAPBridge
 {
     public partial class SAPEventElement
     {
-        public void Load(bool VisibleOnly)
+        public void Load(SAPFEWSELib.GuiSession session, bool VisibleOnly)
         {
             LoadChildren = true;
-            var session = SAPHook.Instance.GetSession(SystemName);
             var comp = session.GetSAPComponentById<SAPFEWSELib.GuiComponent>(Id);
-            Load(comp, SystemName, all, Path, Cell, flat, LoadChildren, MaxItem, VisibleOnly);
+            Load(session, comp, SystemName, all, Path, Cell, flat, LoadChildren, MaxItem, VisibleOnly);
         }
-        public void Load(SAPFEWSELib.GuiComponent comp, string SystemName, bool all, string Path, string Cell, bool flat, bool LoadChildren, int MaxItem, bool VisibleOnly)
+        public void Load(SAPFEWSELib.GuiSession session, SAPFEWSELib.GuiComponent comp, string SystemName, bool all, string Path, string Cell, bool flat, bool LoadChildren, int MaxItem, bool VisibleOnly)
         {
             this.Path = Path;
             this.Cell = Cell;
@@ -79,7 +78,7 @@ namespace OpenRPA.SAPBridge
                         var children = new List<SAPEventElement>();
                         foreach (string key in keys)
                         {
-                            var _msg = new SAPEventElement(comp, SystemName, all, key, null, Flat, true, MaxItem, VisibleOnly);
+                            var _msg = new SAPEventElement(session, comp, SystemName, all, key, null, Flat, true, MaxItem, VisibleOnly);
                             children.Add(_msg);
                             if (MaxItem > 0)
                             {
@@ -182,7 +181,7 @@ namespace OpenRPA.SAPBridge
                             var children = new List<SAPEventElement>();
                             foreach (string key in keys)
                             {
-                                var _msg = new SAPEventElement(comp, SystemName, all, Path, key, Flat, true, MaxItem, VisibleOnly);
+                                var _msg = new SAPEventElement(session, comp, SystemName, all, Path, key, Flat, true, MaxItem, VisibleOnly);
                                 children.Add(_msg);
                                 if (MaxItem > 0)
                                 {
@@ -201,7 +200,7 @@ namespace OpenRPA.SAPBridge
                             var children = new List<SAPEventElement>();
                             foreach (string key in keys)
                             {
-                                var _msg = new SAPEventElement(comp, SystemName, all, key, null, Flat, false, MaxItem, VisibleOnly);
+                                var _msg = new SAPEventElement(session, comp, SystemName, all, key, null, Flat, false, MaxItem, VisibleOnly);
                                 children.Add(_msg);
                                 if (MaxItem > 0)
                                 {
@@ -365,7 +364,7 @@ namespace OpenRPA.SAPBridge
                         }
                         for (var i = from; i < to; i++)
                         {
-                            var _msg = new SAPEventElement(comp, SystemName, all, i.ToString(), null, Flat, true, MaxItem, VisibleOnly);
+                            var _msg = new SAPEventElement(session, comp, SystemName, all, i.ToString(), null, Flat, true, MaxItem, VisibleOnly);
                             //var _msg = new SAPEventElement(comp, SystemName, Parent, false);
                             children.Add(_msg);
                             if (MaxItem > 0)
@@ -382,7 +381,7 @@ namespace OpenRPA.SAPBridge
                     var keys = grid.ColumnOrder as SAPFEWSELib.GuiCollection;
                     foreach (string key in keys)
                     {
-                        var _msg = new SAPEventElement(comp, SystemName, all, Path, key, Flat, false, MaxItem, VisibleOnly);
+                        var _msg = new SAPEventElement(session, comp, SystemName, all, Path, key, Flat, false, MaxItem, VisibleOnly);
                         children.Add(_msg);
                         if (MaxItem > 0)
                         {
@@ -520,21 +519,21 @@ namespace OpenRPA.SAPBridge
                     }
                     Children = children.ToArray();
                 }
-                else if (comp is SAPFEWSELib.GuiSession session && LoadChildren)
+                else if (comp is SAPFEWSELib.GuiSession session2 && LoadChildren)
                 {
                     var children = new List<SAPEventElement>();
                     if(VisibleOnly)
                     {
-                        SAPFEWSELib.GuiComponent Element = session.ActiveWindow as SAPFEWSELib.GuiComponent;
+                        SAPFEWSELib.GuiComponent Element = session2.ActiveWindow as SAPFEWSELib.GuiComponent;
                         var p = Element.Parent as SAPFEWSELib.GuiComponent;
                         var parent = (p != null) ? p.Id : null;
                         children.Add(new SAPEventElement(Element, SystemName, parent, false));
                     }
                     else
                     {
-                        for (var i = 0; i < session.Children.Count; i++)
+                        for (var i = 0; i < session2.Children.Count; i++)
                         {
-                            SAPFEWSELib.GuiComponent Element = session.Children.ElementAt(i);
+                            SAPFEWSELib.GuiComponent Element = session2.Children.ElementAt(i);
                             var p = Element.Parent as SAPFEWSELib.GuiComponent;
                             var parent = (p != null) ? p.Id : null;
                             children.Add(new SAPEventElement(Element, SystemName, parent, false));
@@ -629,13 +628,13 @@ namespace OpenRPA.SAPBridge
         private bool all { get; set; }
         private bool flat { get; set; }
         private bool LoadChildren { get; set; }
-        public SAPEventElement(SAPFEWSELib.GuiComponent comp, string SystemName, bool all, string Path, string Cell, bool flat, bool LoadChildren, int MaxItem, bool VisibleOnly)
+        public SAPEventElement(SAPFEWSELib.GuiSession session, SAPFEWSELib.GuiComponent comp, string SystemName, bool all, string Path, string Cell, bool flat, bool LoadChildren, int MaxItem, bool VisibleOnly)
         {
             this.all = all;
             this.flat = flat;
             this.LoadChildren = LoadChildren;
             this.MaxItem = MaxItem;
-            Load(comp, SystemName, all, Path, Cell, flat, LoadChildren, MaxItem, VisibleOnly);
+            Load(session, comp, SystemName, all, Path, Cell, flat, LoadChildren, MaxItem, VisibleOnly);
         }
         public SAPEventElement(SAPFEWSELib.GuiComponent Element, string SystemName, string Parent, bool all)
         {

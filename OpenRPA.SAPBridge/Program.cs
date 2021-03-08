@@ -478,7 +478,7 @@ namespace OpenRPA.SAPBridge
                             pipe.PushMessage(message);
                             return;
                         }
-                        msg = new SAPEventElement(comp, session.Info.SystemName, msg.GetAllProperties, msg.Path, msg.Cell, msg.Flat, true, msg.MaxItem, msg.VisibleOnly);
+                        msg = new SAPEventElement(session, comp, session.Info.SystemName, msg.GetAllProperties, msg.Path, msg.Cell, msg.Flat, true, msg.MaxItem, msg.VisibleOnly);
                         message.Set(msg);
                         if (log_send_message) form.AddText("[send] " + message.action);
                         pipe.PushMessage(message);
