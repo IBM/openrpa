@@ -64,8 +64,7 @@ namespace OpenRPA.SAPBridge
                 pipe.ClientConnected += Pipe_ClientConnected;
                 pipe.ClientMessage += Server_OnReceivedMessage;
                 pipe.Start();
-                // SAPHook.Instance.
-
+                Task.Run(() => SAPEventElement.PropogateTypeCache());
                 System.Windows.Forms.Application.Run(form);
             }
             catch (Exception ex)
