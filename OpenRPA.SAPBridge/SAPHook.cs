@@ -110,6 +110,11 @@ namespace OpenRPA.SAPBridge
                 Program.log("RefreshUIElements:: all ready mapping ui");
                 return;
             }
+            // Stop highlighing "old" UI ???
+            lock (UIElements)
+            {
+                UIElements = new SAPEventElement[] { };
+            }
             try
             {
                 if (app == null) UIElements = new SAPEventElement[] { };
