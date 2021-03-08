@@ -28,10 +28,6 @@ namespace OpenRPA.SAPBridge
             if (comp.Parent != null) Parent = ((SAPFEWSELib.GuiComponent)comp.Parent).Id;
             ContainerType = comp.ContainerType;
             type = comp.Type;
-            if(type == "GuiOkCodeField")
-            {
-                var b = true;
-            }
             if (comp is SAPFEWSELib.GuiTree tree)
             {
                 type = "GuiTree";
@@ -160,7 +156,6 @@ namespace OpenRPA.SAPBridge
                                 try
                                 {
                                     if (p.Where(x => x.Name == "Tooltip").Count() == 0) p.Add(new SAPElementProperty("Tooltip", tree.GetItemToolTip(Path, Cell), true));
-                                    var b = true;
                                 }
                                 catch (Exception)
                                 {
