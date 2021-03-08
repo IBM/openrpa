@@ -597,10 +597,19 @@ namespace OpenRPA.SAPBridge
                 }
                  
             }
-            var tool = Properties.Where(x => x.Name == "DefaultTooltip").FirstOrDefault();
-            if(tool ==null)
+            if(Program.log_missing_defaulttooltip)
             {
-                Program.log("Missing DefaultTooltip " + Id);
+                if(Properties != null)
+                {
+                    var tool = Properties.Where(x => x.Name == "DefaultTooltip").FirstOrDefault();
+                    if (tool == null)
+                    {
+                        Program.log("Missing DefaultTooltip " + Id);
+                    }
+                } else
+                {
+                    Program.log("Missing DefaultTooltip " + Id + " (missing all properties)");
+                }
             }
             if (string.IsNullOrEmpty(Name))
             {
@@ -708,6 +717,18 @@ namespace OpenRPA.SAPBridge
         //}
         private static string[] limitedProperties = { "Changeable", "Modified", "Text", "ScreenTop", "ScreenLeft", "Height", "Width", "Top", "Left", "Tooltip", "DefaultTooltip"};
         private static Dictionary<Type, System.Reflection.PropertyInfo[]> typeProperties = new Dictionary<Type, System.Reflection.PropertyInfo[]>();
+        public static void PropogateTypeCache()
+        {
+            Program.log("PropogateTypeCache:: Begin");
+            Type blah = typeof(SAPFEWSELib.GuiComponent);
+            foreach (var t in blah.Assembly.GetTypes())
+            {
+                System.Reflection.PropertyInfo[] tproperties = t.GetProperties().Where(x => x.IsSpecialName == false).ToArray();
+                typeProperties.Add(t, tproperties);
+            }
+            Program.log("PropogateTypeCache:: End with " + typeProperties.Count + " types");
+            SAPHook.Instance.RefreshUIElements(true);
+        }
         public void LoadProperties(SAPFEWSELib.GuiComponent Element, bool all)
         {
             int X = 0; int Y = 0; int Width = 0; int Height = 0;

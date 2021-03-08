@@ -104,40 +104,54 @@ namespace OpenRPA.SAPBridge
         public bool refreshingui = false;
         public void RefreshUIElements(bool VisibleOnly)
         {
-            if(app==null) UIElements = new SAPEventElement[] { };
-            refreshingui = true;
-            var result = new List<SAPEventElement>();
+            Program.log("RefreshUIElements:: Begin with " + UIElements.Length + " in cache");
+            if(refreshingui)
+            {
+                Program.log("RefreshUIElements:: all ready mapping ui");
+                return;
+            }
             try
             {
-                Program.log("Refreshing UI Elements");
-                if (app != null && app.Children != null)
-                    for (int x = 0; x < app.Children.Count; x++)
-                    {
-                        var con = app.Children.ElementAt(x) as GuiConnection;
-                        if (con.Sessions.Count == 0) continue;
-
-                        for (int j = 0; j < con.Sessions.Count; j++)
+                if (app == null) UIElements = new SAPEventElement[] { };
+                refreshingui = true;
+                var result = new List<SAPEventElement>();
+                try
+                {
+                    if (app != null && app.Children != null)
+                        for (int x = 0; x < app.Children.Count; x++)
                         {
-                            var session = con.Children.ElementAt(j) as GuiSession;
-                            var ele = session as GuiComponent;
-                            GetUIElements(result, session, session.Id, ele, VisibleOnly);
-                            //for (var i = 0; i < session.Children.Count; i++)
-                            //{
-                            //    GetUIElements(result, session, session.Id, session.Children.ElementAt(i), VisibleOnly);
-                            //}
+                            var con = app.Children.ElementAt(x) as GuiConnection;
+                            if (con.Sessions.Count == 0) continue;
+
+                            for (int j = 0; j < con.Sessions.Count; j++)
+                            {
+                                var session = con.Children.ElementAt(j) as GuiSession;
+                                var ele = session as GuiComponent;
+                                GetUIElements(result, session, session.Id, ele, VisibleOnly);
+                                //for (var i = 0; i < session.Children.Count; i++)
+                                //{
+                                //    GetUIElements(result, session, session.Id, session.Children.ElementAt(i), VisibleOnly);
+                                //}
+                            }
                         }
-                    }
-                Program.log("Refresh complete");
+                    Program.log("RefreshUIElements:: Refresh complete");
+                }
+                catch (Exception ex)
+                {
+                    Program.log(ex.ToString());
+                }
+                lock (UIElements)
+                {
+                    UIElements = result.ToArray();
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Program.log(ex.ToString());
-            }
-            lock (UIElements)
-            {
-                UIElements = result.ToArray();
+
+                throw;
             }
             refreshingui = false;
+            Program.log("RefreshUIElements:: end with " + UIElements.Length + " in cache");
         }
         public SAPSession[] Sessions { get; private set; } = new SAPSession[] { };
         public SAPConnection[] Connections { get; private set; } = new SAPConnection[] { };
