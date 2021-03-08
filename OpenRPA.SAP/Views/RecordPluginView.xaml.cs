@@ -28,6 +28,7 @@ namespace OpenRPA.SAP.Views
         {
             PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
+        bool init = true;
         public RecordPluginView()
         {
             InitializeComponent();
@@ -35,9 +36,11 @@ namespace OpenRPA.SAP.Views
             auto_launch_sap_bridge.IsChecked = PluginConfig.auto_launch_sap_bridge;
             record_with_get_element.IsChecked = PluginConfig.record_with_get_element;
             bridge_timeout_seconds.Text = PluginConfig.bridge_timeout_seconds.ToString();
+            init = false;
         }
         private void auto_launch_SAP_bridge_Checked(object sender, RoutedEventArgs e)
         {
+            if (init) return;
             if (auto_launch_sap_bridge.IsChecked == null) return;
             PluginConfig.auto_launch_sap_bridge = auto_launch_sap_bridge.IsChecked.Value;
             PluginConfig.record_with_get_element = record_with_get_element.IsChecked.Value;
