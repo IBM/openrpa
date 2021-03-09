@@ -37,16 +37,16 @@ namespace OpenRPA.SAP
 
             var t = element.Role;
 
-            if (element.Properties.ContainsKey("ToolTip"))
+            if (element.Properties.ContainsKey("Tooltip"))
             {
-                var message = element.Properties.Where(x => x.Key == "ToolTip").FirstOrDefault();
-                item.Properties.Add(new SelectorItemProperty("message", message.Value.Value));
+                var message = element.Properties.Where(x => x.Key == "Tooltip").FirstOrDefault();
+                if(!string.IsNullOrEmpty(message.Value.Value)) item.Properties.Add(new SelectorItemProperty("message", message.Value.Value));
 
             }
-            if (element.Properties.ContainsKey("DefaultToolTip"))
+            if (element.Properties.ContainsKey("DefaultTooltip"))
             {
-                var tooltip = element.Properties.Where(x => x.Key == "DefaultToolTip").FirstOrDefault();
-                item.Properties.Add(new SelectorItemProperty("tooltip", tooltip.Value.Value));
+                var tooltip = element.Properties.Where(x => x.Key == "DefaultTooltip").FirstOrDefault();
+                if (!string.IsNullOrEmpty(tooltip.Value.Value)) item.Properties.Add(new SelectorItemProperty("tooltip", tooltip.Value.Value));
 
             }
             item.Properties.Add(new SelectorItemProperty("idfield", idfield));
