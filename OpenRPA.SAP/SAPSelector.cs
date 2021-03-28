@@ -19,7 +19,6 @@ namespace OpenRPA.SAP
             sw.Start();
             Log.Selector(string.Format("SAPselector::AutomationElement::begin {0:mm\\:ss\\.fff}", sw.Elapsed));
             Log.Selector(string.Format("SAPselector::GetControlVSAPwWalker::end {0:mm\\:ss\\.fff}", sw.Elapsed));
-
             Clear();
             SAPSelectorItem item;
             if (anchor == null)
@@ -34,35 +33,19 @@ namespace OpenRPA.SAP
             item.Enabled = true; item.canDisable = false;
             var idfield = element.id;
             if (idfield.Contains("/")) idfield = idfield.Substring(idfield.LastIndexOf("/") + 1);
-
             var t = element.Role;
-
             if (element.Properties.ContainsKey("Tooltip"))
             {
                 var message = element.Properties.Where(x => x.Key == "Tooltip").FirstOrDefault();
-                if(!string.IsNullOrEmpty(message.Value.Value)) item.Properties.Add(new SelectorItemProperty("message", message.Value.Value));
-
+                if (!string.IsNullOrEmpty(message.Value.Value)) item.Properties.Add(new SelectorItemProperty("message", message.Value.Value));
             }
             if (element.Properties.ContainsKey("DefaultTooltip"))
             {
                 var tooltip = element.Properties.Where(x => x.Key == "DefaultTooltip").FirstOrDefault();
                 if (!string.IsNullOrEmpty(tooltip.Value.Value)) item.Properties.Add(new SelectorItemProperty("tooltip", tooltip.Value.Value));
-
             }
             item.Properties.Add(new SelectorItemProperty("idfield", idfield));
             Items.Add(item);
-
-
-            //for (var i = 0; i < pathToRoot.Count(); i++)
-            //{
-            //    var o = pathToRoot[i];
-            //    item = new SAPSelectorItem(o, false);
-            //    if (i == 0 || i == (pathToRoot.Count() - 1)) item.canDisable = false;
-            //    if (doEnum) { item.EnumNeededProperties(o, o.Parent); }
-            //    Items.Add(item);
-            //}
-            //pathToRoot.Reverse();
-
             Log.Selector(string.Format("SAPselector::EnumNeededProperties::end {0:mm\\:ss\\.fff}", sw.Elapsed));
             OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs("Count"));
             OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs("Item[]"));

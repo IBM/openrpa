@@ -61,6 +61,1122 @@ namespace OpenRPA.SAP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add variables.
+        /// </summary>
+        public static string activity_add_variables {
+            get {
+                return ResourceManager.GetString("activity_add_variables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DataTable to insert into.
+        /// </summary>
+        public static string activity_adddatarow_datatable {
+            get {
+                return ResourceManager.GetString("activity_adddatarow_datatable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Paragraph.
+        /// </summary>
+        public static string activity_addparagraph {
+            get {
+                return ResourceManager.GetString("activity_addparagraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename.
+        /// </summary>
+        public static string activity_addparagraph_filename {
+            get {
+                return ResourceManager.GetString("activity_addparagraph_filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full path and filename of Microsoft Word document to work with.
+        /// </summary>
+        public static string activity_addparagraph_filename_help {
+            get {
+                return ResourceManager.GetString("activity_addparagraph_filename_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Index.
+        /// </summary>
+        public static string activity_addparagraph_index {
+            get {
+                return ResourceManager.GetString("activity_addparagraph_index", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add the new paragraph at this index (zero indexed). Leave blank to add at the end of the document.
+        /// </summary>
+        public static string activity_addparagraph_index_help {
+            get {
+                return ResourceManager.GetString("activity_addparagraph_index_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text.
+        /// </summary>
+        public static string activity_addparagraph_text {
+            get {
+                return ResourceManager.GetString("activity_addparagraph_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The text to add.
+        /// </summary>
+        public static string activity_addparagraph_text_help {
+            get {
+                return ResourceManager.GetString("activity_addparagraph_text_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add a new Paragraph to a Microsoft Word document.
+        /// </summary>
+        public static string activity_addparagraph_tooltip {
+            get {
+                return ResourceManager.GetString("activity_addparagraph_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alert message.
+        /// </summary>
+        public static string activity_alert_message_hint {
+            get {
+                return ResourceManager.GetString("activity_alert_message_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Animate Mouse.
+        /// </summary>
+        public static string activity_animatemouse {
+            get {
+                return ResourceManager.GetString("activity_animatemouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visibly move the mouse instead of instantly moving it to the destination.
+        /// </summary>
+        public static string activity_animatemouse_help {
+            get {
+                return ResourceManager.GetString("activity_animatemouse_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Animate Move.
+        /// </summary>
+        public static string activity_animatemove {
+            get {
+                return ResourceManager.GetString("activity_animatemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visibly move the window instead of instantly moving it to the destination.
+        /// </summary>
+        public static string activity_animatemove_help {
+            get {
+                return ResourceManager.GetString("activity_animatemove_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign OpenFlow.
+        /// </summary>
+        public static string activity_assignopenflow {
+            get {
+                return ResourceManager.GetString("activity_assignopenflow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign an OpenFlow workflow to a user or role.
+        /// </summary>
+        public static string activity_assignopenflow_tooltip {
+            get {
+                return ResourceManager.GetString("activity_assignopenflow_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auth.
+        /// </summary>
+        public static string activity_auth {
+            get {
+                return ResourceManager.GetString("activity_auth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username or Email.
+        /// </summary>
+        public static string activity_auth_hint {
+            get {
+                return ResourceManager.GetString("activity_auth_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authenticate against Rossum service and get a Token/Key back.
+        /// </summary>
+        public static string activity_auth_tooltip {
+            get {
+                return ResourceManager.GetString("activity_auth_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string activity_auth_username {
+            get {
+                return ResourceManager.GetString("activity_auth_username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blocking.
+        /// </summary>
+        public static string activity_blocking {
+            get {
+                return ResourceManager.GetString("activity_blocking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Block execution until activity is complete.
+        /// </summary>
+        public static string activity_blocking_help {
+            get {
+                return ResourceManager.GetString("activity_blocking_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check Running.
+        /// </summary>
+        public static string activity_checkrunning {
+            get {
+                return ResourceManager.GetString("activity_checkrunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check if the application is already running using the selector. If set to false, will launch a new application no matter what.
+        /// </summary>
+        public static string activity_checkrunning_help {
+            get {
+                return ResourceManager.GetString("activity_checkrunning_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear Range.
+        /// </summary>
+        public static string activity_clearrange {
+            get {
+                return ResourceManager.GetString("activity_clearrange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cells.
+        /// </summary>
+        public static string activity_clearrange_cells {
+            get {
+                return ResourceManager.GetString("activity_clearrange_cells", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set what cells to clear, leave blank to clear all cells.
+        /// </summary>
+        public static string activity_clearrange_cells_help {
+            get {
+                return ResourceManager.GetString("activity_clearrange_cells_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clears all data and formating from a range of cells.
+        /// </summary>
+        public static string activity_clearrange_tooltip {
+            get {
+                return ResourceManager.GetString("activity_clearrange_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Double-click to view.
+        /// </summary>
+        public static string activity_click_to_view {
+            get {
+                return ResourceManager.GetString("activity_click_to_view", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click Delay.
+        /// </summary>
+        public static string activity_clickdelay {
+            get {
+                return ResourceManager.GetString("activity_clickdelay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delay between each keystroke.
+        /// </summary>
+        public static string activity_clickdelay_help {
+            get {
+                return ResourceManager.GetString("activity_clickdelay_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click Element.
+        /// </summary>
+        public static string activity_clickelement {
+            get {
+                return ResourceManager.GetString("activity_clickelement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click on an element found with GetElement.
+        /// </summary>
+        public static string activity_clickelement_tooltip {
+            get {
+                return ResourceManager.GetString("activity_clickelement_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close Application.
+        /// </summary>
+        public static string activity_closeapplication {
+            get {
+                return ResourceManager.GetString("activity_closeapplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find application based on a UI selector and then closes the Application.
+        /// </summary>
+        public static string activity_closeapplication_tooltip {
+            get {
+                return ResourceManager.GetString("activity_closeapplication_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close Document.
+        /// </summary>
+        public static string activity_closedocument {
+            get {
+                return ResourceManager.GetString("activity_closedocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename.
+        /// </summary>
+        public static string activity_closedocument_filename {
+            get {
+                return ResourceManager.GetString("activity_closedocument_filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full path and filename of Microsoft Word document to work with.
+        /// </summary>
+        public static string activity_closedocument_filename_help {
+            get {
+                return ResourceManager.GetString("activity_closedocument_filename_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Changes.
+        /// </summary>
+        public static string activity_closedocument_savechanges {
+            get {
+                return ResourceManager.GetString("activity_closedocument_savechanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set to true to save the word file. Set to false to discard any changes made.
+        /// </summary>
+        public static string activity_closedocument_savechanges_help {
+            get {
+                return ResourceManager.GetString("activity_closedocument_savechanges_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close a Microsoft Word document if open. Will also close word if no other documents are open.
+        /// </summary>
+        public static string activity_closedocument_tooltip {
+            get {
+                return ResourceManager.GetString("activity_closedocument_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close Tab.
+        /// </summary>
+        public static string activity_closetab {
+            get {
+                return ResourceManager.GetString("activity_closetab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close the current tab, or close all tabs.
+        /// </summary>
+        public static string activity_closetab_tooltip {
+            get {
+                return ResourceManager.GetString("activity_closetab_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close Workbook.
+        /// </summary>
+        public static string activity_closeworkbook {
+            get {
+                return ResourceManager.GetString("activity_closeworkbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename.
+        /// </summary>
+        public static string activity_closeworkbook_filename {
+            get {
+                return ResourceManager.GetString("activity_closeworkbook_filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full path and filename of Microsoft Excel workbook to work with.
+        /// </summary>
+        public static string activity_closeworkbook_filename_help {
+            get {
+                return ResourceManager.GetString("activity_closeworkbook_filename_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Changes.
+        /// </summary>
+        public static string activity_closeworkbook_savechanges {
+            get {
+                return ResourceManager.GetString("activity_closeworkbook_savechanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set to true, to save the excel file, set to false to discard any changces made.
+        /// </summary>
+        public static string activity_closeworkbook_savechanges_help {
+            get {
+                return ResourceManager.GetString("activity_closeworkbook_savechanges_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close a Workbook if open. Will also close Excel if no other workbooks are open.
+        /// </summary>
+        public static string activity_closeworkbook_tooltip {
+            get {
+                return ResourceManager.GetString("activity_closeworkbook_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Workbook.
+        /// </summary>
+        public static string activity_closeworkbook_workbook {
+            get {
+                return ResourceManager.GetString("activity_closeworkbook_workbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use a Microsoft Excel workbook variable to work with.
+        /// </summary>
+        public static string activity_closeworkbook_workbook_help {
+            get {
+                return ResourceManager.GetString("activity_closeworkbook_workbook_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment Out.
+        /// </summary>
+        public static string activity_commentout {
+            get {
+                return ResourceManager.GetString("activity_commentout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore everything inside this Activity. Useful to quickly highlight something.
+        /// </summary>
+        public static string activity_commentout_tooltip {
+            get {
+                return ResourceManager.GetString("activity_commentout_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datatable.
+        /// </summary>
+        public static string activity_converter_datatable {
+            get {
+                return ResourceManager.GetString("activity_converter_datatable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JArray.
+        /// </summary>
+        public static string activity_converter_jarray {
+            get {
+                return ResourceManager.GetString("activity_converter_jarray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Clipboard.
+        /// </summary>
+        public static string activity_copyclipboard {
+            get {
+                return ResourceManager.GetString("activity_copyclipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy content of Clipboard into a variable.
+        /// </summary>
+        public static string activity_copyclipboard_tooltip {
+            get {
+                return ResourceManager.GetString("activity_copyclipboard_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DataTable.
+        /// </summary>
+        public static string activity_database_datatable {
+            get {
+                return ResourceManager.GetString("activity_database_datatable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The DataTable to save result into.
+        /// </summary>
+        public static string activity_database_datatable_hint {
+            get {
+                return ResourceManager.GetString("activity_database_datatable_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Query.
+        /// </summary>
+        public static string activity_database_query {
+            get {
+                return ResourceManager.GetString("activity_database_query", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The query to execute.
+        /// </summary>
+        public static string activity_database_query_hint {
+            get {
+                return ResourceManager.GetString("activity_database_query_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result.
+        /// </summary>
+        public static string activity_database_result {
+            get {
+                return ResourceManager.GetString("activity_database_result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The result of the query.
+        /// </summary>
+        public static string activity_database_result_hint {
+            get {
+                return ResourceManager.GetString("activity_database_result_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table.
+        /// </summary>
+        public static string activity_database_table {
+            get {
+                return ResourceManager.GetString("activity_database_table", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table to insert rows into.
+        /// </summary>
+        public static string activity_database_table_hint {
+            get {
+                return ResourceManager.GetString("activity_database_table_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database Scope.
+        /// </summary>
+        public static string activity_databasescope {
+            get {
+                return ResourceManager.GetString("activity_databasescope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Database.
+        /// </summary>
+        public static string activity_databasescope_select {
+            get {
+                return ResourceManager.GetString("activity_databasescope_select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database scope that opens a connection to a database, and closes the connection at the end.
+        /// </summary>
+        public static string activity_databasescope_tooltip {
+            get {
+                return ResourceManager.GetString("activity_databasescope_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DataTable.
+        /// </summary>
+        public static string activity_datatable {
+            get {
+                return ResourceManager.GetString("activity_datatable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Array of DataTable columns.
+        /// </summary>
+        public static string activity_datatable_columnnames {
+            get {
+                return ResourceManager.GetString("activity_datatable_columnnames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The DataTable to work with.
+        /// </summary>
+        public static string activity_datatable_help {
+            get {
+                return ResourceManager.GetString("activity_datatable_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New columns Name.
+        /// </summary>
+        public static string activity_datatable_newcolumnname {
+            get {
+                return ResourceManager.GetString("activity_datatable_newcolumnname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data View.
+        /// </summary>
+        public static string activity_dataview {
+            get {
+                return ResourceManager.GetString("activity_dataview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The DateView to work with.
+        /// </summary>
+        public static string activity_dataview_help {
+            get {
+                return ResourceManager.GetString("activity_dataview_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Row.
+        /// </summary>
+        public static string activity_deletedatarow_row {
+            get {
+                return ResourceManager.GetString("activity_deletedatarow_row", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete File.
+        /// </summary>
+        public static string activity_deletefile {
+            get {
+                return ResourceManager.GetString("activity_deletefile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete a file from the OpenFlow database.
+        /// </summary>
+        public static string activity_deletefile_tooltip {
+            get {
+                return ResourceManager.GetString("activity_deletefile_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete One.
+        /// </summary>
+        public static string activity_deleteone {
+            get {
+                return ResourceManager.GetString("activity_deleteone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete one item in the OpenFlow database.
+        /// </summary>
+        public static string activity_deleteone_tooltip {
+            get {
+                return ResourceManager.GetString("activity_deleteone_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detector.
+        /// </summary>
+        public static string activity_detector {
+            get {
+                return ResourceManager.GetString("activity_detector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will wait for this detector to trigger, then the workflow will continue.
+        /// </summary>
+        public static string activity_detector_help {
+            get {
+                return ResourceManager.GetString("activity_detector_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Puts workflow in idle mode, waiting on selected detector to trigger.
+        /// </summary>
+        public static string activity_detector_tooltip {
+            get {
+                return ResourceManager.GetString("activity_detector_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displayname.
+        /// </summary>
+        public static string activity_displayname {
+            get {
+                return ResourceManager.GetString("activity_displayname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displayname inside the workflow designer.
+        /// </summary>
+        public static string activity_displayname_help {
+            get {
+                return ResourceManager.GetString("activity_displayname_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Double Click.
+        /// </summary>
+        public static string activity_doubleclick {
+            get {
+                return ResourceManager.GetString("activity_doubleclick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do a double click instead of single click.
+        /// </summary>
+        public static string activity_doubleclick_help {
+            get {
+                return ResourceManager.GetString("activity_doubleclick_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save into this folder.
+        /// </summary>
+        public static string activity_downloadfile_hint {
+            get {
+                return ResourceManager.GetString("activity_downloadfile_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drop activity.
+        /// </summary>
+        public static string activity_drop_hint {
+            get {
+                return ResourceManager.GetString("activity_drop_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        public static string activity_duration {
+            get {
+                return ResourceManager.GetString("activity_duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will run for the duration.
+        /// </summary>
+        public static string activity_duration_help {
+            get {
+                return ResourceManager.GetString("activity_duration_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Element.
+        /// </summary>
+        public static string activity_element {
+            get {
+                return ResourceManager.GetString("activity_element", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work on this element, the return type of all GetElement activites and some others.
+        /// </summary>
+        public static string activity_element_help {
+            get {
+                return ResourceManager.GetString("activity_element_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute Non Query.
+        /// </summary>
+        public static string activity_executenonquery {
+            get {
+                return ResourceManager.GetString("activity_executenonquery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Query.
+        /// </summary>
+        public static string activity_executenonquery_query {
+            get {
+                return ResourceManager.GetString("activity_executenonquery_query", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The query to execute.
+        /// </summary>
+        public static string activity_executenonquery_query_help {
+            get {
+                return ResourceManager.GetString("activity_executenonquery_query_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Runs a query that returns no results, for UPDATE, INSERT, and DELETE statements. The Result value is the number of rows affected by the command. For all else, the Result value will be -1.
+        /// </summary>
+        public static string activity_executenonquery_tooltip {
+            get {
+                return ResourceManager.GetString("activity_executenonquery_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute Query.
+        /// </summary>
+        public static string activity_executequery {
+            get {
+                return ResourceManager.GetString("activity_executequery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Runs a query and returns the result as a DataTable.
+        /// </summary>
+        public static string activity_executequery_tooltip {
+            get {
+                return ResourceManager.GetString("activity_executequery_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute Scalar.
+        /// </summary>
+        public static string activity_executescalar {
+            get {
+                return ResourceManager.GetString("activity_executescalar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Runs a query that returns exactly one result.
+        /// </summary>
+        public static string activity_executescalar_tooltip {
+            get {
+                return ResourceManager.GetString("activity_executescalar_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute Script.
+        /// </summary>
+        public static string activity_executescript {
+            get {
+                return ResourceManager.GetString("activity_executescript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute script in the browser, targeting current tab and default frame.
+        /// </summary>
+        public static string activity_executescript_tooltip {
+            get {
+                return ResourceManager.GetString("activity_executescript_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileURL.
+        /// </summary>
+        public static string activity_exportfile_file {
+            get {
+                return ResourceManager.GetString("activity_exportfile_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL to file to get data from.
+        /// </summary>
+        public static string activity_exportfile_file_hint {
+            get {
+                return ResourceManager.GetString("activity_exportfile_file_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key.
+        /// </summary>
+        public static string activity_exportfile_key {
+            get {
+                return ResourceManager.GetString("activity_exportfile_key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to API key from auth activitity.
+        /// </summary>
+        public static string activity_exportfile_key_hint {
+            get {
+                return ResourceManager.GetString("activity_exportfile_key_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Queue.
+        /// </summary>
+        public static string activity_exportfile_queue {
+            get {
+                return ResourceManager.GetString("activity_exportfile_queue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Queue to export data from.
+        /// </summary>
+        public static string activity_exportfile_queue_hint {
+            get {
+                return ResourceManager.GetString("activity_exportfile_queue_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export File Data.
+        /// </summary>
+        public static string activity_exportfiledata {
+            get {
+                return ResourceManager.GetString("activity_exportfiledata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get date of the extracted data from an invoice. Only works once the file status is in status exported.
+        /// </summary>
+        public static string activity_exportfiledata_tooltip {
+            get {
+                return ResourceManager.GetString("activity_exportfiledata_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename.
+        /// </summary>
+        public static string activity_filename {
+            get {
+                return ResourceManager.GetString("activity_filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename.
+        /// </summary>
+        public static string activity_filename_hint {
+            get {
+                return ResourceManager.GetString("activity_filename_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Focus Element.
+        /// </summary>
+        public static string activity_focuselement {
+            get {
+                return ResourceManager.GetString("activity_focuselement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Give element focus.
+        /// </summary>
+        public static string activity_focuselement_tooltip {
+            get {
+                return ResourceManager.GetString("activity_focuselement_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force.
+        /// </summary>
+        public static string activity_force {
+            get {
+                return ResourceManager.GetString("activity_force", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force activity execution.
+        /// </summary>
+        public static string activity_force_help {
+            get {
+                return ResourceManager.GetString("activity_force_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For each DataRow.
+        /// </summary>
+        public static string activity_foreachdatarow {
+            get {
+                return ResourceManager.GetString("activity_foreachdatarow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enumerate through each row inside a DataTable.
+        /// </summary>
+        public static string activity_foreachdatarow_tooltip {
+            get {
+                return ResourceManager.GetString("activity_foreachdatarow_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Build form.
+        /// </summary>
+        public static string activity_formdesigner_build {
+            get {
+                return ResourceManager.GetString("activity_formdesigner_build", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Color.
+        /// </summary>
+        public static string activity_getcolor {
+            get {
+                return ResourceManager.GetString("activity_getcolor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get color at specefied cordinates. .
+        /// </summary>
+        public static string activity_getcolor_tooltip {
+            get {
+                return ResourceManager.GetString("activity_getcolor_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Credentials.
+        /// </summary>
+        public static string activity_getcredentials {
+            get {
+                return ResourceManager.GetString("activity_getcredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get a set of encrypted credentials from OpenFlow.
+        /// </summary>
+        public static string activity_getcredentials_tooltip {
+            get {
+                return ResourceManager.GetString("activity_getcredentials_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Get Element.
         /// </summary>
         public static string activity_getelement {
@@ -88,6 +1204,24 @@ namespace OpenRPA.SAP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loop action.
+        /// </summary>
+        public static string activity_getelement_loopaction {
+            get {
+                return ResourceManager.GetString("activity_getelement_loopaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do this once done processing each result. Then reruns the selector and looks for new items.
+        /// </summary>
+        public static string activity_getelement_loopaction_tooltop {
+            get {
+                return ResourceManager.GetString("activity_getelement_loopaction_tooltop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Selector.
         /// </summary>
         public static string activity_getelement_open_selector {
@@ -97,11 +1231,269 @@ namespace OpenRPA.SAP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find an SAP element based on selector.
+        ///   Looks up a localized string similar to Process Limit.
+        /// </summary>
+        public static string activity_getelement_process_limit {
+            get {
+                return ResourceManager.GetString("activity_getelement_process_limit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Image.
+        /// </summary>
+        public static string activity_getelement_select {
+            get {
+                return ResourceManager.GetString("activity_getelement_select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find a Windows UI element based on selector.
         /// </summary>
         public static string activity_getelement_tooltip {
             get {
                 return ResourceManager.GetString("activity_getelement_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reload.
+        /// </summary>
+        public static string activity_getemails_reload {
+            get {
+                return ResourceManager.GetString("activity_getemails_reload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get File.
+        /// </summary>
+        public static string activity_getfile {
+            get {
+                return ResourceManager.GetString("activity_getfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download a file saved inside the OpenFlow database.
+        /// </summary>
+        public static string activity_getfile_tooltip {
+            get {
+                return ResourceManager.GetString("activity_getfile_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get File Status.
+        /// </summary>
+        public static string activity_getfilestatus {
+            get {
+                return ResourceManager.GetString("activity_getfilestatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get status of a file in queue, can be any of the following:
+        ///importing - Document is being processed by the AI Core Engine for data extraction; initial state of the document.
+        ///failed_import - Import failed e.g. due to a malformed document file.
+        ///to_review - Initial extraction step is done and the document is waiting for user validation.
+        ///reviewing - Document is undergoing validation in the user interface.
+        ///exporting - Document is validated and is now awaiting the completion of connector save call.
+        ///exported [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string activity_getfilestatus_tooltip {
+            get {
+                return ResourceManager.GetString("activity_getfilestatus_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Image.
+        /// </summary>
+        public static string activity_getimage {
+            get {
+                return ResourceManager.GetString("activity_getimage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drop activity.
+        /// </summary>
+        public static string activity_getimage_drop_hint {
+            get {
+                return ResourceManager.GetString("activity_getimage_drop_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight.
+        /// </summary>
+        public static string activity_getimage_highlight {
+            get {
+                return ResourceManager.GetString("activity_getimage_highlight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Image.
+        /// </summary>
+        public static string activity_getimage_select {
+            get {
+                return ResourceManager.GetString("activity_getimage_select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get an image of the screen relative to another image or element found with GetElement.
+        /// </summary>
+        public static string activity_getimage_tooltip {
+            get {
+                return ResourceManager.GetString("activity_getimage_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Mails.
+        /// </summary>
+        public static string activity_getmails {
+            get {
+                return ResourceManager.GetString("activity_getmails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string activity_getmails_filter {
+            get {
+                return ResourceManager.GetString("activity_getmails_filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter emails by query.
+        /// </summary>
+        public static string activity_getmails_filter_hint {
+            get {
+                return ResourceManager.GetString("activity_getmails_filter_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get all emails from a Microsoft Outlook folder.
+        /// </summary>
+        public static string activity_getmails_tooltip {
+            get {
+                return ResourceManager.GetString("activity_getmails_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Paragraph.
+        /// </summary>
+        public static string activity_getparagraph {
+            get {
+                return ResourceManager.GetString("activity_getparagraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Count.
+        /// </summary>
+        public static string activity_getparagraph_count {
+            get {
+                return ResourceManager.GetString("activity_getparagraph_count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Returns the number of paragraphs in the Microsoft Word document.
+        /// </summary>
+        public static string activity_getparagraph_count_help {
+            get {
+                return ResourceManager.GetString("activity_getparagraph_count_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename.
+        /// </summary>
+        public static string activity_getparagraph_filename {
+            get {
+                return ResourceManager.GetString("activity_getparagraph_filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full path and filename of Microsoft Word document to work with.
+        /// </summary>
+        public static string activity_getparagraph_filename_help {
+            get {
+                return ResourceManager.GetString("activity_getparagraph_filename_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Index.
+        /// </summary>
+        public static string activity_getparagraph_index {
+            get {
+                return ResourceManager.GetString("activity_getparagraph_index", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get all the content of the paragraph with this index and a MaxResults more. Leave this field blank to get the entire word document.
+        /// </summary>
+        public static string activity_getparagraph_index_help {
+            get {
+                return ResourceManager.GetString("activity_getparagraph_index_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max Results.
+        /// </summary>
+        public static string activity_getparagraph_maxresults {
+            get {
+                return ResourceManager.GetString("activity_getparagraph_maxresults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Limit the number of paragraphs to get. Leave blank or at 0 to get all from Index onwards.
+        /// </summary>
+        public static string activity_getparagraph_maxresults_help {
+            get {
+                return ResourceManager.GetString("activity_getparagraph_maxresults_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text.
+        /// </summary>
+        public static string activity_getparagraph_text {
+            get {
+                return ResourceManager.GetString("activity_getparagraph_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save the read paragrahs to this variable.
+        /// </summary>
+        public static string activity_getparagraph_text_help {
+            get {
+                return ResourceManager.GetString("activity_getparagraph_text_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get one or more paragraphs from a Microsoft Word document.
+        /// </summary>
+        public static string activity_getparagraph_tooltip {
+            get {
+                return ResourceManager.GetString("activity_getparagraph_tooltip", resourceCulture);
             }
         }
         
@@ -192,6 +1584,348 @@ namespace OpenRPA.SAP.Resources {
         public static string activity_getproperty_tooltip {
             get {
                 return ResourceManager.GetString("activity_getproperty_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Queues.
+        /// </summary>
+        public static string activity_getqueues {
+            get {
+                return ResourceManager.GetString("activity_getqueues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key.
+        /// </summary>
+        public static string activity_getqueues_key {
+            get {
+                return ResourceManager.GetString("activity_getqueues_key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to API key from auth activitity.
+        /// </summary>
+        public static string activity_getqueues_key_hint {
+            get {
+                return ResourceManager.GetString("activity_getqueues_key_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get a list of queues from Rossum. A file must be uploaded to a queue that has various settings set through the website..
+        /// </summary>
+        public static string activity_getqueues_tooltip {
+            get {
+                return ResourceManager.GetString("activity_getqueues_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Selected Range.
+        /// </summary>
+        public static string activity_getselectedrange {
+            get {
+                return ResourceManager.GetString("activity_getselectedrange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get the currently selected cells in the specified worksheet.
+        /// </summary>
+        public static string activity_getselectedrange_tooltip {
+            get {
+                return ResourceManager.GetString("activity_getselectedrange_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileURL.
+        /// </summary>
+        public static string activity_getstatus_file {
+            get {
+                return ResourceManager.GetString("activity_getstatus_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL to file to get status from.
+        /// </summary>
+        public static string activity_getstatus_file_hint {
+            get {
+                return ResourceManager.GetString("activity_getstatus_file_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key.
+        /// </summary>
+        public static string activity_getstatus_key {
+            get {
+                return ResourceManager.GetString("activity_getstatus_key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to API key from auth activitity.
+        /// </summary>
+        public static string activity_getstatus_key_hint {
+            get {
+                return ResourceManager.GetString("activity_getstatus_key_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Text.
+        /// </summary>
+        public static string activity_gettext {
+            get {
+                return ResourceManager.GetString("activity_gettext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drop activity.
+        /// </summary>
+        public static string activity_gettext_drop_hint {
+            get {
+                return ResourceManager.GetString("activity_gettext_drop_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Limit to.
+        /// </summary>
+        public static string activity_gettext_limit {
+            get {
+                return ResourceManager.GetString("activity_gettext_limit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search only for this word.
+        /// </summary>
+        public static string activity_gettext_limit_hint {
+            get {
+                return ResourceManager.GetString("activity_gettext_limit_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use OCR to get all text from an image. Can be limited to a specific word or sentence.
+        /// </summary>
+        public static string activity_gettext_tooltip {
+            get {
+                return ResourceManager.GetString("activity_gettext_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grant Permission.
+        /// </summary>
+        public static string activity_grantpermission {
+            get {
+                return ResourceManager.GetString("activity_grantpermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add or update permissions for a user or role on the specified object. You must update the document in OpenFlow after.
+        /// </summary>
+        public static string activity_grantpermission_tooltip {
+            get {
+                return ResourceManager.GetString("activity_grantpermission_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        public static string activity_height {
+            get {
+                return ResourceManager.GetString("activity_height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If set, will move the window to this location.
+        /// </summary>
+        public static string activity_height_help {
+            get {
+                return ResourceManager.GetString("activity_height_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight.
+        /// </summary>
+        public static string activity_highlight {
+            get {
+                return ResourceManager.GetString("activity_highlight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight Element.
+        /// </summary>
+        public static string activity_highlightelement {
+            get {
+                return ResourceManager.GetString("activity_highlightelement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight an element found with GetElement.
+        /// </summary>
+        public static string activity_highlightelement_tooltip {
+            get {
+                return ResourceManager.GetString("activity_highlightelement_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore Errors.
+        /// </summary>
+        public static string activity_ignoreerrors {
+            get {
+                return ResourceManager.GetString("activity_ignoreerrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If an error occurs, will ignore it and continue.
+        /// </summary>
+        public static string activity_ignoreerrors_help {
+            get {
+                return ResourceManager.GetString("activity_ignoreerrors_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image Result.
+        /// </summary>
+        public static string activity_imageresult {
+            get {
+                return ResourceManager.GetString("activity_imageresult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return the result as an image.
+        /// </summary>
+        public static string activity_imageresult_help {
+            get {
+                return ResourceManager.GetString("activity_imageresult_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert Clipboard.
+        /// </summary>
+        public static string activity_insertclipboard {
+            get {
+                return ResourceManager.GetString("activity_insertclipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert new content into the users Clipboard buffer.
+        /// </summary>
+        public static string activity_insertclipboard_tooltip {
+            get {
+                return ResourceManager.GetString("activity_insertclipboard_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert One.
+        /// </summary>
+        public static string activity_insertone {
+            get {
+                return ResourceManager.GetString("activity_insertone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inserts one item into the OpenFlow database.
+        /// </summary>
+        public static string activity_insertone_tooltip {
+            get {
+                return ResourceManager.GetString("activity_insertone_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert Or Update One.
+        /// </summary>
+        public static string activity_insertorupdateone {
+            get {
+                return ResourceManager.GetString("activity_insertorupdateone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inserts one item into the OpenFlow database or updates if it already exists. Checks _id unless you specify Uniqueness in which case it will find existing items based on the fields mentioned in Uniqueness.
+        /// </summary>
+        public static string activity_insertorupdateone_tooltip {
+            get {
+                return ResourceManager.GetString("activity_insertorupdateone_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoke Code.
+        /// </summary>
+        public static string activity_invokecode {
+            get {
+                return ResourceManager.GetString("activity_invokecode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoke code written in one of several languages.
+        /// </summary>
+        public static string activity_invokecode_tooltip {
+            get {
+                return ResourceManager.GetString("activity_invokecode_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoke Formula.
+        /// </summary>
+        public static string activity_invokeform {
+            get {
+                return ResourceManager.GetString("activity_invokeform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create variables.
+        /// </summary>
+        public static string activity_invokeform_create_var {
+            get {
+                return ResourceManager.GetString("activity_invokeform_create_var", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open designer.
+        /// </summary>
+        public static string activity_invokeform_open {
+            get {
+                return ResourceManager.GetString("activity_invokeform_open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do interaction with user at the computer with predesigned formulas.
+        /// </summary>
+        public static string activity_invokeform_tooltip {
+            get {
+                return ResourceManager.GetString("activity_invokeform_tooltip", resourceCulture);
             }
         }
         
@@ -304,6 +2038,141 @@ namespace OpenRPA.SAP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invoke OpenFlow.
+        /// </summary>
+        public static string activity_invokeopenflow {
+            get {
+                return ResourceManager.GetString("activity_invokeopenflow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoke a workflow in node registered for RPA usage inside OpenFlow.
+        /// </summary>
+        public static string activity_invokeopenflow_tooltip {
+            get {
+                return ResourceManager.GetString("activity_invokeopenflow_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoke OpenRPA.
+        /// </summary>
+        public static string activity_invokeopenrpa {
+            get {
+                return ResourceManager.GetString("activity_invokeopenrpa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoke a local OpenRPA Workflow.
+        /// </summary>
+        public static string activity_invokeopenrpa_tooltip {
+            get {
+                return ResourceManager.GetString("activity_invokeopenrpa_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoke Remote OpenRPA.
+        /// </summary>
+        public static string activity_invokeremoteopenrpa {
+            get {
+                return ResourceManager.GetString("activity_invokeremoteopenrpa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoke a OpenRPA Workflow on a remote Robot.
+        /// </summary>
+        public static string activity_invokeremoteopenrpa_tooltip {
+            get {
+                return ResourceManager.GetString("activity_invokeremoteopenrpa_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key Modifiers.
+        /// </summary>
+        public static string activity_keymodifiers {
+            get {
+                return ResourceManager.GetString("activity_keymodifiers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hold this key down, while clicking, only works if Virtual click is disabled.
+        /// </summary>
+        public static string activity_keymodifiers_help {
+            get {
+                return ResourceManager.GetString("activity_keymodifiers_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drop activity.
+        /// </summary>
+        public static string activity_loadfile_drop_hint {
+            get {
+                return ResourceManager.GetString("activity_loadfile_drop_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename.
+        /// </summary>
+        public static string activity_loadfile_filename {
+            get {
+                return ResourceManager.GetString("activity_loadfile_filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image file to load.
+        /// </summary>
+        public static string activity_loadfile_filename_hint {
+            get {
+                return ResourceManager.GetString("activity_loadfile_filename_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load From File.
+        /// </summary>
+        public static string activity_loadfromfile {
+            get {
+                return ResourceManager.GetString("activity_loadfromfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load an image from a file and return an ImageElement.
+        /// </summary>
+        public static string activity_loadfromfile_tooltip {
+            get {
+                return ResourceManager.GetString("activity_loadfromfile_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local path.
+        /// </summary>
+        public static string activity_local_path {
+            get {
+                return ResourceManager.GetString("activity_local_path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save file into this folder.
+        /// </summary>
+        public static string activity_local_path_hint {
+            get {
+                return ResourceManager.GetString("activity_local_path_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string activity_login {
@@ -376,7 +2245,7 @@ namespace OpenRPA.SAP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password for user to login with.
+        ///   Looks up a localized string similar to Password for user to log in with.
         /// </summary>
         public static string activity_login_password_help {
             get {
@@ -394,7 +2263,7 @@ namespace OpenRPA.SAP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expected System Name, will search for a session to this system, and only login if non is found. Leave empty to always login to a new session.
+        ///   Looks up a localized string similar to Expected System Name. Will search for a session in this system, and only logs in if none is found. Leave empty to always log in to a new session.
         /// </summary>
         public static string activity_login_systemname_help {
             get {
@@ -403,7 +2272,7 @@ namespace OpenRPA.SAP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login to sap using the credentials, unless a session with the given name exists.
+        ///   Looks up a localized string similar to Login to SAP using the credentials, unless a session with the given name exists.
         /// </summary>
         public static string activity_login_tooltip {
             get {
@@ -421,7 +2290,7 @@ namespace OpenRPA.SAP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username to login with.
+        ///   Looks up a localized string similar to Username to log in with.
         /// </summary>
         public static string activity_login_username_help {
             get {
@@ -435,6 +2304,816 @@ namespace OpenRPA.SAP.Resources {
         public static string activity_map_variables {
             get {
                 return ResourceManager.GetString("activity_map_variables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compiled.
+        /// </summary>
+        public static string activity_match_compiled {
+            get {
+                return ResourceManager.GetString("activity_match_compiled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The input string to match against.
+        /// </summary>
+        public static string activity_match_input {
+            get {
+                return ResourceManager.GetString("activity_match_input", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The regular expression to match.
+        /// </summary>
+        public static string activity_match_pattern {
+            get {
+                return ResourceManager.GetString("activity_match_pattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace with this string.
+        /// </summary>
+        public static string activity_match_replacement {
+            get {
+                return ResourceManager.GetString("activity_match_replacement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouse Button.
+        /// </summary>
+        public static string activity_mousebutton {
+            get {
+                return ResourceManager.GetString("activity_mousebutton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouse button to click with.
+        /// </summary>
+        public static string activity_mousebutton_help {
+            get {
+                return ResourceManager.GetString("activity_mousebutton_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mail.
+        /// </summary>
+        public static string activity_movemail_mail {
+            get {
+                return ResourceManager.GetString("activity_movemail_mail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mail item to move.
+        /// </summary>
+        public static string activity_movemail_mail_hint {
+            get {
+                return ResourceManager.GetString("activity_movemail_mail_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move MailItem.
+        /// </summary>
+        public static string activity_movemailitem {
+            get {
+                return ResourceManager.GetString("activity_movemailitem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move a mail gotten with GetEmails to a different folder.
+        /// </summary>
+        public static string activity_movemailitem_tooltip {
+            get {
+                return ResourceManager.GetString("activity_movemailitem_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Mouse.
+        /// </summary>
+        public static string activity_movemouse {
+            get {
+                return ResourceManager.GetString("activity_movemouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move mouse cursor to a location relative to an element found with GetElement (or desktop if no element supplied).
+        /// </summary>
+        public static string activity_movemouse_tooltip {
+            get {
+                return ResourceManager.GetString("activity_movemouse_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New DataTable variable.
+        /// </summary>
+        public static string activity_new_datatable {
+            get {
+                return ResourceManager.GetString("activity_new_datatable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New MailItem.
+        /// </summary>
+        public static string activity_newmailitem {
+            get {
+                return ResourceManager.GetString("activity_newmailitem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new Microsoft Outlook Mailitem.
+        /// </summary>
+        public static string activity_newmailitem_tooltip {
+            get {
+                return ResourceManager.GetString("activity_newmailitem_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string activity_noti_message {
+            get {
+                return ResourceManager.GetString("activity_noti_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification message.
+        /// </summary>
+        public static string activity_noti_message_hint {
+            get {
+                return ResourceManager.GetString("activity_noti_message_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X Offset.
+        /// </summary>
+        public static string activity_offsetx {
+            get {
+                return ResourceManager.GetString("activity_offsetx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click with this offset inside the element.
+        /// </summary>
+        public static string activity_offsetx_help {
+            get {
+                return ResourceManager.GetString("activity_offsetx_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y Offset.
+        /// </summary>
+        public static string activity_offsety {
+            get {
+                return ResourceManager.GetString("activity_offsety", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click with this offset inside the element.
+        /// </summary>
+        public static string activity_offsety_help {
+            get {
+                return ResourceManager.GetString("activity_offsety_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Editor.
+        /// </summary>
+        public static string activity_open_editor {
+            get {
+                return ResourceManager.GetString("activity_open_editor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Selector.
+        /// </summary>
+        public static string activity_open_selector {
+            get {
+                return ResourceManager.GetString("activity_open_selector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Application.
+        /// </summary>
+        public static string activity_openapplication {
+            get {
+                return ResourceManager.GetString("activity_openapplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for Windows element based on a selector, and give it focus, if not found start the application.
+        /// </summary>
+        public static string activity_openapplication_tooltip {
+            get {
+                return ResourceManager.GetString("activity_openapplication_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open URL.
+        /// </summary>
+        public static string activity_openurl {
+            get {
+                return ResourceManager.GetString("activity_openurl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get current.
+        /// </summary>
+        public static string activity_openurl_getcurrent {
+            get {
+                return ResourceManager.GetString("activity_openurl_getcurrent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open the specefied url in the selected browser.
+        /// </summary>
+        public static string activity_openurl_tooltip {
+            get {
+                return ResourceManager.GetString("activity_openurl_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string activity_perm_delete {
+            get {
+                return ResourceManager.GetString("activity_perm_delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read.
+        /// </summary>
+        public static string activity_perm_read {
+            get {
+                return ResourceManager.GetString("activity_perm_read", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string activity_perm_update {
+            get {
+                return ResourceManager.GetString("activity_perm_update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pip Install.
+        /// </summary>
+        public static string activity_pipinstall {
+            get {
+                return ResourceManager.GetString("activity_pipinstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force.
+        /// </summary>
+        public static string activity_pipinstall_force {
+            get {
+                return ResourceManager.GetString("activity_pipinstall_force", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force reinstall of module if already exists.
+        /// </summary>
+        public static string activity_pipinstall_force_help {
+            get {
+                return ResourceManager.GetString("activity_pipinstall_force_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modules.
+        /// </summary>
+        public static string activity_pipinstall_modules {
+            get {
+                return ResourceManager.GetString("activity_pipinstall_modules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List of Python modules to install.
+        /// </summary>
+        public static string activity_pipinstall_modules_help {
+            get {
+                return ResourceManager.GetString("activity_pipinstall_modules_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install one or more python modules in the currently selected python envoriment.
+        /// </summary>
+        public static string activity_pipinstall_tooltip {
+            get {
+                return ResourceManager.GetString("activity_pipinstall_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play this video file.
+        /// </summary>
+        public static string activity_play_hint {
+            get {
+                return ResourceManager.GetString("activity_play_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play Recording.
+        /// </summary>
+        public static string activity_playrecording {
+            get {
+                return ResourceManager.GetString("activity_playrecording", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playback a video recording.
+        /// </summary>
+        public static string activity_playrecording_tooltip {
+            get {
+                return ResourceManager.GetString("activity_playrecording_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post Wait.
+        /// </summary>
+        public static string activity_postwait {
+            get {
+                return ResourceManager.GetString("activity_postwait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait this amount of time after doing the click. Helpful for applications that can be very slow to react to clicks.
+        /// </summary>
+        public static string activity_postwait_help {
+            get {
+                return ResourceManager.GetString("activity_postwait_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Query.
+        /// </summary>
+        public static string activity_query {
+            get {
+                return ResourceManager.GetString("activity_query", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Query the OpenFlow database for one or more items.
+        /// </summary>
+        public static string activity_query_tooltip {
+            get {
+                return ResourceManager.GetString("activity_query_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read Cell.
+        /// </summary>
+        public static string activity_readcell {
+            get {
+                return ResourceManager.GetString("activity_readcell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read the content of a single cell in Microsoft Excel.
+        /// </summary>
+        public static string activity_readcell_tooltip {
+            get {
+                return ResourceManager.GetString("activity_readcell_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select excel file to read.
+        /// </summary>
+        public static string activity_readexcel_hint {
+            get {
+                return ResourceManager.GetString("activity_readexcel_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select JSON file to read.
+        /// </summary>
+        public static string activity_readjson_hint {
+            get {
+                return ResourceManager.GetString("activity_readjson_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select PDF file to read.
+        /// </summary>
+        public static string activity_readpdf_hint {
+            get {
+                return ResourceManager.GetString("activity_readpdf_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read Range.
+        /// </summary>
+        public static string activity_readrange {
+            get {
+                return ResourceManager.GetString("activity_readrange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear Formats.
+        /// </summary>
+        public static string activity_readrange_clearformats {
+            get {
+                return ResourceManager.GetString("activity_readrange_clearformats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set to true to remove all formatting from the select worksheet.
+        /// </summary>
+        public static string activity_readrange_clearformats_help {
+            get {
+                return ResourceManager.GetString("activity_readrange_clearformats_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read a range from a Microsoft Excel sheet.
+        /// </summary>
+        public static string activity_readrange_tooltip {
+            get {
+                return ResourceManager.GetString("activity_readrange_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Header Row.
+        /// </summary>
+        public static string activity_readrange_useheaderrow {
+            get {
+                return ResourceManager.GetString("activity_readrange_useheaderrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If select range also contains a header row with column names, set this to true, else leave blank ( then all cloumns will have no name ).
+        /// </summary>
+        public static string activity_readrange_useheaderrow_help {
+            get {
+                return ResourceManager.GetString("activity_readrange_useheaderrow_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Permission.
+        /// </summary>
+        public static string activity_removepermission {
+            get {
+                return ResourceManager.GetString("activity_removepermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove a permission from a user or role on the specified object. You must update the document in OpenFlow after.
+        /// </summary>
+        public static string activity_removepermission_tooltip {
+            get {
+                return ResourceManager.GetString("activity_removepermission_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result.
+        /// </summary>
+        public static string activity_result {
+            get {
+                return ResourceManager.GetString("activity_result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save the result into this variable.
+        /// </summary>
+        public static string activity_result_help {
+            get {
+                return ResourceManager.GetString("activity_result_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run Excel Macro.
+        /// </summary>
+        public static string activity_runexcelmacro {
+            get {
+                return ResourceManager.GetString("activity_runexcelmacro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Macro Name.
+        /// </summary>
+        public static string activity_runexcelmacro_name_hint {
+            get {
+                return ResourceManager.GetString("activity_runexcelmacro_name_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run a Macro within an Excel workbook. The Workbook file needs to be enabled for Macros.
+        /// </summary>
+        public static string activity_runexcelmacro_tooltip {
+            get {
+                return ResourceManager.GetString("activity_runexcelmacro_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run Slideshow.
+        /// </summary>
+        public static string activity_runslideshow {
+            get {
+                return ResourceManager.GetString("activity_runslideshow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open a Microsoft Powerpoint Presentation and start slide show.
+        /// </summary>
+        public static string activity_runslideshow_tooltip {
+            get {
+                return ResourceManager.GetString("activity_runslideshow_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save File.
+        /// </summary>
+        public static string activity_savefile {
+            get {
+                return ResourceManager.GetString("activity_savefile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename.
+        /// </summary>
+        public static string activity_savefile_filename {
+            get {
+                return ResourceManager.GetString("activity_savefile_filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The complete path and filename of the file to upload.
+        /// </summary>
+        public static string activity_savefile_filename_help {
+            get {
+                return ResourceManager.GetString("activity_savefile_filename_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path.
+        /// </summary>
+        public static string activity_savefile_path {
+            get {
+                return ResourceManager.GetString("activity_savefile_path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save file in this subfolder on the server, this has relevance when getting the file again.
+        /// </summary>
+        public static string activity_savefile_path_help {
+            get {
+                return ResourceManager.GetString("activity_savefile_path_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result.
+        /// </summary>
+        public static string activity_savefile_result {
+            get {
+                return ResourceManager.GetString("activity_savefile_result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Returns the id of new uploaded file.
+        /// </summary>
+        public static string activity_savefile_result_help {
+            get {
+                return ResourceManager.GetString("activity_savefile_result_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload and save a file into the OpenFlow database.
+        /// </summary>
+        public static string activity_savefile_tooltip {
+            get {
+                return ResourceManager.GetString("activity_savefile_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save MailItem.
+        /// </summary>
+        public static string activity_savemailitem {
+            get {
+                return ResourceManager.GetString("activity_savemailitem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save a Microsoft Outlook Mail item as a file.
+        /// </summary>
+        public static string activity_savemailitem_tooltip {
+            get {
+                return ResourceManager.GetString("activity_savemailitem_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Element.
+        /// </summary>
+        public static string activity_select_element {
+            get {
+                return ResourceManager.GetString("activity_select_element", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected Folder.
+        /// </summary>
+        public static string activity_selectfolder_hint {
+            get {
+                return ResourceManager.GetString("activity_selectfolder_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selector.
+        /// </summary>
+        public static string activity_selector {
+            get {
+                return ResourceManager.GetString("activity_selector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selector used to find the element(s), supports mapping workflow variables by using {{variablename}}.
+        /// </summary>
+        public static string activity_selector_help {
+            get {
+                return ResourceManager.GetString("activity_selector_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Ctrl+C.
+        /// </summary>
+        public static string activity_sendctrlc {
+            get {
+                return ResourceManager.GetString("activity_sendctrlc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Ctrl+C before trying to copy the Clipboard Content.
+        /// </summary>
+        public static string activity_sendctrlc_help {
+            get {
+                return ResourceManager.GetString("activity_sendctrlc_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Credentials.
+        /// </summary>
+        public static string activity_setcredentials {
+            get {
+                return ResourceManager.GetString("activity_setcredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create or update a set of encrypted credentials in OpenFlow.
+        /// </summary>
+        public static string activity_setcredentials_tooltip {
+            get {
+                return ResourceManager.GetString("activity_setcredentials_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Paragraph.
+        /// </summary>
+        public static string activity_setparagraph {
+            get {
+                return ResourceManager.GetString("activity_setparagraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename.
+        /// </summary>
+        public static string activity_setparagraph_filename {
+            get {
+                return ResourceManager.GetString("activity_setparagraph_filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full path and filename of Microsoft Word document to work with.
+        /// </summary>
+        public static string activity_setparagraph_filename_help {
+            get {
+                return ResourceManager.GetString("activity_setparagraph_filename_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Index.
+        /// </summary>
+        public static string activity_setparagraph_index {
+            get {
+                return ResourceManager.GetString("activity_setparagraph_index", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwrite content in the paragraph with this index. Set 0 to overwrite the entire word document.
+        /// </summary>
+        public static string activity_setparagraph_index_help {
+            get {
+                return ResourceManager.GetString("activity_setparagraph_index_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text.
+        /// </summary>
+        public static string activity_setparagraph_text {
+            get {
+                return ResourceManager.GetString("activity_setparagraph_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The text to set.
+        /// </summary>
+        public static string activity_setparagraph_text_help {
+            get {
+                return ResourceManager.GetString("activity_setparagraph_text_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set content of a paragraph inside a Microsoft Word document.
+        /// </summary>
+        public static string activity_setparagraph_tooltip {
+            get {
+                return ResourceManager.GetString("activity_setparagraph_tooltip", resourceCulture);
             }
         }
         
@@ -529,6 +3208,1842 @@ namespace OpenRPA.SAP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string activity_showballontop_message {
+            get {
+                return ResourceManager.GetString("activity_showballontop_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message to show.
+        /// </summary>
+        public static string activity_showballontop_message_hint {
+            get {
+                return ResourceManager.GetString("activity_showballontop_message_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string activity_showballontop_title {
+            get {
+                return ResourceManager.GetString("activity_showballontop_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title on balloon message.
+        /// </summary>
+        public static string activity_showballontop_title_hint {
+            get {
+                return ResourceManager.GetString("activity_showballontop_title_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Balloon Tip.
+        /// </summary>
+        public static string activity_showballoontip {
+            get {
+                return ResourceManager.GetString("activity_showballoontip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show a small ballontip near the system tray, will respect OS message center settings.
+        /// </summary>
+        public static string activity_showballoontip_tooltip {
+            get {
+                return ResourceManager.GetString("activity_showballoontip_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Notification.
+        /// </summary>
+        public static string activity_shownotification {
+            get {
+                return ResourceManager.GetString("activity_shownotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show a notification in the lower right corner of the screen for a limited amount of time.
+        /// </summary>
+        public static string activity_shownotification_tooltip {
+            get {
+                return ResourceManager.GetString("activity_shownotification_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save in this folder.
+        /// </summary>
+        public static string activity_start_hint {
+            get {
+                return ResourceManager.GetString("activity_start_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arguments to be parsed the the executable.
+        /// </summary>
+        public static string activity_startprocess_arguments_hint {
+            get {
+                return ResourceManager.GetString("activity_startprocess_arguments_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The full filename and path to the executable to start.
+        /// </summary>
+        public static string activity_startprocess_filename_hint {
+            get {
+                return ResourceManager.GetString("activity_startprocess_filename_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Recording.
+        /// </summary>
+        public static string activity_startrecording {
+            get {
+                return ResourceManager.GetString("activity_startrecording", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start recording the screen to a file.
+        /// </summary>
+        public static string activity_startrecording_tooltip {
+            get {
+                return ResourceManager.GetString("activity_startrecording_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save video filename.
+        /// </summary>
+        public static string activity_stop_hint {
+            get {
+                return ResourceManager.GetString("activity_stop_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop Recording.
+        /// </summary>
+        public static string activity_stoprecording {
+            get {
+                return ResourceManager.GetString("activity_stoprecording", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop a running screen recording and save to file.
+        /// </summary>
+        public static string activity_stoprecording_tooltip {
+            get {
+                return ResourceManager.GetString("activity_stoprecording_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to String Result.
+        /// </summary>
+        public static string activity_stringresult {
+            get {
+                return ResourceManager.GetString("activity_stringresult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return the result as a string.
+        /// </summary>
+        public static string activity_stringresult_help {
+            get {
+                return ResourceManager.GetString("activity_stringresult_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take Screenshot.
+        /// </summary>
+        public static string activity_takescreenshot {
+            get {
+                return ResourceManager.GetString("activity_takescreenshot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take screenshot of the entire screen or a specific element found using Get Element.
+        /// </summary>
+        public static string activity_takescreenshot_tooltip {
+            get {
+                return ResourceManager.GetString("activity_takescreenshot_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target.
+        /// </summary>
+        public static string activity_target {
+            get {
+                return ResourceManager.GetString("activity_target", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The target user or role.
+        /// </summary>
+        public static string activity_target_help {
+            get {
+                return ResourceManager.GetString("activity_target_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text.
+        /// </summary>
+        public static string activity_text {
+            get {
+                return ResourceManager.GetString("activity_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timeout.
+        /// </summary>
+        public static string activity_timeout {
+            get {
+                return ResourceManager.GetString("activity_timeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait this long before giving up and either failing or continuing depending on other settings.
+        /// </summary>
+        public static string activity_timeout_help {
+            get {
+                return ResourceManager.GetString("activity_timeout_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type Text.
+        /// </summary>
+        public static string activity_typetext {
+            get {
+                return ResourceManager.GetString("activity_typetext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send keyboard strokes to whatever is in focus, should only be used by recorder.
+        /// </summary>
+        public static string activity_typetext_tooltip {
+            get {
+                return ResourceManager.GetString("activity_typetext_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update From DataTable.
+        /// </summary>
+        public static string activity_updatefromdataTable {
+            get {
+                return ResourceManager.GetString("activity_updatefromdataTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commit changes made on a DataTable back to OpenFlow. Returns list of inserted and updated rows.
+        /// </summary>
+        public static string activity_updatefromdataTable_tooltip {
+            get {
+                return ResourceManager.GetString("activity_updatefromdataTable_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update From DataTable.
+        /// </summary>
+        public static string activity_updatefromtable {
+            get {
+                return ResourceManager.GetString("activity_updatefromtable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DataTable with the data you want to update from.
+        /// </summary>
+        public static string activity_updatefromtable_datatable {
+            get {
+                return ResourceManager.GetString("activity_updatefromtable_datatable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DataTable.
+        /// </summary>
+        public static string activity_updatefromtable_datatable_help {
+            get {
+                return ResourceManager.GetString("activity_updatefromtable_datatable_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result.
+        /// </summary>
+        public static string activity_updatefromtable_result {
+            get {
+                return ResourceManager.GetString("activity_updatefromtable_result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number of rows affected.
+        /// </summary>
+        public static string activity_updatefromtable_result_help {
+            get {
+                return ResourceManager.GetString("activity_updatefromtable_result_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TableName.
+        /// </summary>
+        public static string activity_updatefromtable_tablename {
+            get {
+                return ResourceManager.GetString("activity_updatefromtable_tablename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table to insert rows into.
+        /// </summary>
+        public static string activity_updatefromtable_tablename_help {
+            get {
+                return ResourceManager.GetString("activity_updatefromtable_tablename_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert, Update and Delete the data from the DataTable against the current database, returns the number of rows affected.
+        /// </summary>
+        public static string activity_updatefromtable_tooltip {
+            get {
+                return ResourceManager.GetString("activity_updatefromtable_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload File.
+        /// </summary>
+        public static string activity_uploadfile {
+            get {
+                return ResourceManager.GetString("activity_uploadfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename.
+        /// </summary>
+        public static string activity_uploadfile_filename {
+            get {
+                return ResourceManager.GetString("activity_uploadfile_filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File to upload to the queue.
+        /// </summary>
+        public static string activity_uploadfile_filename_hint {
+            get {
+                return ResourceManager.GetString("activity_uploadfile_filename_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key.
+        /// </summary>
+        public static string activity_uploadfile_key {
+            get {
+                return ResourceManager.GetString("activity_uploadfile_key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to API key from auth activitity.
+        /// </summary>
+        public static string activity_uploadfile_key_hint {
+            get {
+                return ResourceManager.GetString("activity_uploadfile_key_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Queue.
+        /// </summary>
+        public static string activity_uploadfile_queue {
+            get {
+                return ResourceManager.GetString("activity_uploadfile_queue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Queue to upload the file to.
+        /// </summary>
+        public static string activity_uploadfile_queue_hint {
+            get {
+                return ResourceManager.GetString("activity_uploadfile_queue_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploads a file to a Rossum queue.
+        /// </summary>
+        public static string activity_uploadfile_tooltip {
+            get {
+                return ResourceManager.GetString("activity_uploadfile_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Virtual Click.
+        /// </summary>
+        public static string activity_virtualclick {
+            get {
+                return ResourceManager.GetString("activity_virtualclick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try and do a Virtual click instead of using the mouse, not all elements supports this.
+        /// </summary>
+        public static string activity_virtualclick_help {
+            get {
+                return ResourceManager.GetString("activity_virtualclick_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait until Completed.
+        /// </summary>
+        public static string activity_waitforcompleted {
+            get {
+                return ResourceManager.GetString("activity_waitforcompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait for Completion before continuing with workflow.
+        /// </summary>
+        public static string activity_waitforcompleted_help {
+            get {
+                return ResourceManager.GetString("activity_waitforcompleted_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileURL.
+        /// </summary>
+        public static string activity_waitforfile_file {
+            get {
+                return ResourceManager.GetString("activity_waitforfile_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL to file to wait for.
+        /// </summary>
+        public static string activity_waitforfile_file_hint {
+            get {
+                return ResourceManager.GetString("activity_waitforfile_file_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key.
+        /// </summary>
+        public static string activity_waitforfile_key {
+            get {
+                return ResourceManager.GetString("activity_waitforfile_key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to API key from auth activitity.
+        /// </summary>
+        public static string activity_waitforfile_key_hint {
+            get {
+                return ResourceManager.GetString("activity_waitforfile_key_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string activity_waitforfile_status {
+            get {
+                return ResourceManager.GetString("activity_waitforfile_status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status to wait for.
+        /// </summary>
+        public static string activity_waitforfile_status_hint {
+            get {
+                return ResourceManager.GetString("activity_waitforfile_status_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait For File Status.
+        /// </summary>
+        public static string activity_waitforfilestatus {
+            get {
+                return ResourceManager.GetString("activity_waitforfilestatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make workflow go idle while waiting for file to go into the specified status.
+        /// </summary>
+        public static string activity_waitforfilestatus_tooltip {
+            get {
+                return ResourceManager.GetString("activity_waitforfilestatus_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait for ready.
+        /// </summary>
+        public static string activity_waitforready {
+            get {
+                return ResourceManager.GetString("activity_waitforready", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait for page to be ready / is not loading.
+        /// </summary>
+        public static string activity_waitforready_help {
+            get {
+                return ResourceManager.GetString("activity_waitforready_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string activity_width {
+            get {
+                return ResourceManager.GetString("activity_width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If set, will move the window to this location.
+        /// </summary>
+        public static string activity_width_help {
+            get {
+                return ResourceManager.GetString("activity_width_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Workflow.
+        /// </summary>
+        public static string activity_workflow {
+            get {
+                return ResourceManager.GetString("activity_workflow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use this workflow.
+        /// </summary>
+        public static string activity_workflow_help {
+            get {
+                return ResourceManager.GetString("activity_workflow_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write Cell.
+        /// </summary>
+        public static string activity_writecell {
+            get {
+                return ResourceManager.GetString("activity_writecell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set a value or formula to a single cell in Microsoft Excel.
+        /// </summary>
+        public static string activity_writecell_tooltip {
+            get {
+                return ResourceManager.GetString("activity_writecell_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select CSV file to write to.
+        /// </summary>
+        public static string activity_writecsv_hint {
+            get {
+                return ResourceManager.GetString("activity_writecsv_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select excel file to write to.
+        /// </summary>
+        public static string activity_writeexcel_hint {
+            get {
+                return ResourceManager.GetString("activity_writeexcel_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write Range.
+        /// </summary>
+        public static string activity_writerange {
+            get {
+                return ResourceManager.GetString("activity_writerange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cells.
+        /// </summary>
+        public static string activity_writerange_cells {
+            get {
+                return ResourceManager.GetString("activity_writerange_cells", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set the first cell to start writing from. Leave blank to start at last empty row in column A.
+        /// </summary>
+        public static string activity_writerange_cells_help {
+            get {
+                return ResourceManager.GetString("activity_writerange_cells_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DataTable.
+        /// </summary>
+        public static string activity_writerange_datatable {
+            get {
+                return ResourceManager.GetString("activity_writerange_datatable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The datatable containing the data to add to Excel.
+        /// </summary>
+        public static string activity_writerange_datatable_help {
+            get {
+                return ResourceManager.GetString("activity_writerange_datatable_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write all data from a DataTable to at a range inside a Microsoft Excel sheet.
+        /// </summary>
+        public static string activity_writerange_tooltip {
+            get {
+                return ResourceManager.GetString("activity_writerange_tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Header Row.
+        /// </summary>
+        public static string activity_writerange_useheaderrow {
+            get {
+                return ResourceManager.GetString("activity_writerange_useheaderrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If set to true, will also add a header row with column names as the first row, set to false to only add the data.
+        /// </summary>
+        public static string activity_writerange_useheaderrow_help {
+            get {
+                return ResourceManager.GetString("activity_writerange_useheaderrow_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X.
+        /// </summary>
+        public static string activity_x {
+            get {
+                return ResourceManager.GetString("activity_x", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If set, will move the window to this location.
+        /// </summary>
+        public static string activity_x_help {
+            get {
+                return ResourceManager.GetString("activity_x_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y.
+        /// </summary>
+        public static string activity_y {
+            get {
+                return ResourceManager.GetString("activity_y", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If set, will move the window to this location.
+        /// </summary>
+        public static string activity_y_help {
+            get {
+                return ResourceManager.GetString("activity_y_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Animate Mouse.
+        /// </summary>
+        public static string animatemouse {
+            get {
+                return ResourceManager.GetString("animatemouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browser addons.
+        /// </summary>
+        public static string browseraddons {
+            get {
+                return ResourceManager.GetString("browseraddons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string button_ok {
+            get {
+                return ResourceManager.GetString("button_ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel key.
+        /// </summary>
+        public static string cancelkey {
+            get {
+                return ResourceManager.GetString("cancelkey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chrome.
+        /// </summary>
+        public static string chrome {
+            get {
+                return ResourceManager.GetString("chrome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Click PostWait.
+        /// </summary>
+        public static string clickpostwait {
+            get {
+                return ResourceManager.GetString("clickpostwait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compensate for old extension.
+        /// </summary>
+        public static string compensate_for_old_addon {
+            get {
+                return ResourceManager.GetString("compensate_for_old_addon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add pixel compensation for old add.
+        /// </summary>
+        public static string compensate_for_old_addon_help {
+            get {
+                return ResourceManager.GetString("compensate_for_old_addon_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string copy {
+            get {
+                return ResourceManager.GetString("copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy ID.
+        /// </summary>
+        public static string copyid {
+            get {
+                return ResourceManager.GetString("copyid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Relative Filename.
+        /// </summary>
+        public static string copyrelativefilename {
+            get {
+                return ResourceManager.GetString("copyrelativefilename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debug.
+        /// </summary>
+        public static string debug {
+            get {
+                return ResourceManager.GetString("debug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debug Console.
+        /// </summary>
+        public static string debug_console_output {
+            get {
+                return ResourceManager.GetString("debug_console_output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write debug information to browser console.
+        /// </summary>
+        public static string debug_console_output_help {
+            get {
+                return ResourceManager.GetString("debug_console_output_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string delete {
+            get {
+                return ResourceManager.GetString("delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment out.
+        /// </summary>
+        public static string designer_menu_commentout {
+            get {
+                return ResourceManager.GetString("designer_menu_commentout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run from here.
+        /// </summary>
+        public static string designer_menu_runfromhere {
+            get {
+                return ResourceManager.GetString("designer_menu_runfromhere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run this activity.
+        /// </summary>
+        public static string designer_menu_runthis {
+            get {
+                return ResourceManager.GetString("designer_menu_runthis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uncomment.
+        /// </summary>
+        public static string designer_menu_uncomment {
+            get {
+                return ResourceManager.GetString("designer_menu_uncomment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string details {
+            get {
+                return ResourceManager.GetString("details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight.
+        /// </summary>
+        public static string detector_button_highlight {
+            get {
+                return ResourceManager.GetString("detector_button_highlight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Selector.
+        /// </summary>
+        public static string detector_button_open_selector {
+            get {
+                return ResourceManager.GetString("detector_button_open_selector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string detector_button_select {
+            get {
+                return ResourceManager.GetString("detector_button_select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight.
+        /// </summary>
+        public static string detector_highlight {
+            get {
+                return ResourceManager.GetString("detector_highlight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string detector_name {
+            get {
+                return ResourceManager.GetString("detector_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Selector.
+        /// </summary>
+        public static string detector_open_selector {
+            get {
+                return ResourceManager.GetString("detector_open_selector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string detector_select {
+            get {
+                return ResourceManager.GetString("detector_select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selector.
+        /// </summary>
+        public static string detector_selector {
+            get {
+                return ResourceManager.GetString("detector_selector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detectors.
+        /// </summary>
+        public static string detectors {
+            get {
+                return ResourceManager.GetString("detectors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logging.
+        /// </summary>
+        public static string dock_logging {
+            get {
+                return ResourceManager.GetString("dock_logging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        public static string dock_output {
+            get {
+                return ResourceManager.GetString("dock_output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Properties.
+        /// </summary>
+        public static string dock_properties {
+            get {
+                return ResourceManager.GetString("dock_properties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snippets.
+        /// </summary>
+        public static string dock_snippets {
+            get {
+                return ResourceManager.GetString("dock_snippets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toolbox.
+        /// </summary>
+        public static string dock_toolbox {
+            get {
+                return ResourceManager.GetString("dock_toolbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Workflow Instances.
+        /// </summary>
+        public static string dock_workflowinstances {
+            get {
+                return ResourceManager.GetString("dock_workflowinstances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        public static string download {
+            get {
+                return ResourceManager.GetString("download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edge.
+        /// </summary>
+        public static string edge {
+            get {
+                return ResourceManager.GetString("edge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable caching of elements for faster automation at the expense of ram.
+        /// </summary>
+        public static string enable_cache_help {
+            get {
+                return ResourceManager.GetString("enable_cache_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caching browser object.
+        /// </summary>
+        public static string enable_caching_browser {
+            get {
+                return ResourceManager.GetString("enable_caching_browser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save browser object, instead of searching for the window doing each call.
+        /// </summary>
+        public static string enable_caching_browser_help {
+            get {
+                return ResourceManager.GetString("enable_caching_browser_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable XPath.
+        /// </summary>
+        public static string enable_xpath_support {
+            get {
+                return ResourceManager.GetString("enable_xpath_support", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable experimental XPath support in IE.
+        /// </summary>
+        public static string enable_xpath_support_help {
+            get {
+                return ResourceManager.GetString("enable_xpath_support_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit Application.
+        /// </summary>
+        public static string exitapplication {
+            get {
+                return ResourceManager.GetString("exitapplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string export {
+            get {
+                return ResourceManager.GetString("export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files.
+        /// </summary>
+        public static string files {
+            get {
+                return ResourceManager.GetString("files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Firefox.
+        /// </summary>
+        public static string firefox {
+            get {
+                return ResourceManager.GetString("firefox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string general {
+            get {
+                return ResourceManager.GetString("general", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drop activity.
+        /// </summary>
+        public static string getelement_drop_hint {
+            get {
+                return ResourceManager.GetString("getelement_drop_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight.
+        /// </summary>
+        public static string getelement_highlight {
+            get {
+                return ResourceManager.GetString("getelement_highlight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Selector.
+        /// </summary>
+        public static string getelement_open_selector {
+            get {
+                return ResourceManager.GetString("getelement_open_selector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import.
+        /// </summary>
+        public static string import {
+            get {
+                return ResourceManager.GetString("import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logging.
+        /// </summary>
+        public static string logging {
+            get {
+                return ResourceManager.GetString("logging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install.
+        /// </summary>
+        public static string main_button_install {
+            get {
+                return ResourceManager.GetString("main_button_install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch.
+        /// </summary>
+        public static string main_button_launch {
+            get {
+                return ResourceManager.GetString("main_button_launch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch OpenRPA.
+        /// </summary>
+        public static string main_button_launch_hint {
+            get {
+                return ResourceManager.GetString("main_button_launch_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reinstall.
+        /// </summary>
+        public static string main_button_reinstall {
+            get {
+                return ResourceManager.GetString("main_button_reinstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string main_button_search {
+            get {
+                return ResourceManager.GetString("main_button_search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for activities.
+        /// </summary>
+        public static string main_button_search_hint {
+            get {
+                return ResourceManager.GetString("main_button_search_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search....
+        /// </summary>
+        public static string main_button_search_text {
+            get {
+                return ResourceManager.GetString("main_button_search_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uninstall.
+        /// </summary>
+        public static string main_button_uninstall {
+            get {
+                return ResourceManager.GetString("main_button_uninstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update all.
+        /// </summary>
+        public static string main_button_update_all {
+            get {
+                return ResourceManager.GetString("main_button_update_all", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update all.
+        /// </summary>
+        public static string main_button_update_all_hint {
+            get {
+                return ResourceManager.GetString("main_button_update_all_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upgrade.
+        /// </summary>
+        public static string main_button_upgrade {
+            get {
+                return ResourceManager.GetString("main_button_upgrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authors.
+        /// </summary>
+        public static string main_label_authors {
+            get {
+                return ResourceManager.GetString("main_label_authors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string main_label_description {
+            get {
+                return ResourceManager.GetString("main_label_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        public static string main_label_id {
+            get {
+                return ResourceManager.GetString("main_label_id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latest Version.
+        /// </summary>
+        public static string main_label_latestversion {
+            get {
+                return ResourceManager.GetString("main_label_latestversion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary.
+        /// </summary>
+        public static string main_label_summary {
+            get {
+                return ResourceManager.GetString("main_label_summary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags.
+        /// </summary>
+        public static string main_label_tags {
+            get {
+                return ResourceManager.GetString("main_label_tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string main_label_version {
+            get {
+                return ResourceManager.GetString("main_label_version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reload.
+        /// </summary>
+        public static string main_reload {
+            get {
+                return ResourceManager.GetString("main_reload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record directly into designer.
+        /// </summary>
+        public static string main_settings_recording_add_to_designer {
+            get {
+                return ResourceManager.GetString("main_settings_recording_add_to_designer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string mainnew {
+            get {
+                return ResourceManager.GetString("mainnew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OpenRPA.
+        /// </summary>
+        public static string maintitle {
+            get {
+                return ResourceManager.GetString("maintitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimize.
+        /// </summary>
+        public static string minimize {
+            get {
+                return ResourceManager.GetString("minimize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string name {
+            get {
+                return ResourceManager.GetString("name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_AVIRECORDER {
+            get {
+                return ResourceManager.GetString("NEW_FILE_AVIRECORDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_DATABASE {
+            get {
+                return ResourceManager.GetString("NEW_FILE_DATABASE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_ELIS {
+            get {
+                return ResourceManager.GetString("NEW_FILE_ELIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_FILE_WATCHER {
+            get {
+                return ResourceManager.GetString("NEW_FILE_FILE_WATCHER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_FORMS {
+            get {
+                return ResourceManager.GetString("NEW_FILE_FORMS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_IE {
+            get {
+                return ResourceManager.GetString("NEW_FILE_IE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_IMAGE {
+            get {
+                return ResourceManager.GetString("NEW_FILE_IMAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_INTERFACE {
+            get {
+                return ResourceManager.GetString("NEW_FILE_INTERFACE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_JAVA {
+            get {
+                return ResourceManager.GetString("NEW_FILE_JAVA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_NM {
+            get {
+                return ResourceManager.GetString("NEW_FILE_NM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_OFFICE {
+            get {
+                return ResourceManager.GetString("NEW_FILE_OFFICE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_OPENFLOW {
+            get {
+                return ResourceManager.GetString("NEW_FILE_OPENFLOW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_OPENRPASCRIPT {
+            get {
+                return ResourceManager.GetString("NEW_FILE_OPENRPASCRIPT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_PDPLUGIN {
+            get {
+                return ResourceManager.GetString("NEW_FILE_PDPLUGIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_RDSERVICEPLUGIN {
+            get {
+                return ResourceManager.GetString("NEW_FILE_RDSERVICEPLUGIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_SAP {
+            get {
+                return ResourceManager.GetString("NEW_FILE_SAP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_UPDATER {
+            get {
+                return ResourceManager.GetString("NEW_FILE_UPDATER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_UTILITIES {
+            get {
+                return ResourceManager.GetString("NEW_FILE_UTILITIES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NEW_FILE_WINDOWS {
+            get {
+                return ResourceManager.GetString("NEW_FILE_WINDOWS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Project.
+        /// </summary>
+        public static string newproject {
+            get {
+                return ResourceManager.GetString("newproject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Workflow.
+        /// </summary>
+        public static string newworkflow {
+            get {
+                return ResourceManager.GetString("newworkflow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NodeRED.
+        /// </summary>
+        public static string nodered {
+            get {
+                return ResourceManager.GetString("nodered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string open {
+            get {
+                return ResourceManager.GetString("open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created at.
+        /// </summary>
+        public static string open_created {
+            get {
+                return ResourceManager.GetString("open_created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created by.
+        /// </summary>
+        public static string open_createdby {
+            get {
+                return ResourceManager.GetString("open_createdby", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string open_edit {
+            get {
+                return ResourceManager.GetString("open_edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit XAML.
+        /// </summary>
+        public static string open_edit_xaml {
+            get {
+                return ResourceManager.GetString("open_edit_xaml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last modified at.
+        /// </summary>
+        public static string open_modified {
+            get {
+                return ResourceManager.GetString("open_modified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last modified by.
+        /// </summary>
+        public static string open_modifiedby {
+            get {
+                return ResourceManager.GetString("open_modifiedby", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string open_name {
+            get {
+                return ResourceManager.GetString("open_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serializable.
+        /// </summary>
+        public static string open_serializable {
+            get {
+                return ResourceManager.GetString("open_serializable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State.
+        /// </summary>
+        public static string open_state {
+            get {
+                return ResourceManager.GetString("open_state", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OpenFlow.
+        /// </summary>
+        public static string openflow {
+            get {
+                return ResourceManager.GetString("openflow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OpenRPA.
+        /// </summary>
+        public static string openrpa {
+            get {
+                return ResourceManager.GetString("openrpa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Packages.
+        /// </summary>
+        public static string packages {
+            get {
+                return ResourceManager.GetString("packages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permissions.
+        /// </summary>
+        public static string permissions {
+            get {
+                return ResourceManager.GetString("permissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string permissions_delete {
+            get {
+                return ResourceManager.GetString("permissions_delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoke.
+        /// </summary>
+        public static string permissions_invoke {
+            get {
+                return ResourceManager.GetString("permissions_invoke", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read.
+        /// </summary>
+        public static string permissions_read {
+            get {
+                return ResourceManager.GetString("permissions_read", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string permissions_update {
+            get {
+                return ResourceManager.GetString("permissions_update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string permissionswindow_delete {
+            get {
+                return ResourceManager.GetString("permissionswindow_delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string permissionswindow_new {
+            get {
+                return ResourceManager.GetString("permissionswindow_new", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play.
+        /// </summary>
+        public static string play {
+            get {
+                return ResourceManager.GetString("play", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow child searching.
+        /// </summary>
+        public static string plugin_allow_child_searching {
+            get {
+                return ResourceManager.GetString("plugin_allow_child_searching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If an element in a selector is not found, automatically search all children for a match.
+        /// </summary>
+        public static string plugin_allow_child_searching_help {
+            get {
+                return ResourceManager.GetString("plugin_allow_child_searching_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow multiple hits.
+        /// </summary>
+        public static string plugin_allow_multiple_hits {
+            get {
+                return ResourceManager.GetString("plugin_allow_multiple_hits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow an element selector in a selector to find more than one child.
+        /// </summary>
+        public static string plugin_allow_multiple_hits_help {
+            get {
+                return ResourceManager.GetString("plugin_allow_multiple_hits_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto launch.
+        /// </summary>
+        public static string plugin_auto_launch_java_bridge {
+            get {
+                return ResourceManager.GetString("plugin_auto_launch_java_bridge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto launch java bridge application when robot is running.
+        /// </summary>
+        public static string plugin_auto_launch_java_bridge_help {
+            get {
+                return ResourceManager.GetString("plugin_auto_launch_java_bridge_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auto launch.
         /// </summary>
         public static string plugin_auto_launch_sap_bridge {
@@ -543,6 +5058,15 @@ namespace OpenRPA.SAP.Resources {
         public static string plugin_auto_launch_sap_bridge_help {
             get {
                 return ResourceManager.GetString("plugin_auto_launch_sap_bridge_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Signout.
+        /// </summary>
+        public static string plugin_auto_signout {
+            get {
+                return ResourceManager.GetString("plugin_auto_signout", resourceCulture);
             }
         }
         
@@ -565,11 +5089,281 @@ namespace OpenRPA.SAP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add current user.
+        /// </summary>
+        public static string plugin_button_add_user {
+            get {
+                return ResourceManager.GetString("plugin_button_add_user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install Service.
+        /// </summary>
+        public static string plugin_button_install_service {
+            get {
+                return ResourceManager.GetString("plugin_button_install_service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reauthenticate Service.
+        /// </summary>
+        public static string plugin_button_reauth {
+            get {
+                return ResourceManager.GetString("plugin_button_reauth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove current user.
+        /// </summary>
+        public static string plugin_button_remove_user {
+            get {
+                return ResourceManager.GetString("plugin_button_remove_user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Service.
+        /// </summary>
+        public static string plugin_button_start_service {
+            get {
+                return ResourceManager.GetString("plugin_button_start_service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop Service.
+        /// </summary>
+        public static string plugin_button_stop_service {
+            get {
+                return ResourceManager.GetString("plugin_button_stop_service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uninstall Service.
+        /// </summary>
+        public static string plugin_button_uninstall_service {
+            get {
+                return ResourceManager.GetString("plugin_button_uninstall_service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Codec.
+        /// </summary>
+        public static string plugin_codec {
+            get {
+                return ResourceManager.GetString("plugin_codec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collectionname.
+        /// </summary>
+        public static string plugin_collectionname {
+            get {
+                return ResourceManager.GetString("plugin_collectionname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save events to this collection.
+        /// </summary>
+        public static string plugin_collectionname_help {
+            get {
+                return ResourceManager.GetString("plugin_collectionname_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C# Intellisense.
+        /// </summary>
+        public static string plugin_csharp_intellisense {
+            get {
+                return ResourceManager.GetString("plugin_csharp_intellisense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable intellisense for C# scripts.
+        /// </summary>
+        public static string plugin_csharp_intellisense_help {
+            get {
+                return ResourceManager.GetString("plugin_csharp_intellisense_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable caching.
+        /// </summary>
+        public static string plugin_enable_cache {
+            get {
+                return ResourceManager.GetString("plugin_enable_cache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        public static string plugin_enabled {
+            get {
+                return ResourceManager.GetString("plugin_enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capture keyboard.
+        /// </summary>
+        public static string plugin_enabled_keyboard_recording {
+            get {
+                return ResourceManager.GetString("plugin_enabled_keyboard_recording", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record all keyboard events.
+        /// </summary>
+        public static string plugin_enabled_keyboard_recording_help {
+            get {
+                return ResourceManager.GetString("plugin_enabled_keyboard_recording_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capture mouse.
+        /// </summary>
+        public static string plugin_enabled_mouse_recording {
+            get {
+                return ResourceManager.GetString("plugin_enabled_mouse_recording", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record all mouse clicks.
+        /// </summary>
+        public static string plugin_enabled_mouse_recording_help {
+            get {
+                return ResourceManager.GetString("plugin_enabled_mouse_recording_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enum properties.
+        /// </summary>
+        public static string plugin_enum_properties {
+            get {
+                return ResourceManager.GetString("plugin_enum_properties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test each selector element for the minimum required amount of properties needed.
+        /// </summary>
+        public static string plugin_enum_properties_help {
+            get {
+                return ResourceManager.GetString("plugin_enum_properties_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executable.
+        /// </summary>
+        public static string plugin_executable {
+            get {
+                return ResourceManager.GetString("plugin_executable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File filter.
+        /// </summary>
+        public static string plugin_filter {
+            get {
+                return ResourceManager.GetString("plugin_filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get elements in different thread.
+        /// </summary>
+        public static string plugin_get_elements_in_different_thread {
+            get {
+                return ResourceManager.GetString("plugin_get_elements_in_different_thread", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetElement uses another thread while searching, to avoid locks if selector finds robot.
+        /// </summary>
+        public static string plugin_get_elements_in_different_thread_help {
+            get {
+                return ResourceManager.GetString("plugin_get_elements_in_different_thread_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sub Directories.
+        /// </summary>
+        public static string plugin_includesubdir {
+            get {
+                return ResourceManager.GetString("plugin_includesubdir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep successful.
+        /// </summary>
+        public static string plugin_keep_successful {
+            get {
+                return ResourceManager.GetString("plugin_keep_successful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch java bridge.
+        /// </summary>
+        public static string plugin_launch_java_bridge {
+            get {
+                return ResourceManager.GetString("plugin_launch_java_bridge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Launch SAP bridge.
         /// </summary>
         public static string plugin_launch_sap_bridge {
             get {
                 return ResourceManager.GetString("plugin_launch_sap_bridge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string plugin_name {
+            get {
+                return ResourceManager.GetString("plugin_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path.
+        /// </summary>
+        public static string plugin_path {
+            get {
+                return ResourceManager.GetString("plugin_path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recording quality.
+        /// </summary>
+        public static string plugin_quality {
+            get {
+                return ResourceManager.GetString("plugin_quality", resourceCulture);
             }
         }
         
@@ -583,11 +5377,632 @@ namespace OpenRPA.SAP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When recording use GetElement instead of SetProperty.
+        ///   Looks up a localized string similar to When recording, use GetElement instead of SetProperty.
         /// </summary>
         public static string plugin_record_with_get_element_help {
             get {
                 return ResourceManager.GetString("plugin_record_with_get_element_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip methods.
+        /// </summary>
+        public static string plugin_recording_skip_methods {
+            get {
+                return ResourceManager.GetString("plugin_recording_skip_methods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doing recording skip adding these methods.
+        /// </summary>
+        public static string plugin_recording_skip_methods_help {
+            get {
+                return ResourceManager.GetString("plugin_recording_skip_methods_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip properties.
+        /// </summary>
+        public static string plugin_recording_skip_properties {
+            get {
+                return ResourceManager.GetString("plugin_recording_skip_properties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doing recording the value of these properties.
+        /// </summary>
+        public static string plugin_recording_skip_properties_help {
+            get {
+                return ResourceManager.GetString("plugin_recording_skip_properties_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reload interval.
+        /// </summary>
+        public static string plugin_reload_interval {
+            get {
+                return ResourceManager.GetString("plugin_reload_interval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save in folder.
+        /// </summary>
+        public static string plugin_save_in_folder {
+            get {
+                return ResourceManager.GetString("plugin_save_in_folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search descendants.
+        /// </summary>
+        public static string plugin_search_descendants {
+            get {
+                return ResourceManager.GetString("plugin_search_descendants", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search all descendants, use for more simple selectors but is slower.
+        /// </summary>
+        public static string plugin_search_descendants_help {
+            get {
+                return ResourceManager.GetString("plugin_search_descendants_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Traverse selector both ways.
+        /// </summary>
+        public static string plugin_traverse_selector_both_ways {
+            get {
+                return ResourceManager.GetString("plugin_traverse_selector_both_ways", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Traverse UI tree both ways to filter out ghost selector elements.
+        /// </summary>
+        public static string plugin_traverse_selector_both_ways_help {
+            get {
+                return ResourceManager.GetString("plugin_traverse_selector_both_ways_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use embedded Python.
+        /// </summary>
+        public static string plugin_use_embedded_python {
+            get {
+                return ResourceManager.GetString("plugin_use_embedded_python", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OpenRPA comes with Python embedded, but will use the default system Python if disabled.
+        /// </summary>
+        public static string plugin_use_embedded_python_help {
+            get {
+                return ResourceManager.GetString("plugin_use_embedded_python_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Free RDP.
+        /// </summary>
+        public static string plugin_use_free_rdp {
+            get {
+                return ResourceManager.GetString("plugin_use_free_rdp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VB Intellisense.
+        /// </summary>
+        public static string plugin_vb_intellisense {
+            get {
+                return ResourceManager.GetString("plugin_vb_intellisense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable intellisense for Visual Basic scripts.
+        /// </summary>
+        public static string plugin_vb_intellisense_help {
+            get {
+                return ResourceManager.GetString("plugin_vb_intellisense_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait after set value.
+        /// </summary>
+        public static string plugin_wait_for_tab_after_set_value {
+            get {
+                return ResourceManager.GetString("plugin_wait_for_tab_after_set_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait for tab status to be in ready state after setting a value.
+        /// </summary>
+        public static string plugin_wait_for_tab_after_set_value_help {
+            get {
+                return ResourceManager.GetString("plugin_wait_for_tab_after_set_value_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Username.
+        /// </summary>
+        public static string plugin_windows_login {
+            get {
+                return ResourceManager.GetString("plugin_windows_login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows Password.
+        /// </summary>
+        public static string plugin_windows_password {
+            get {
+                return ResourceManager.GetString("plugin_windows_password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows Username.
+        /// </summary>
+        public static string plugin_windows_username {
+            get {
+                return ResourceManager.GetString("plugin_windows_username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plugins.
+        /// </summary>
+        public static string plugins {
+            get {
+                return ResourceManager.GetString("plugins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record.
+        /// </summary>
+        public static string record {
+            get {
+                return ResourceManager.GetString("record", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recorder plugins.
+        /// </summary>
+        public static string recorderplugins {
+            get {
+                return ResourceManager.GetString("recorderplugins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recording Overlay.
+        /// </summary>
+        public static string recordingoverlay {
+            get {
+                return ResourceManager.GetString("recordingoverlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to register old portname.
+        /// </summary>
+        public static string register_old_portname {
+            get {
+                return ResourceManager.GetString("register_old_portname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register old browser extension port names .
+        /// </summary>
+        public static string register_old_portname_help {
+            get {
+                return ResourceManager.GetString("register_old_portname_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        public static string rename {
+            get {
+                return ResourceManager.GetString("rename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string ribbon_search {
+            get {
+                return ResourceManager.GetString("ribbon_search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run plugins.
+        /// </summary>
+        public static string runplugins {
+            get {
+                return ResourceManager.GetString("runplugins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Runtime.
+        /// </summary>
+        public static string runtime {
+            get {
+                return ResourceManager.GetString("runtime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string save {
+            get {
+                return ResourceManager.GetString("save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selector.
+        /// </summary>
+        public static string selector {
+            get {
+                return ResourceManager.GetString("selector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string selector_buttons_cancel {
+            get {
+                return ResourceManager.GetString("selector_buttons_cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel changes and close selector window.
+        /// </summary>
+        public static string selector_buttons_cancel_hint {
+            get {
+                return ResourceManager.GetString("selector_buttons_cancel_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight.
+        /// </summary>
+        public static string selector_buttons_highlight {
+            get {
+                return ResourceManager.GetString("selector_buttons_highlight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highligt element(s) effected by current selector.
+        /// </summary>
+        public static string selector_buttons_highlight_hint {
+            get {
+                return ResourceManager.GetString("selector_buttons_highlight_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string selector_buttons_ok {
+            get {
+                return ResourceManager.GetString("selector_buttons_ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accept changes and close selector window.
+        /// </summary>
+        public static string selector_buttons_ok_hint {
+            get {
+                return ResourceManager.GetString("selector_buttons_ok_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string selector_buttons_select {
+            get {
+                return ResourceManager.GetString("selector_buttons_select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select element by clicking it.
+        /// </summary>
+        public static string selector_buttons_select_hint {
+            get {
+                return ResourceManager.GetString("selector_buttons_select_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sync tree.
+        /// </summary>
+        public static string selector_buttons_sync {
+            get {
+                return ResourceManager.GetString("selector_buttons_sync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sync tree and go to current element.
+        /// </summary>
+        public static string selector_buttons_sync_hint {
+            get {
+                return ResourceManager.GetString("selector_buttons_sync_hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Element.
+        /// </summary>
+        public static string selector_menu_select {
+            get {
+                return ResourceManager.GetString("selector_menu_select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selector Verbose.
+        /// </summary>
+        public static string selectorverbose {
+            get {
+                return ResourceManager.GetString("selectorverbose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string settings {
+            get {
+                return ResourceManager.GetString("settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings File.
+        /// </summary>
+        public static string settingsfile {
+            get {
+                return ResourceManager.GetString("settingsfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signout.
+        /// </summary>
+        public static string signout {
+            get {
+                return ResourceManager.GetString("signout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slow Motion.
+        /// </summary>
+        public static string slowmotion {
+            get {
+                return ResourceManager.GetString("slowmotion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disconnected.
+        /// </summary>
+        public static string status_disconnected {
+            get {
+                return ResourceManager.GetString("status_disconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop.
+        /// </summary>
+        public static string stop {
+            get {
+                return ResourceManager.GetString("stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tesseract.
+        /// </summary>
+        public static string tesseract {
+            get {
+                return ResourceManager.GetString("tesseract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tools.
+        /// </summary>
+        public static string tools {
+            get {
+                return ResourceManager.GetString("tools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Type.
+        /// </summary>
+        public static string tools_change_type {
+            get {
+                return ResourceManager.GetString("tools_change_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Swap Animate.
+        /// </summary>
+        public static string tools_swap_animate {
+            get {
+                return ResourceManager.GetString("tools_swap_animate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Swap SendKeys.
+        /// </summary>
+        public static string tools_swap_sendkeys {
+            get {
+                return ResourceManager.GetString("tools_swap_sendkeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Swap Virtual Clicking.
+        /// </summary>
+        public static string tools_swap_virtualclick {
+            get {
+                return ResourceManager.GetString("tools_swap_virtualclick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string type {
+            get {
+                return ResourceManager.GetString("type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UI Language.
+        /// </summary>
+        public static string uilanguage {
+            get {
+                return ResourceManager.GetString("uilanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unique ids.
+        /// </summary>
+        public static string unique_xpath_ids {
+            get {
+                return ResourceManager.GetString("unique_xpath_ids", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use one of these attributes as unique ids when creating xpath selectors.
+        /// </summary>
+        public static string unique_xpath_ids_help {
+            get {
+                return ResourceManager.GetString("unique_xpath_ids_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use SendKeys.
+        /// </summary>
+        public static string usesendkeys {
+            get {
+                return ResourceManager.GetString("usesendkeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Virtual Clicks.
+        /// </summary>
+        public static string usevirtualclicks {
+            get {
+                return ResourceManager.GetString("usevirtualclicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        public static string value {
+            get {
+                return ResourceManager.GetString("value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verbose.
+        /// </summary>
+        public static string verbose {
+            get {
+                return ResourceManager.GetString("verbose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string version {
+            get {
+                return ResourceManager.GetString("version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visual Tracking.
+        /// </summary>
+        public static string visualtracking {
+            get {
+                return ResourceManager.GetString("visualtracking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to wait for tab.
+        /// </summary>
+        public static string wait_for_tab_click {
+            get {
+                return ResourceManager.GetString("wait_for_tab_click", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait for tab status to be in ready state after clicking a button.
+        /// </summary>
+        public static string wait_for_tab_click_help {
+            get {
+                return ResourceManager.GetString("wait_for_tab_click_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string warning {
+            get {
+                return ResourceManager.GetString("warning", resourceCulture);
             }
         }
     }

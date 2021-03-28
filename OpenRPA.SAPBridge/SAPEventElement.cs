@@ -37,7 +37,7 @@ namespace OpenRPA.SAPBridge
                     int ScreenTop = 0;
 
                     Height = tree.Height;
-                    if(Height>0)
+                    if (Height > 0)
                     {
                         Left = tree.Left;
                         Top = tree.Top;
@@ -46,7 +46,7 @@ namespace OpenRPA.SAPBridge
                         ScreenTop = tree.ScreenTop;
                     }
                     var p = new List<SAPElementProperty>();
-                    if(Properties == null || Properties.Length == 0)
+                    if (Properties == null || Properties.Length == 0)
                     {
                         if (Properties != null) p.AddRange(Properties);
                         if (p.Where(x => x.Name == "Left").Count() == 0) p.Add(new SAPElementProperty("Left", tree.Left.ToString(), true));
@@ -66,7 +66,7 @@ namespace OpenRPA.SAPBridge
                     {
                         keys = tree.GetNodesCol() as SAPFEWSELib.GuiCollection;
                     }
-                    if (keys != null && LoadChildren && (VisibleOnly && Height>0 || !VisibleOnly))
+                    if (keys != null && LoadChildren && (VisibleOnly && Height > 0 || !VisibleOnly))
                     {
                         var _keys = new List<string>();
                         foreach (string key in keys) _keys.Add(key);
@@ -98,7 +98,7 @@ namespace OpenRPA.SAPBridge
                     if (string.IsNullOrEmpty(Cell))
                     {
                         Height = tree.GetNodeHeight(Path);
-                        if(Height > 0)
+                        if (Height > 0)
                         {
                             Left = tree.GetNodeLeft(Path);
                             Top = tree.GetNodeTop(Path);
@@ -111,7 +111,7 @@ namespace OpenRPA.SAPBridge
                     else
                     {
                         Height = tree.GetItemHeight(Path, Cell);
-                        if(Height> 0)
+                        if (Height > 0)
                         {
                             Left = tree.GetItemLeft(Path, Cell);
                             Top = tree.GetItemTop(Path, Cell);
@@ -237,7 +237,7 @@ namespace OpenRPA.SAPBridge
                 }
                 else if (string.IsNullOrEmpty(Cell))
                 {
-                    
+
                     ContainerType = false;
                     type = "GuiGridNode";
                     var p = new List<SAPElementProperty>();
@@ -316,7 +316,7 @@ namespace OpenRPA.SAPBridge
                     try
                     {
                         Height = grid.GetCellHeight(index, Cell);
-                        if(Height>0)
+                        if (Height > 0)
                         {
                             Left = grid.GetCellLeft(index, Cell);
                             Top = grid.GetCellTop(index, Cell);
@@ -350,7 +350,7 @@ namespace OpenRPA.SAPBridge
                     {
 
                         int from = 0;
-                        int to  = grid.RowCount;
+                        int to = grid.RowCount;
 
                         if (VisibleOnly)
                         {
@@ -422,7 +422,7 @@ namespace OpenRPA.SAPBridge
                 _Rectangle = new Rectangle(ScreenLeft, ScreenTop, Width, Height);
                 var children = new List<SAPEventElement>();
                 var keys = radio.GroupMembers as SAPFEWSELib.GuiCollection;
-                if(keys!=null && LoadChildren)
+                if (keys != null && LoadChildren)
                     for (var i = 0; i < keys.Count; i++)
                     {
                         var ele = keys.ElementAt(i) as SAPFEWSELib.GuiComboBoxEntry;
@@ -470,8 +470,8 @@ namespace OpenRPA.SAPBridge
                 }
                 Properties = p.ToArray();
                 _Rectangle = new Rectangle(ScreenLeft, ScreenTop, Width, Height);
-                if(LoadChildren)
-                    for (var i=0; i < keys.Count; i++)
+                if (LoadChildren)
+                    for (var i = 0; i < keys.Count; i++)
                     {
                         var ele = keys.ElementAt(i) as SAPFEWSELib.GuiComboBoxEntry;
                         var _msg = new SAPEventElement(ele, SystemName, combobox.Id, all);
@@ -517,7 +517,7 @@ namespace OpenRPA.SAPBridge
                 else if (comp is SAPFEWSELib.GuiSession session2 && LoadChildren)
                 {
                     var children = new List<SAPEventElement>();
-                    if(VisibleOnly)
+                    if (VisibleOnly)
                     {
                         SAPFEWSELib.GuiComponent Element = session2.ActiveWindow as SAPFEWSELib.GuiComponent;
                         var p = Element.Parent as SAPFEWSELib.GuiComponent;
@@ -582,32 +582,34 @@ namespace OpenRPA.SAPBridge
             }
             if (Properties == null || Properties.Count() == 0)
             {
-                if(SAPHook.Instance.Recording)
-                {
-                    LoadProperties(comp, all);
-                } else if (!VisibleOnly)
+                if (SAPHook.Instance.Recording)
                 {
                     LoadProperties(comp, all);
                 }
-                 
+                else if (!VisibleOnly)
+                {
+                    LoadProperties(comp, all);
+                }
+
             }
-            if(Program.log_missing_defaulttooltip)
+            if (Program.log_missing_defaulttooltip)
             {
-                if(Properties != null)
+                if (Properties != null)
                 {
                     var tool = Properties.Where(x => x.Name == "DefaultTooltip").FirstOrDefault();
                     if (tool == null)
                     {
                         Program.log("Missing DefaultTooltip " + Id);
                     }
-                } else
+                }
+                else
                 {
                     Program.log("Missing DefaultTooltip " + Id + " (missing all properties)");
                 }
             }
             if (string.IsNullOrEmpty(Name))
             {
-                if(Properties!=null)
+                if (Properties != null)
                 {
                     var name = Name;
                     var p = Properties.Where(x => x.Name == "Key").FirstOrDefault();
@@ -721,7 +723,7 @@ namespace OpenRPA.SAPBridge
         //    Items = items.ToArray();
 
         //}
-        private static string[] limitedProperties = { "Changeable", "Modified", "Text", "ScreenTop", "ScreenLeft", "Height", "Width", "Top", "Left", "Tooltip", "DefaultTooltip"};
+        private static string[] limitedProperties = { "Changeable", "Modified", "Text", "ScreenTop", "ScreenLeft", "Height", "Width", "Top", "Left", "Tooltip", "DefaultTooltip" };
         private static Dictionary<Type, System.Reflection.PropertyInfo[]> typeProperties = new Dictionary<Type, System.Reflection.PropertyInfo[]>();
         public static void PropogateTypeCache()
         {
@@ -747,7 +749,8 @@ namespace OpenRPA.SAPBridge
                 if (typeProperties.ContainsKey(t))
                 {
                     tproperties = typeProperties[t];
-                } else
+                }
+                else
                 {
                     tproperties = t.GetProperties().Where(x => x.IsSpecialName == false).ToArray();
                     typeProperties.Add(t, tproperties);
@@ -765,7 +768,7 @@ namespace OpenRPA.SAPBridge
                         if (_p.Name == "Properties") continue;
                         if (type == "GuiButton" && _p.Name == "Modified") continue;
                         if (type == "GuiTitlebar" && _p.Name == "Changeable") continue;
-                        if(type == "GuiTitlebar" && _p.Name == "Modified") continue;
+                        if (type == "GuiTitlebar" && _p.Name == "Modified") continue;
                         if (type == "GuiShell" && _p.Name == "AccTooltip") continue;
                         if (type == "GuiShell" && _p.Name == "AccLabelCollection") continue;
                         if (type == "GuiShell" && _p.Name == "HierarchyHeaderWidth") continue;
