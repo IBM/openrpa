@@ -21,6 +21,7 @@ namespace OpenRPA.SAP
         {
             Task.Run(() =>
             {
+                id = Id;
                 StatusBarText = statusBarText;
                 var msg = new SAPEvent("getitem");
                 msg.Set(new SAPEventElement() { Id = Id, SystemName = SystemName, GetAllProperties = false });
@@ -39,6 +40,8 @@ namespace OpenRPA.SAP
         }
         // [Browsable(false)]
         public string StatusBarText { get; set; }
+        // [Browsable(false)]
+        public string id { get; set; }
         [Browsable(false)]
         public string Image { get; set; }
         [RequiredArgument, LocalizedDisplayName("activity_invokemethod_systemname", typeof(Resources.strings)), LocalizedDescription("activity_invokemethod_systemname_help", typeof(Resources.strings))]

@@ -22,6 +22,7 @@ namespace OpenRPA.SAP
             Task.Run(() =>
             {
                 StatusBarText = statusBarText;
+                id = Id;
                 var msg = new SAPEvent("getitem");
                 msg.Set(new SAPEventElement() { Id = Id, SystemName = SystemName, GetAllProperties = false });
                 msg = SAPhook.Instance.SendMessage(msg, TimeSpan.FromSeconds(PluginConfig.bridge_timeout_seconds));
@@ -56,6 +57,8 @@ namespace OpenRPA.SAP
         public string tooltip { get; set; } = "";
         // [Browsable(false)]
         public string StatusBarText { get; set; } = "";
+        // [Browsable(false)]
+        public string id { get; set; } = "";
         [Browsable(false)]
         public string Image { get; set; }
         [RequiredArgument, LocalizedDisplayName("activity_setproperty_systemname", typeof(Resources.strings)), LocalizedDescription("activity_setproperty_systemname_help", typeof(Resources.strings))]
