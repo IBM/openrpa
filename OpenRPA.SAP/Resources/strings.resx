@@ -736,7 +736,7 @@ Fuzzy</comment>
     <value>Warning</value>
   </data>
   <data name="NEW_FILE_AVIRECORDER" xml:space="preserve">
-    <value></value>
+    <value />
     <comment>?</comment>
   </data>
   <data name="activity_playrecording" xml:space="preserve">
@@ -782,7 +782,7 @@ Fuzzy</comment>
     <value>Save in folder</value>
   </data>
   <data name="NEW_FILE_DATABASE" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="activity_databasescope" xml:space="preserve">
     <value>Database Scope</value>
@@ -869,7 +869,7 @@ Fuzzy</comment>
     <value>Insert, Update and Delete the data from the DataTable against the current database, returns the number of rows affected</value>
   </data>
   <data name="NEW_FILE_ELIS" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="activity_auth" xml:space="preserve">
     <value>Auth</value>
@@ -996,7 +996,7 @@ purged - Only metadata was preserved after a deletion.</value>
     <value>Status to wait for</value>
   </data>
   <data name="NEW_FILE_FILE_WATCHER" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="plugin_filter" xml:space="preserve">
     <value>File filter</value>
@@ -1011,7 +1011,7 @@ purged - Only metadata was preserved after a deletion.</value>
     <value>Path</value>
   </data>
   <data name="NEW_FILE_FORMS" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="activity_alert_message_hint" xml:space="preserve">
     <value>Alert message</value>
@@ -1044,7 +1044,7 @@ purged - Only metadata was preserved after a deletion.</value>
     <value>Show a notification in the lower right corner of the screen for a limited amount of time</value>
   </data>
   <data name="NEW_FILE_IE" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="activity_getelement" xml:space="preserve">
     <value>Get Element</value>
@@ -1086,7 +1086,7 @@ purged - Only metadata was preserved after a deletion.</value>
     <value>Enable experimental XPath support in IE</value>
   </data>
   <data name="NEW_FILE_IMAGE" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="activity_getcolor" xml:space="preserve">
     <value>Get Color</value>
@@ -1152,7 +1152,7 @@ purged - Only metadata was preserved after a deletion.</value>
     <value>Take screenshot of the entire screen or a specific element found using Get Element</value>
   </data>
   <data name="NEW_FILE_INTERFACE" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="selector_buttons_cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -1188,7 +1188,7 @@ purged - Only metadata was preserved after a deletion.</value>
     <value>Select Element</value>
   </data>
   <data name="NEW_FILE_JAVA" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="detector_highlight" xml:space="preserve">
     <value>Highlight</value>
@@ -1215,7 +1215,7 @@ purged - Only metadata was preserved after a deletion.</value>
     <value>Launch java bridge</value>
   </data>
   <data name="NEW_FILE_NM" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="activity_closetab" xml:space="preserve">
     <value>Close Tab</value>
@@ -1278,7 +1278,7 @@ Fuzzy</comment>
     <value>Wait for tab status to be in ready state after clicking a button</value>
   </data>
   <data name="NEW_FILE_OFFICE" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="activity_addparagraph" xml:space="preserve">
     <value>Add Paragraph</value>
@@ -1537,7 +1537,7 @@ Fuzzy</comment>
     <value>If set to true, will also add a header row with column names as the first row, set to false to only add the data</value>
   </data>
   <data name="NEW_FILE_OPENFLOW" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="activity_assignopenflow" xml:space="preserve">
     <value>Assign OpenFlow</value>
@@ -1654,7 +1654,7 @@ Fuzzy</comment>
     <value>Commit changes made on a DataTable back to OpenFlow. Returns list of inserted and updated rows</value>
   </data>
   <data name="NEW_FILE_PDPLUGIN" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="plugin_collectionname" xml:space="preserve">
     <value>Collectionname</value>
@@ -1675,7 +1675,7 @@ Fuzzy</comment>
     <value>Record all mouse clicks</value>
   </data>
   <data name="NEW_FILE_RDSERVICEPLUGIN" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="plugin_auto_signout" xml:space="preserve">
     <value>Auto Signout</value>
@@ -1720,7 +1720,7 @@ Fuzzy</comment>
     <value>Windows Username</value>
   </data>
   <data name="NEW_FILE_SAP" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="activity_getproperty" xml:space="preserve">
     <value>Get Property</value>
@@ -1882,7 +1882,7 @@ Fuzzy</comment>
     <value>When recording, use GetElement instead of SetProperty</value>
   </data>
   <data name="NEW_FILE_OPENRPASCRIPT" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="activity_invokecode" xml:space="preserve">
     <value>Invoke Code</value>
@@ -1927,7 +1927,7 @@ Fuzzy</comment>
     <value>Enable intellisense for Visual Basic scripts</value>
   </data>
   <data name="NEW_FILE_UPDATER" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="main_button_install" xml:space="preserve">
     <value>Install</value>
@@ -1984,7 +1984,7 @@ Fuzzy</comment>
     <value>Version</value>
   </data>
   <data name="NEW_FILE_UTILITIES" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="activity_adddatarow_datatable" xml:space="preserve">
     <value>DataTable to insert into</value>
@@ -2047,7 +2047,7 @@ Fuzzy</comment>
     <value>Select excel file to write to</value>
   </data>
   <data name="NEW_FILE_WINDOWS" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="detector_button_highlight" xml:space="preserve">
     <value>Highlight</value>
@@ -2108,5 +2108,17 @@ Fuzzy</comment>
   </data>
   <data name="plugin_traverse_selector_both_ways_help" xml:space="preserve">
     <value>Traverse UI tree both ways to filter out ghost selector elements</value>
+  </data>
+  <data name="plugin_recording_skip_methods" xml:space="preserve">
+    <value>Skip methods</value>
+  </data>
+  <data name="plugin_recording_skip_methods_help" xml:space="preserve">
+    <value>Doing recording skip adding these methods</value>
+  </data>
+  <data name="plugin_recording_skip_properties" xml:space="preserve">
+    <value>Skip properties</value>
+  </data>
+  <data name="plugin_recording_skip_properties_help" xml:space="preserve">
+    <value>Doing recording the value of these properties</value>
   </data>
 </root>

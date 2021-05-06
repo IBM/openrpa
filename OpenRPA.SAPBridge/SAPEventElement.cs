@@ -10,28 +10,18 @@ namespace OpenRPA.SAPBridge
 {
     public partial class SAPEventElement
     {
-        public void Load(bool VisibleOnly)
+        public void Load(SAPFEWSELib.GuiSession session, bool VisibleOnly)
         {
             LoadChildren = true;
-            var session = SAPHook.Instance.GetSession(SystemName);
             var comp = session.GetSAPComponentById<SAPFEWSELib.GuiComponent>(Id);
-            Load(comp, SystemName, all, Path, Cell, flat, LoadChildren, MaxItem, VisibleOnly);
+            Load(session, comp, SystemName, all, Path, Cell, flat, LoadChildren, MaxItem, VisibleOnly);
         }
-        public void Load(SAPFEWSELib.GuiComponent comp, string SystemName, bool all, string Path, string Cell, bool flat, bool LoadChildren, int MaxItem, bool VisibleOnly)
+        public void Load(SAPFEWSELib.GuiSession session, SAPFEWSELib.GuiComponent comp, string SystemName, bool all, string Path, string Cell, bool flat, bool LoadChildren, int MaxItem, bool VisibleOnly)
         {
             this.Path = Path;
             this.Cell = Cell;
             this.Flat = flat;
             this.MaxItem = MaxItem;
-            Id = comp.Id;
-            this.SystemName = SystemName;
-            if (comp.Parent != null) Parent = ((SAPFEWSELib.GuiComponent)comp.Parent).Id;
-            ContainerType = comp.ContainerType;
-            type = comp.Type;
-            if(type == "GuiOkCodeField")
-            {
-                var b = true;
-            }
             if (comp is SAPFEWSELib.GuiTree tree)
             {
                 type = "GuiTree";
@@ -47,7 +37,7 @@ namespace OpenRPA.SAPBridge
                     int ScreenTop = 0;
 
                     Height = tree.Height;
-                    if(Height>0)
+                    if (Height > 0)
                     {
                         Left = tree.Left;
                         Top = tree.Top;
@@ -56,7 +46,7 @@ namespace OpenRPA.SAPBridge
                         ScreenTop = tree.ScreenTop;
                     }
                     var p = new List<SAPElementProperty>();
-                    if(Properties == null || Properties.Length == 0)
+                    if (Properties == null || Properties.Length == 0)
                     {
                         if (Properties != null) p.AddRange(Properties);
                         if (p.Where(x => x.Name == "Left").Count() == 0) p.Add(new SAPElementProperty("Left", tree.Left.ToString(), true));
@@ -76,14 +66,14 @@ namespace OpenRPA.SAPBridge
                     {
                         keys = tree.GetNodesCol() as SAPFEWSELib.GuiCollection;
                     }
-                    if (keys != null && LoadChildren && (VisibleOnly && Height>0 || !VisibleOnly))
+                    if (keys != null && LoadChildren && (VisibleOnly && Height > 0 || !VisibleOnly))
                     {
                         var _keys = new List<string>();
                         foreach (string key in keys) _keys.Add(key);
                         var children = new List<SAPEventElement>();
                         foreach (string key in keys)
                         {
-                            var _msg = new SAPEventElement(comp, SystemName, all, key, null, Flat, true, MaxItem, VisibleOnly);
+                            var _msg = new SAPEventElement(session, comp, SystemName, all, key, null, Flat, true, MaxItem, VisibleOnly);
                             children.Add(_msg);
                             if (MaxItem > 0)
                             {
@@ -108,7 +98,7 @@ namespace OpenRPA.SAPBridge
                     if (string.IsNullOrEmpty(Cell))
                     {
                         Height = tree.GetNodeHeight(Path);
-                        if(Height > 0)
+                        if (Height > 0)
                         {
                             Left = tree.GetNodeLeft(Path);
                             Top = tree.GetNodeTop(Path);
@@ -121,7 +111,7 @@ namespace OpenRPA.SAPBridge
                     else
                     {
                         Height = tree.GetItemHeight(Path, Cell);
-                        if(Height> 0)
+                        if (Height > 0)
                         {
                             Left = tree.GetItemLeft(Path, Cell);
                             Top = tree.GetItemTop(Path, Cell);
@@ -160,7 +150,6 @@ namespace OpenRPA.SAPBridge
                                 try
                                 {
                                     if (p.Where(x => x.Name == "Tooltip").Count() == 0) p.Add(new SAPElementProperty("Tooltip", tree.GetItemToolTip(Path, Cell), true));
-                                    var b = true;
                                 }
                                 catch (Exception)
                                 {
@@ -187,7 +176,7 @@ namespace OpenRPA.SAPBridge
                             var children = new List<SAPEventElement>();
                             foreach (string key in keys)
                             {
-                                var _msg = new SAPEventElement(comp, SystemName, all, Path, key, Flat, true, MaxItem, VisibleOnly);
+                                var _msg = new SAPEventElement(session, comp, SystemName, all, Path, key, Flat, true, MaxItem, VisibleOnly);
                                 children.Add(_msg);
                                 if (MaxItem > 0)
                                 {
@@ -206,7 +195,7 @@ namespace OpenRPA.SAPBridge
                             var children = new List<SAPEventElement>();
                             foreach (string key in keys)
                             {
-                                var _msg = new SAPEventElement(comp, SystemName, all, key, null, Flat, false, MaxItem, VisibleOnly);
+                                var _msg = new SAPEventElement(session, comp, SystemName, all, key, null, Flat, false, MaxItem, VisibleOnly);
                                 children.Add(_msg);
                                 if (MaxItem > 0)
                                 {
@@ -248,7 +237,7 @@ namespace OpenRPA.SAPBridge
                 }
                 else if (string.IsNullOrEmpty(Cell))
                 {
-                    
+
                     ContainerType = false;
                     type = "GuiGridNode";
                     var p = new List<SAPElementProperty>();
@@ -327,7 +316,7 @@ namespace OpenRPA.SAPBridge
                     try
                     {
                         Height = grid.GetCellHeight(index, Cell);
-                        if(Height>0)
+                        if (Height > 0)
                         {
                             Left = grid.GetCellLeft(index, Cell);
                             Top = grid.GetCellTop(index, Cell);
@@ -361,7 +350,7 @@ namespace OpenRPA.SAPBridge
                     {
 
                         int from = 0;
-                        int to  = grid.RowCount;
+                        int to = grid.RowCount;
 
                         if (VisibleOnly)
                         {
@@ -370,7 +359,7 @@ namespace OpenRPA.SAPBridge
                         }
                         for (var i = from; i < to; i++)
                         {
-                            var _msg = new SAPEventElement(comp, SystemName, all, i.ToString(), null, Flat, true, MaxItem, VisibleOnly);
+                            var _msg = new SAPEventElement(session, comp, SystemName, all, i.ToString(), null, Flat, true, MaxItem, VisibleOnly);
                             //var _msg = new SAPEventElement(comp, SystemName, Parent, false);
                             children.Add(_msg);
                             if (MaxItem > 0)
@@ -387,7 +376,7 @@ namespace OpenRPA.SAPBridge
                     var keys = grid.ColumnOrder as SAPFEWSELib.GuiCollection;
                     foreach (string key in keys)
                     {
-                        var _msg = new SAPEventElement(comp, SystemName, all, Path, key, Flat, false, MaxItem, VisibleOnly);
+                        var _msg = new SAPEventElement(session, comp, SystemName, all, Path, key, Flat, false, MaxItem, VisibleOnly);
                         children.Add(_msg);
                         if (MaxItem > 0)
                         {
@@ -433,7 +422,7 @@ namespace OpenRPA.SAPBridge
                 _Rectangle = new Rectangle(ScreenLeft, ScreenTop, Width, Height);
                 var children = new List<SAPEventElement>();
                 var keys = radio.GroupMembers as SAPFEWSELib.GuiCollection;
-                if(keys!=null && LoadChildren)
+                if (keys != null && LoadChildren)
                     for (var i = 0; i < keys.Count; i++)
                     {
                         var ele = keys.ElementAt(i) as SAPFEWSELib.GuiComboBoxEntry;
@@ -481,8 +470,8 @@ namespace OpenRPA.SAPBridge
                 }
                 Properties = p.ToArray();
                 _Rectangle = new Rectangle(ScreenLeft, ScreenTop, Width, Height);
-                if(LoadChildren)
-                    for (var i=0; i < keys.Count; i++)
+                if (LoadChildren)
+                    for (var i = 0; i < keys.Count; i++)
                     {
                         var ele = keys.ElementAt(i) as SAPFEWSELib.GuiComboBoxEntry;
                         var _msg = new SAPEventElement(ele, SystemName, combobox.Id, all);
@@ -525,21 +514,21 @@ namespace OpenRPA.SAPBridge
                     }
                     Children = children.ToArray();
                 }
-                else if (comp is SAPFEWSELib.GuiSession session && LoadChildren)
+                else if (comp is SAPFEWSELib.GuiSession session2 && LoadChildren)
                 {
                     var children = new List<SAPEventElement>();
-                    if(VisibleOnly)
+                    if (VisibleOnly)
                     {
-                        SAPFEWSELib.GuiComponent Element = session.ActiveWindow as SAPFEWSELib.GuiComponent;
+                        SAPFEWSELib.GuiComponent Element = session2.ActiveWindow as SAPFEWSELib.GuiComponent;
                         var p = Element.Parent as SAPFEWSELib.GuiComponent;
                         var parent = (p != null) ? p.Id : null;
                         children.Add(new SAPEventElement(Element, SystemName, parent, false));
                     }
                     else
                     {
-                        for (var i = 0; i < session.Children.Count; i++)
+                        for (var i = 0; i < session2.Children.Count; i++)
                         {
-                            SAPFEWSELib.GuiComponent Element = session.Children.ElementAt(i);
+                            SAPFEWSELib.GuiComponent Element = session2.Children.ElementAt(i);
                             var p = Element.Parent as SAPFEWSELib.GuiComponent;
                             var parent = (p != null) ? p.Id : null;
                             children.Add(new SAPEventElement(Element, SystemName, parent, false));
@@ -593,23 +582,34 @@ namespace OpenRPA.SAPBridge
             }
             if (Properties == null || Properties.Count() == 0)
             {
-                if(SAPHook.Instance.Recording)
-                {
-                    LoadProperties(comp, all);
-                } else if (!VisibleOnly)
+                if (SAPHook.Instance.Recording)
                 {
                     LoadProperties(comp, all);
                 }
-                 
+                else if (!VisibleOnly)
+                {
+                    LoadProperties(comp, all);
+                }
+
             }
-            var tool = Properties.Where(x => x.Name == "DefaultTooltip").FirstOrDefault();
-            if(tool ==null)
+            if (Program.log_missing_defaulttooltip)
             {
-                Program.log("Missing DefaultTooltip " + Id);
+                if (Properties != null)
+                {
+                    var tool = Properties.Where(x => x.Name == "DefaultTooltip").FirstOrDefault();
+                    if (tool == null)
+                    {
+                        Program.log("Missing DefaultTooltip " + Id);
+                    }
+                }
+                else
+                {
+                    Program.log("Missing DefaultTooltip " + Id + " (missing all properties)");
+                }
             }
             if (string.IsNullOrEmpty(Name))
             {
-                if(Properties!=null)
+                if (Properties != null)
                 {
                     var name = Name;
                     var p = Properties.Where(x => x.Name == "Key").FirstOrDefault();
@@ -625,13 +625,25 @@ namespace OpenRPA.SAPBridge
         private bool all { get; set; }
         private bool flat { get; set; }
         private bool LoadChildren { get; set; }
-        public SAPEventElement(SAPFEWSELib.GuiComponent comp, string SystemName, bool all, string Path, string Cell, bool flat, bool LoadChildren, int MaxItem, bool VisibleOnly)
+        public SAPEventElement(SAPFEWSELib.GuiSession session, SAPFEWSELib.GuiComponent comp, string SystemName, bool all, string Path, string Cell, bool flat, bool LoadChildren, int MaxItem, bool VisibleOnly)
         {
             this.all = all;
             this.flat = flat;
             this.LoadChildren = LoadChildren;
             this.MaxItem = MaxItem;
-            Load(comp, SystemName, all, Path, Cell, flat, LoadChildren, MaxItem, VisibleOnly);
+
+            // (re)Moved from load()
+            this.SystemName = SystemName;
+            Id = comp.Id;
+            ContainerType = comp.ContainerType;
+            type = comp.Type;
+            if (!string.IsNullOrEmpty(Id) && Id.Contains("/"))
+            {
+                Parent = Id.Substring(0, Id.LastIndexOf("/"));
+            }
+            // if (comp.Parent != null) Parent = ((SAPFEWSELib.GuiComponent)comp.Parent).Id;
+
+            Load(session, comp, SystemName, all, Path, Cell, flat, LoadChildren, MaxItem, VisibleOnly);
         }
         public SAPEventElement(SAPFEWSELib.GuiComponent Element, string SystemName, string Parent, bool all)
         {
@@ -711,8 +723,20 @@ namespace OpenRPA.SAPBridge
         //    Items = items.ToArray();
 
         //}
-        private static string[] limitedProperties = { "Changeable", "Modified", "Text", "ScreenTop", "ScreenLeft", "Height", "Width", "Top", "Left", "Tooltip", "DefaultTooltip"};
+        private static string[] limitedProperties = { "Changeable", "Modified", "Text", "ScreenTop", "ScreenLeft", "Height", "Width", "Top", "Left", "Tooltip", "DefaultTooltip" };
         private static Dictionary<Type, System.Reflection.PropertyInfo[]> typeProperties = new Dictionary<Type, System.Reflection.PropertyInfo[]>();
+        public static void PropogateTypeCache()
+        {
+            Program.log("PropogateTypeCache:: Begin");
+            Type blah = typeof(SAPFEWSELib.GuiComponent);
+            foreach (var t in blah.Assembly.GetTypes())
+            {
+                System.Reflection.PropertyInfo[] tproperties = t.GetProperties().Where(x => x.IsSpecialName == false).ToArray();
+                typeProperties.Add(t, tproperties);
+            }
+            Program.log("PropogateTypeCache:: End with " + typeProperties.Count + " types");
+            SAPHook.Instance.RefreshUIElements(true);
+        }
         public void LoadProperties(SAPFEWSELib.GuiComponent Element, bool all)
         {
             int X = 0; int Y = 0; int Width = 0; int Height = 0;
@@ -725,7 +749,8 @@ namespace OpenRPA.SAPBridge
                 if (typeProperties.ContainsKey(t))
                 {
                     tproperties = typeProperties[t];
-                } else
+                }
+                else
                 {
                     tproperties = t.GetProperties().Where(x => x.IsSpecialName == false).ToArray();
                     typeProperties.Add(t, tproperties);
@@ -743,7 +768,7 @@ namespace OpenRPA.SAPBridge
                         if (_p.Name == "Properties") continue;
                         if (type == "GuiButton" && _p.Name == "Modified") continue;
                         if (type == "GuiTitlebar" && _p.Name == "Changeable") continue;
-                        if(type == "GuiTitlebar" && _p.Name == "Modified") continue;
+                        if (type == "GuiTitlebar" && _p.Name == "Modified") continue;
                         if (type == "GuiShell" && _p.Name == "AccTooltip") continue;
                         if (type == "GuiShell" && _p.Name == "AccLabelCollection") continue;
                         if (type == "GuiShell" && _p.Name == "HierarchyHeaderWidth") continue;
