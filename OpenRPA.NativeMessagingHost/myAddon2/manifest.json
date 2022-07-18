@@ -1,20 +1,23 @@
 {
-  "manifest_version": 2,
-  "name": "myInvenio Task Mining",
-  "version": "1.0.0.6",
-  "description": "Support extension for myInvenio Task Mining",
+  "manifest_version": 3,
+  "name": "IBM Task Mining",
+  "version": "1.0.0.0",
+  "description": "Support extension for IBM Task Mining",
   "permissions": [
     "tabs",
     "nativeMessaging",
     "<all_urls>",
     "webNavigation",
-    "file:///*",
     "downloads"
   ],
+  "host_permissions": [
+  ],
+  "optional_host_permissions": [
+    "file:///*"
+  ],
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "service_worker": "background.js",
+    "type": "module"
   },
   "content_scripts": [
     {
@@ -30,10 +33,13 @@
       "run_at": "document_start"
     }
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "content_security_policy": {
+    "script-src": "self unsafe-eval",
+    "object-src": "self"
+  },
   "icons": {
-    "16": "myInvenio16.png",
-    "48": "myInvenio48.png",
-    "128": "myInvenio128.png"
+      "16": "myInvenio16.png",
+      "48": "myInvenio48.png",
+      "128": "myInvenio128.png"
+    }
   }
-}
