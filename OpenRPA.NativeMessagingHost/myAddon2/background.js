@@ -549,12 +549,12 @@ var tabsexecuteScript = function (tabid, options) {
             }
             chrome.scripting.executeScript(
                 opt, function (results) {
-                if (chrome.runtime.lastError) {
-                    reject(chrome.runtime.lastError.message);
-                    return;
-                }
-                resolve(results);
-            });
+                    if (chrome.runtime.lastError) {
+                        reject(chrome.runtime.lastError.message);
+                        return;
+                    }
+                    resolve(results);
+                });
         } catch (e) {
             reject(e);
         }
@@ -791,7 +791,7 @@ async function runtimeOnMessage(msg, sender, fnResponse) {
         if (msg.functionName !== "keydown" && msg.functionName !== "keyup") console.log("[send]" + msg.functionName);
     }
 
-    if (runningVersion !== null && runningVersion > 0 && (msg.functionName === 'click' || msg.functionName === 'tab' || msg.functionName === 'ctrlc' || msg.functionName === 'ctrlv')) {
+    if (runningVersion !== null && runningVersion > 0 && (msg.functionName === 'click' || msg.functionName === 'tab' || msg.functionName === 'ctrlc' || msg.functionName === 'ctrlv' || msg.functionName === 'return')) {
         try {
             let dataUrl = await chrome.tabs.captureVisibleTab(
                 sender.tab.windowId,
