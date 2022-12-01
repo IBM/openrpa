@@ -401,7 +401,7 @@ if (true == false) {
                     }
 
                     const minDelta = (window.pageVals) ? window.pageVals.size * 0.2 : -1; // minimum number of values changed to detect a major event  is 20%
-                    console.error(window.location, window.name);
+                    //console.error(window.location, window.name);
                     if ((sendCurrentPageVals) || // force for window onblur or onunload
                         (minDelta === -1) || // first run
                         (Math.abs(window.pageVals.size - actualVas.size) >= minDelta) ||  // major change of number  of fields 
