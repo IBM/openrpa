@@ -185,14 +185,13 @@ if (true == false) {
                 cmdKey = 91,
                 vKey = 86,
                 cKey = 67;
-            let openrpautil = {
+            var openrpautil = {
                 parent: null,
                 runningVersion: null,
                 ping: function () {
                     return "pong";
                 },
-
-
+                
                 init: function () {
                     if (document.URL.startsWith("https://docs.google.com/spreadsheets/d")) {
                         console.log("skip google docs *");
@@ -581,8 +580,8 @@ if (true == false) {
                     }
                     currentParentWindow = parent;
                     while (currentWindow !== window.top) {
-                        for (let idx = 0; idx < currentParentWindow.frames.length; idx++)
-                            if (currentParentWindow.frames[idx] === currentWindow) {
+                        for (const element of currentParentWindow.frames)
+                            if (element === currentWindow) {
                                 // for (let frameElement of currentParentWindow.document.getElementsByTagName('iframe')) {
                                 for (let t = 0; t < currentParentWindow.frames.length; t++) {
                                     try {
@@ -724,7 +723,7 @@ if (true == false) {
 
                         // console.log(targetElement.tagName + ' ' + message.xPath);
                         if (targetElement.contentWindow) {
-                            var iframeWin = targetElement.contentWindow;
+                            const iframeWin = targetElement.contentWindow;
                             iframeWin.postMessage(message, '*');
                             console.log('targetElement.tagName == iframe or frame');
                             return;
@@ -743,7 +742,7 @@ if (true == false) {
                     if (element === null || element === undefined) return null;
                     if (element.attributes === null || element.attributes === undefined) return null;
                     ++cachecount;
-                    element.setAttribute('zn_id', cachecount);
+//                    element.setAttribute('zn_id', cachecount);
                     return cachecount;
                 },
                 executescript: function (message) {
@@ -757,12 +756,12 @@ if (true == false) {
                         message.error = e;
                     }
                     delete message.script;
-                    var test = JSON.parse(JSON.stringify(message));
+                    let test = JSON.parse(JSON.stringify(message));
                     if (document.openrpadebug) console.log(test);
                     return test;
                 },
                 fullPath: function (el) {
-                    var names = [];
+                    let names = [];
                     while (el.parentNode) {
                         if (el.id) {
                             names.unshift('#' + el.id);
@@ -891,17 +890,17 @@ if (true == false) {
                         if (nodeList) {
                             if (nodeList.length) {
                                 object["content"] = [];
-                                for (var i = 0; i < nodeList.length; i++) {
-                                    if (nodeList[i].nodeType === 3) {
+                                for (const element of nodeList) {
+                                    if (element.nodeType === 3) {
                                         if (mapdom !== true) {
                                             if (object["tagName"] !== 'STYLE' && object["tagName"] !== 'SCRIPT' && object["tagName"] !== 'HEAD') {
-                                                object["content"].push(nodeList[i].nodeValue);
+                                                object["content"].push(element.nodeValue);
                                             }
                                         }
                                     } else {
                                         if (ident < maxiden) {
                                             object["content"].push({});
-                                            treeHTML(nodeList[i], object["content"][object["content"].length - 1], maxiden, ident + 1);
+                                            treeHTML(element, object["content"][object["content"].length - 1], maxiden, ident + 1);
                                         }
                                     }
                                 }
@@ -918,9 +917,11 @@ if (true == false) {
                                 //    element.removeAttribute("disabled");
                                 //}
                                 let attributecount = 0;
+                                /*
                                 if (element.attributes["zn_id"] == undefined || element.attributes["zn_id"] == null) {
                                     let zn_id = openrpautil.getuniqueid(element);
                                 }
+                                */
                                 //-->                                ["zn_id"] = element.attributes["zn_id"].nodeValue;
                                 for (let r = 0; r < element.attributes.length; r++) {
                                     let name = element.attributes[r].nodeName;
@@ -1016,8 +1017,8 @@ if (true == false) {
                         }
                         if (element) {
                             let td = element.getElementsByTagName("td");
-                            for (let i = 0; i < td.length; i++) {
-                                data.push(td[i].innerText);
+                            for (const element of td) {
+                                data.push(element.innerText);
                             }
                         }
                         return data;
@@ -1146,65 +1147,7 @@ if (true == false) {
             };
             document.openrpautil = openrpautil;
             openrpautil.init();
-
-
-            function simulate(element, eventName) {
-                let options = extend(defaultOptions, arguments[2] || {});
-                let oEvent, eventType = null;
-
-                for (let name in eventMatchers) {
-                    if (eventMatchers[name].test(eventName)) { eventType = name; break; }
-                }
-
-                if (!eventType)
-                    throw new SyntaxError('Only HTMLEvents and MouseEvents interfaces are supported');
-
-                if (document.createEvent) {
-                    oEvent = document.createEvent(eventType);
-                    if (eventType == 'HTMLEvents') {
-                        oEvent.initEvent(eventName, options.bubbles, options.cancelable);
-                    }
-                    else {
-                        oEvent.initMouseEvent(eventName, options.bubbles, options.cancelable, document.defaultView,
-                            options.button, options.pointerX, options.pointerY, options.pointerX, options.pointerY,
-                            options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, options.button, element);
-                    }
-                    element.dispatchEvent(oEvent);
-                }
-                else {
-                    options.clientX = options.pointerX;
-                    options.clientY = options.pointerY;
-                    let evt = document.createEventObject();
-                    oEvent = extend(evt, options);
-                    element.fireEvent('on' + eventName, oEvent);
-                }
-                return element;
-            }
-
-            function extend(destination, source) {
-                for (let property in source)
-                    destination[property] = source[property];
-                return destination;
-            }
-
-            let eventMatchers = {
-                'HTMLEvents': /^(?:load|unload|abort|error|select|change|submit|reset|focus|blur|resize|scroll)$/,
-                'MouseEvents': /^(?:click|dblclick|mouse(?:down|up|over|move|out))$/
-            }
-            let defaultOptions = {
-                pointerX: 0,
-                pointerY: 0,
-                button: 0,
-                ctrlKey: false,
-                altKey: false,
-                shiftKey: false,
-                metaKey: false,
-                bubbles: true,
-                cancelable: true
-            }
-
-
-
+            
             // https://chromium.googlesource.com/chromium/blink/+/master/Source/devtools/front_end/components/DOMPresentationUtils.js
             // https://gist.github.com/asfaltboy/8aea7435b888164e8563
             /*
@@ -1239,7 +1182,7 @@ if (true == false) {
              * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
              */
 
-            const UTILS = {};
+            var UTILS = {};
             UTILS.xPath = function (node, optimized) {
                 if (node.nodeType === Node.DOCUMENT_NODE)
                     return "/";
@@ -1267,8 +1210,8 @@ if (true == false) {
                         ownValue = node.localName;
                         if (optimized) {
 
-                            for (let i = 0; i < document.openrpauniquexpathids.length; i++) {
-                                let id = document.openrpauniquexpathids[i].toLowerCase();
+                            for (const element of document.openrpauniquexpathids) {
+                                let id = element.toLowerCase();
                                 if (node.getAttribute(id))
                                     return new UTILS.DOMNodePathStep("//" + ownValue + "[@" + id + "=\"" + node.getAttribute(id) + "\"]", true);
                                 id = id.toUpperCase();
@@ -1323,8 +1266,8 @@ if (true == false) {
                 if (!siblings)
                     return 0; // Root node - no siblings.
                 let hasSameNamedElements;
-                for (let i = 0; i < siblings.length; ++i) {
-                    if (areNodesSimilar(node, siblings[i]) && siblings[i] !== node) {
+                for (const element of siblings) {
+                    if (areNodesSimilar(node, element) && element !== node) {
                         hasSameNamedElements = true;
                         break;
                     }
@@ -1332,9 +1275,9 @@ if (true == false) {
                 if (!hasSameNamedElements)
                     return 0;
                 let ownIndex = 1; // XPath indices start with 1.
-                for (let z = 0; z < siblings.length; ++z) {
-                    if (areNodesSimilar(node, siblings[z])) {
-                        if (siblings[z] === node)
+                for (const element of siblings) {
+                    if (areNodesSimilar(node, element)) {
+                        if (element === node)
                             return ownIndex;
                         ++ownIndex;
                     }
@@ -1443,8 +1386,8 @@ if (true == false) {
                         continue;
                     }
                     let siblingClassNamesArray = prefixedElementClassNames(sibling);
-                    for (let j = 0; j < siblingClassNamesArray.length; ++j) {
-                        let siblingClass = siblingClassNamesArray[j];
+                    for (const element of siblingClassNamesArray) {
+                        let siblingClass = element;
                         if (ownClassNames.indexOf(siblingClass))
                             continue;
                         delete ownClassNames[siblingClass];
