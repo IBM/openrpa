@@ -3,15 +3,11 @@ document.openrpauniquexpathids = ['ng-model', 'ng-reflect-name']; // aria-label
 
 
 function inIframe() {
-    let result = true;
     try {
-        if (window.self === window.top) return false;
-        if (parent) {
-        }
-
+        return window.self !== window.top;
     } catch (e) {
+        return true;
     }
-    return result;
 }
 if (true == false) {
     console.debug('skip declaring openrpautil class');
@@ -34,7 +30,7 @@ if (true == false) {
         }
         const notifyFrames = (event) => {
             for (let targetElement of document.getElementsByTagName('iframe')) {
-                var message = { functionName: 'mousemove', parents: 0, xpaths: [] };
+                let message = { functionName: 'mousemove', parents: 0, xpaths: [] };
                 try {
                     openrpautil.applyPhysicalCords(message, targetElement);
                 } catch (e) {
@@ -45,10 +41,10 @@ if (true == false) {
                     message.uix += openrpautil.parent.uix;
                     message.uiy += openrpautil.parent.uiy;
                 }
-                var width = getComputedStyle(targetElement, null).getPropertyValue('border-width');
+                let width = getComputedStyle(targetElement, null).getPropertyValue('border-width');
                 width = parseInt(width.replace('px', '')) * 0.85;
                 message.uix += (width | 0);
-                var height = getComputedStyle(targetElement, null).getPropertyValue('border-height');
+                let height = getComputedStyle(targetElement, null).getPropertyValue('border-height');
                 height = parseInt(height.replace('px', '')) * 0.85;
                 message.uiy += (height | 0);
 
@@ -57,10 +53,10 @@ if (true == false) {
                 //console.log('postMessage to', targetElement, { uix: message.uix, uiy: message.uiy });
                 targetElement.contentWindow.postMessage(message, '*');
             }
-            var doFrames = () => {
+            const doFrames = () => {
                 try {
                     for (let targetElement of document.getElementsByTagName('frame')) {
-                        var message = { functionName: 'mousemove', parents: 0, xpaths: [] };
+                        let message = { functionName: 'mousemove', parents: 0, xpaths: [] };
                         try {
                             openrpautil.applyPhysicalCords(message, targetElement);
                         } catch (e) {
@@ -71,10 +67,10 @@ if (true == false) {
                             message.uix += openrpautil.parent.uix;
                             message.uiy += openrpautil.parent.uiy;
                         }
-                        var width = getComputedStyle(targetElement, null).getPropertyValue('border-width');
+                        let width = getComputedStyle(targetElement, null).getPropertyValue('border-width');
                         width = parseInt(width.replace('px', '')) * 0.85;
                         message.uix += width;
-                        var height = getComputedStyle(targetElement, null).getPropertyValue('border-height');
+                        let height = getComputedStyle(targetElement, null).getPropertyValue('border-height');
                         height = parseInt(height.replace('px', '')) * 0.85;
                         message.uiy += (height | 0);
 
@@ -95,12 +91,12 @@ if (true == false) {
         }
 
 
-        var runtimeOnMessage = function (sender, message, fnResponse) {
+        const runtimeOnMessage = function (sender, message, fnResponse) {
             try {
                 if (openrpautil == undefined) return;
-                var func = openrpautil[sender.functionName];
+                let func = openrpautil[sender.functionName];
                 if (func) {
-                    var result = func(sender);
+                    let result = func(sender);
                     if (result == null) {
                         console.warn(sender.functionName + " gave no result.");
                         fnResponse(sender);
@@ -123,19 +119,19 @@ if (true == false) {
         window.openrpautil_contentlistner = true;
         if (typeof document.openrpautil === 'undefined') {
             document.openrpautil = {};
-            var host = chrome;
-            var isTabFocused = true;
-            var intervalId;
-            var last_mousemove = null;
-            var cache = {};
-            var cachecount = 0;
-            var KEYCODE_TAB = 9;
-            var ctrlDown = false,
+            let host = chrome;
+            let isTabFocused = true;
+            let intervalId;
+            let last_mousemove = null;
+            let cache = {};
+            let cachecount = 0;
+            let KEYCODE_TAB = 9;
+            let ctrlDown = false,
                 ctrlKey = 17,
                 cmdKey = 91,
                 vKey = 86,
                 cKey = 67;
-            var openrpautil = {
+            let openrpautil = {
                 parent: null,
                 runningVersion: null,
                 ping: function () {
@@ -237,7 +233,7 @@ if (true == false) {
                 },
                 getElementTrackObjectValue: function (ele, inputIsText) {
 
-                    if (ele.tagName === 'INPUT' && ele.type && ele.type.toUpperCase() === 'PASSWORD') {
+                    if (ele?.tagName === 'INPUT' && ele?.type?.toUpperCase() === 'PASSWORD') {
                         return 'PASSWORD';
                     }
 
@@ -383,7 +379,7 @@ if (true == false) {
                     const actualVas = new Map();
                     // key = hashKey#counter need for managing fields with same key, so need to increase the counter
                     const actualVasKeys = new Map();
-                    const actualVasMatch = 0;
+                    let actualVasMatch = 0;
                     const inputs = UTILS.getElementsByTagNames(['input', 'select', 'textarea', 'span', 'a', 'div']);
                     // var inputs = UTILS.getElementsByTagNames(['input', 'select', 'textarea' ]);  
                     for (index = 0; index < inputs.length; ++index) {
@@ -485,9 +481,9 @@ if (true == false) {
                     }
                 },
                 applyPhysicalCords: function (message, ele) {
-                    var ClientRect = ele.getBoundingClientRect();
-                    var devicePixelRatio = window.devicePixelRatio || 1;
-                    var scrollLeft = (((t = document.documentElement) || (t = document.body.parentNode)) && typeof t.scrollLeft === 'number' ? t : document.body).scrollLeft;
+                    let ClientRect = ele.getBoundingClientRect();
+                    let devicePixelRatio = window.devicePixelRatio || 1;
+                    let scrollLeft = (((t = document.documentElement) || (t = document.body.parentNode)) && typeof t.scrollLeft === 'number' ? t : document.body).scrollLeft;
                     message.x = Math.floor(ClientRect.left);
                     message.y = Math.floor(ClientRect.top);
                     message.width = Math.floor(ele.offsetWidth);
@@ -501,10 +497,10 @@ if (true == false) {
                         message.uix = Math.round(ClientRect.left * devicePixelRatio);
                         message.uiy = Math.round(ClientRect.top * devicePixelRatio);
                     }
-                    if (inIframe() == false) {
-                        var isAtMaxWidth = screen.availWidth - window.innerWidth === 0;
+                    if (inIframe() === false) {
+                        let isAtMaxWidth = screen.availWidth - window.innerWidth === 0;
                         if (isAtMaxWidth) {
-                            var isFirefox = typeof InstallTrigger !== 'undefined';
+                            let isFirefox = typeof InstallTrigger !== 'undefined';
                             if (isFirefox) {
                                 message.uix += 8;
                                 message.uiy -= 7;
@@ -581,7 +577,7 @@ if (true == false) {
                             }
                     }
 
-                    var result = positions.reduce((accumulator, currentValue) => {
+                    let result = positions.reduce((accumulator, currentValue) => {
                         return {
                             x: (accumulator.x + currentValue.x) | 0,
                             y: (accumulator.y + currentValue.y) | 0
@@ -590,8 +586,8 @@ if (true == false) {
                     return result;
                 },
                 getOffset: function (el) {
-                    var _x = 0;
-                    var _y = 0;
+                    let _x = 0;
+                    let _y = 0;
                     while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
                         _x += el.offsetLeft - el.scrollLeft;
                         _y += el.offsetTop - el.scrollTop;
@@ -612,8 +608,8 @@ if (true == false) {
                     else {
                         // https://www.jeffersonscher.com/res/resolution.php
                         // https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
-                        var message = { functionName: action, frame: frame, parents: 0, xpaths: [] };
-                        var targetElement = null;
+                        let message = { functionName: action, frame: frame, parents: 0, xpaths: [] };
+                        let targetElement = null;
                         targetElement = event.target || event.srcElement;
                         if (targetElement == null) {
                             console.log('targetElement == null');
@@ -640,7 +636,7 @@ if (true == false) {
                         } else if (inIframe()) {
                             // TODO: exit?
                             //return;
-                            var currentFramePosition = openrpautil.currentFrameAbsolutePosition();
+                            let currentFramePosition = openrpautil.currentFrameAbsolutePosition();
                             // console.log({ uix: message.uix, uiy: message.uiy, parent: message.parents }, currentFramePosition);
                             message.uix += currentFramePosition.x;
                             message.uiy += currentFramePosition.y;
@@ -733,7 +729,7 @@ if (true == false) {
                     if (maxiden === null || maxiden === undefined) ident = 1;
 
                     node = node || this;
-                    var obj = {
+                    let obj = {
                         nodeType: node.nodeType
                     };
                     if (node.tagName) {
@@ -745,16 +741,16 @@ if (true == false) {
                     if (node.nodeValue) {
                         obj.nodeValue = node.nodeValue;
                     }
-                    var attrs = node.attributes;
+                    let attrs = node.attributes;
                     if (attrs) {
-                        var length = attrs.length;
-                        var arr = obj.attributes = new Array(length);
-                        for (var i = 0; i < length; i++) {
-                            attr = attrs[i];
+                        let length = attrs.length;
+                        arr = obj.attributes = new Array(length);
+                        for (let i = 0; i < length; i++) {
+                            let attr = attrs[i];
                             arr[i] = [attr.nodeName, attr.nodeValue];
                         }
                     }
-                    var childNodes = node.childNodes;
+                    let childNodes = node.childNodes;
                     if (childNodes && ident < maxiden) {
                         length = childNodes.length;
                         arr = obj.childNodes = new Array(length);
@@ -768,7 +764,7 @@ if (true == false) {
                     if (typeof obj === 'string') {
                         obj = JSON.parse(obj);
                     }
-                    var node, nodeType = obj.nodeType;
+                    let node, nodeType = obj.nodeType;
                     switch (nodeType) {
                         case 1: //ELEMENT_NODE
                             node = document.createElement(obj.tagName);
@@ -797,7 +793,7 @@ if (true == false) {
                             return node;
                     }
                     if (nodeType === 1 || nodeType === 11) {
-                        var childNodes = obj.childNodes || [];
+                        let childNodes = obj.childNodes || [];
                         for (i = 0, len = childNodes.length; i < len; i++) {
                             node.appendChild(openrpautil.toDOM(childNodes[i]));
                         }
@@ -805,10 +801,10 @@ if (true == false) {
                     return node;
                 },
                 mapDOM: function (element, json, mapdom, innerhtml) {
-                    var maxiden = 40;
+                    let maxiden = 40;
                     if (mapdom !== true) maxiden = 1;
                     if (maxiden === null || maxiden === undefined) maxiden = 20;
-                    var treeObject = {};
+                    let treeObject = {};
                     // If string convert to document Node
                     if (typeof element === "string") {
                         if (window.DOMParser) {
@@ -837,7 +833,7 @@ if (true == false) {
                                 }
                             }
                         }
-                        var nodeList = element.childNodes;
+                        let nodeList = element.childNodes;
                         if (nodeList) {
                             if (nodeList.length) {
                                 object["content"] = [];
@@ -859,7 +855,7 @@ if (true == false) {
                         }
                         if (element.attributes) {
                             if (element.attributes.length) {
-                                var wasDisabled = false;
+                                let wasDisabled = false;
                                 // To read values of disabled objects, we need to undisable them
                                 //if (element.disabled === true) {
                                 //    console.log('removing disabled!!!!');
@@ -928,7 +924,7 @@ if (true == false) {
                         treeObject["selected"] = element.selected;
                     }
                     if (element.tagName && element.tagName.toLowerCase() == "select") {
-                        var selectedvalues = [];
+                        let selectedvalues = [];
                         for (i = 0; i < element.options.length; i++) {
                             if (element.options[i].selected) {
                                 selectedvalues.push(element.options[i].value);
@@ -943,10 +939,10 @@ if (true == false) {
                     return json ? JSON.stringify(treeObject) : treeObject;
                 },
                 getAdditions: function (elm) {
-                    var additions = {};
+                    let additions = {};
 
                     try {
-                        var cells = getTableRowCellsFrom(elm);
+                        let cells = getTableRowCellsFrom(elm);
 
                         if (cells.length > 0) {
                             additions["tableRowCells"] = cells;
@@ -960,13 +956,13 @@ if (true == false) {
                     }
 
                     function getTableRowCellsFrom(element) {
-                        var data = [];
+                        let data = [];
                         while (element && element.nodeName !== "TR") {
                             element = element.parentNode;
                         }
                         if (element) {
-                            var td = element.getElementsByTagName("td");
-                            for (var i = 0; i < td.length; i++) {
+                            let td = element.getElementsByTagName("td");
+                            for (let i = 0; i < td.length; i++) {
                                 data.push(td[i].innerText);
                             }
                         }
@@ -974,8 +970,8 @@ if (true == false) {
                     }
                 },
                 isVisibleOnScreen: function (elm) {
-                    var rect = elm.getBoundingClientRect();
-                    var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+                    let rect = elm.getBoundingClientRect();
+                    let viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
                     return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
                 },
                 isVisible: function (elm) {
@@ -985,10 +981,10 @@ if (true == false) {
                     return window.getComputedStyle(elm, null).getPropertyValue('display');
                 },
                 getFrameName: function (frame) {
-                    var frames = parent.frames,
+                    let frames = parent.frames,
                         l = frames.length,
                         name = null;
-                    for (var x = 0; x < l; x++) {
+                    for (let x = 0; x < l; x++) {
                         if (frames[x] === frame) {
                             name = frames[x].name;
                         }
@@ -1091,7 +1087,7 @@ if (true == false) {
                         chrome.runtime.sendMessage(null, { functionName: "refreshRunningVersion" }, null, (newV) => { this.setRunningVersion(newV); });
                         return 0;
                     }
-                }
+                },
 
             };
             document.openrpautil = openrpautil;
@@ -1099,10 +1095,10 @@ if (true == false) {
 
 
             function simulate(element, eventName) {
-                var options = extend(defaultOptions, arguments[2] || {});
-                var oEvent, eventType = null;
+                let options = extend(defaultOptions, arguments[2] || {});
+                let oEvent, eventType = null;
 
-                for (var name in eventMatchers) {
+                for (let name in eventMatchers) {
                     if (eventMatchers[name].test(eventName)) { eventType = name; break; }
                 }
 
@@ -1124,7 +1120,7 @@ if (true == false) {
                 else {
                     options.clientX = options.pointerX;
                     options.clientY = options.pointerY;
-                    var evt = document.createEventObject();
+                    let evt = document.createEventObject();
                     oEvent = extend(evt, options);
                     element.fireEvent('on' + eventName, oEvent);
                 }
@@ -1132,16 +1128,16 @@ if (true == false) {
             }
 
             function extend(destination, source) {
-                for (var property in source)
+                for (let property in source)
                     destination[property] = source[property];
                 return destination;
             }
 
-            var eventMatchers = {
+            let eventMatchers = {
                 'HTMLEvents': /^(?:load|unload|abort|error|select|change|submit|reset|focus|blur|resize|scroll)$/,
                 'MouseEvents': /^(?:click|dblclick|mouse(?:down|up|over|move|out))$/
             }
-            var defaultOptions = {
+            let defaultOptions = {
                 pointerX: 0,
                 pointerY: 0,
                 button: 0,
@@ -1185,8 +1181,8 @@ if (true == false) {
                 const vpWidth = CustomUtils.getViewPortWidth();
                 const vpHeight = CustomUtils.getViewPortHeight();
                 if (elems?.length > 0) {
-                    for (let i = 0; i < elems.length; i++) {
-                        const elem = elems[i];
+                    for (const element of elems) {
+                        const elem = element;
                         const isPluginModalLayer = elem.id === 'chromium-plugin-modal-layer';
                         const isModalLayer = elem.offsetWidth === vpWidth
                             && elem.offsetHeight === vpHeight
@@ -1197,8 +1193,8 @@ if (true == false) {
                 }
                 return null;
             };
-            CustomUtils.getViewPortWidth = function () { return Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0); };
-            CustomUtils.getViewPortHeight = function () { return Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0); };
+            CustomUtils.getViewPortWidth = function () { return Math.max(document?.documentElement?.clientWidth || 0, window?.innerWidth || 0); };
+            CustomUtils.getViewPortHeight = function () { return Math.max(document?.documentElement?.clientHeight || 0, window?.innerHeight || 0); };
 
             // https://chromium.googlesource.com/chromium/blink/+/master/Source/devtools/front_end/components/DOMPresentationUtils.js
             // https://gist.github.com/asfaltboy/8aea7435b888164e8563
@@ -1234,14 +1230,14 @@ if (true == false) {
              * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
              */
 
-            var UTILS = {};
+            const UTILS = {};
             UTILS.xPath = function (node, optimized) {
                 if (node.nodeType === Node.DOCUMENT_NODE)
                     return "/";
-                var steps = [];
-                var contextNode = node;
+                let steps = [];
+                let contextNode = node;
                 while (contextNode) {
-                    var step = UTILS._xPathValue(contextNode, optimized);
+                    let step = UTILS._xPathValue(contextNode, optimized);
                     if (!step)
                         break; // Error - bail out early.
                     steps.push(step);
@@ -1253,8 +1249,8 @@ if (true == false) {
                 return (steps.length && steps[0].optimized ? "" : "/") + steps.join("/");
             };
             UTILS._xPathValue = function (node, optimized) {
-                var ownValue;
-                var ownIndex = UTILS._xPathIndex(node);
+                let ownValue;
+                let ownIndex = UTILS._xPathIndex(node);
                 if (ownIndex === -1)
                     return null; // Error.
                 switch (node.nodeType) {
@@ -1262,8 +1258,8 @@ if (true == false) {
                         ownValue = node.localName;
                         if (optimized) {
 
-                            for (var i = 0; i < document.openrpauniquexpathids.length; i++) {
-                                var id = document.openrpauniquexpathids[i].toLowerCase();
+                            for (let i = 0; i < document.openrpauniquexpathids.length; i++) {
+                                let id = document.openrpauniquexpathids[i].toLowerCase();
                                 if (node.getAttribute(id))
                                     return new UTILS.DOMNodePathStep("//" + ownValue + "[@" + id + "=\"" + node.getAttribute(id) + "\"]", true);
                                 id = id.toUpperCase();
@@ -1310,15 +1306,15 @@ if (true == false) {
                     if (left.nodeType === right.nodeType)
                         return true;
                     // XPath treats CDATA as text nodes.
-                    var leftType = left.nodeType === Node.CDATA_SECTION_NODE ? Node.TEXT_NODE : left.nodeType;
-                    var rightType = right.nodeType === Node.CDATA_SECTION_NODE ? Node.TEXT_NODE : right.nodeType;
+                    let leftType = left.nodeType === Node.CDATA_SECTION_NODE ? Node.TEXT_NODE : left.nodeType;
+                    let rightType = right.nodeType === Node.CDATA_SECTION_NODE ? Node.TEXT_NODE : right.nodeType;
                     return leftType === rightType;
                 }
-                var siblings = node.parentNode ? node.parentNode.children : null;
+                let siblings = node.parentNode ? node.parentNode.children : null;
                 if (!siblings)
                     return 0; // Root node - no siblings.
-                var hasSameNamedElements;
-                for (var i = 0; i < siblings.length; ++i) {
+                let hasSameNamedElements;
+                for (let i = 0; i < siblings.length; ++i) {
                     if (areNodesSimilar(node, siblings[i]) && siblings[i] !== node) {
                         hasSameNamedElements = true;
                         break;
@@ -1326,8 +1322,8 @@ if (true == false) {
                 }
                 if (!hasSameNamedElements)
                     return 0;
-                var ownIndex = 1; // XPath indices start with 1.
-                for (var z = 0; z < siblings.length; ++z) {
+                let ownIndex = 1; // XPath indices start with 1.
+                for (let z = 0; z < siblings.length; ++z) {
                     if (areNodesSimilar(node, siblings[z])) {
                         if (siblings[z] === node)
                             return ownIndex;
@@ -1340,10 +1336,10 @@ if (true == false) {
             UTILS.cssPath = function (node, optimized) {
                 if (node.nodeType !== Node.ELEMENT_NODE)
                     return "";
-                var steps = [];
-                var contextNode = node;
+                let steps = [];
+                let contextNode = node;
                 while (contextNode) {
-                    var step = UTILS._cssPathStep(contextNode, !!optimized, contextNode === node);
+                    let step = UTILS._cssPathStep(contextNode, !!optimized, contextNode === node);
                     if (!step)
                         break; // Error - bail out early.
                     steps.push(step);
@@ -1358,23 +1354,23 @@ if (true == false) {
                 if (node.nodeType !== Node.ELEMENT_NODE)
                     return null;
 
-                var id = node.getAttribute("id");
+                let id = node.getAttribute("id");
                 if (optimized) {
                     if (id)
                         return new UTILS.DOMNodePathStep(idSelector(id), true);
-                    var nodeNameLower = node.nodeName.toLowerCase();
+                    let nodeNameLower = node.nodeName.toLowerCase();
                     if (nodeNameLower === "body" || nodeNameLower === "head" || nodeNameLower === "html")
                         return new UTILS.DOMNodePathStep(node.nodeName.toLowerCase(), true);
                 }
-                var nodeName = node.nodeName.toLowerCase();
+                let nodeName = node.nodeName.toLowerCase();
 
                 if (id)
                     return new UTILS.DOMNodePathStep(nodeName.toLowerCase() + idSelector(id), true);
-                var parent = node.parentNode;
+                let parent = node.parentNode;
                 if (!parent || parent.nodeType === Node.DOCUMENT_NODE)
                     return new UTILS.DOMNodePathStep(nodeName.toLowerCase(), true);
                 function prefixedElementClassNames(node) {
-                    var classAttribute = node.getAttribute("class");
+                    let classAttribute = node.getAttribute("class");
                     if (!classAttribute)
                         return [];
 
@@ -1389,8 +1385,8 @@ if (true == false) {
                 function escapeIdentifierIfNeeded(ident) {
                     if (isCSSIdentifier(ident))
                         return ident;
-                    var shouldEscapeFirst = /^(?:[0-9]|-[0-9-]?)/.test(ident);
-                    var lastIndex = ident.length - 1;
+                    let shouldEscapeFirst = /^(?:[0-9]|-[0-9-]?)/.test(ident);
+                    let lastIndex = ident.length - 1;
                     return ident.replace(/./g, function (c, i) {
                         return shouldEscapeFirst && i === 0 || !isCSSIdentChar(c) ? escapeAsciiChar(c, i === lastIndex) : c;
                     });
@@ -1399,7 +1395,7 @@ if (true == false) {
                     return "\\" + toHexByte(c) + (isLast ? "" : " ");
                 }
                 function toHexByte(c) {
-                    var hexByte = c.charCodeAt(0).toString(16);
+                    let hexByte = c.charCodeAt(0).toString(16);
                     if (hexByte.length === 1)
                         hexByte = "0" + hexByte;
                     return hexByte;
@@ -1412,13 +1408,13 @@ if (true == false) {
                 function isCSSIdentifier(value) {
                     return /^-?[a-zA-Z_][a-zA-Z0-9_-]*$/.test(value);
                 }
-                var prefixedOwnClassNamesArray = prefixedElementClassNames(node);
-                var needsClassNames = false;
-                var needsNthChild = false;
-                var ownIndex = -1;
-                var siblings = parent.children;
-                for (var i = 0; (ownIndex === -1 || !needsNthChild) && i < siblings.length; ++i) {
-                    var sibling = siblings[i];
+                let prefixedOwnClassNamesArray = prefixedElementClassNames(node);
+                let needsClassNames = false;
+                let needsNthChild = false;
+                let ownIndex = -1;
+                let siblings = parent.children;
+                for (let i = 0; (ownIndex === -1 || !needsNthChild) && i < siblings.length; ++i) {
+                    let sibling = siblings[i];
                     if (sibling === node) {
                         ownIndex = i;
                         continue;
@@ -1429,17 +1425,17 @@ if (true == false) {
                         continue;
 
                     needsClassNames = true;
-                    var ownClassNames = prefixedOwnClassNamesArray;
-                    var ownClassNameCount = 0;
-                    for (var name in ownClassNames)
+                    let ownClassNames = prefixedOwnClassNamesArray;
+                    let ownClassNameCount = 0;
+                    for (let name in ownClassNames)
                         ++ownClassNameCount;
                     if (ownClassNameCount === 0) {
                         needsNthChild = true;
                         continue;
                     }
-                    var siblingClassNamesArray = prefixedElementClassNames(sibling);
-                    for (var j = 0; j < siblingClassNamesArray.length; ++j) {
-                        var siblingClass = siblingClassNamesArray[j];
+                    let siblingClassNamesArray = prefixedElementClassNames(sibling);
+                    for (let j = 0; j < siblingClassNamesArray.length; ++j) {
+                        let siblingClass = siblingClassNamesArray[j];
                         if (ownClassNames.indexOf(siblingClass))
                             continue;
                         delete ownClassNames[siblingClass];
@@ -1450,13 +1446,13 @@ if (true == false) {
                     }
                 }
 
-                var result = nodeName.toLowerCase();
+                let result = nodeName.toLowerCase();
                 if (isTargetNode && nodeName.toLowerCase() === "input" && node.getAttribute("type") && !node.getAttribute("id") && !node.getAttribute("class"))
                     result += "[type=\"" + node.getAttribute("type") + "\"]";
                 if (needsNthChild) {
                     result += ":nth-child(" + (ownIndex + 1) + ")";
                 } else if (needsClassNames) {
-                    for (var prefixedName in prefixedOwnClassNamesArray)
+                    for (let prefixedName in prefixedOwnClassNamesArray)
                         // for (var prefixedName in prefixedOwnClassNamesArray.keySet())
                         result += "." + escapeIdentifierIfNeeded(prefixedOwnClassNamesArray[prefixedName].substr(1));
                 }
@@ -1475,7 +1471,7 @@ if (true == false) {
 
             UTILS.hash = function (str) {
 
-                var hash = 0, i, chr;
+                let hash = 0, i, chr;
                 for (i = 0; i < str.length; i++) {
                     chr = str.charCodeAt(i);
                     hash = ((hash << 5) - hash) + chr;
@@ -1487,9 +1483,9 @@ if (true == false) {
 
 
             UTILS.getElementsByTagNames = function (tags) {
-                var elements = [];
+                let elements = [];
 
-                for (var i = 0, n = tags.length; i < n; i++) {
+                for (let i = 0, n = tags.length; i < n; i++) {
                     // Concatenate the array created from a HTMLCollection object
                     elements = elements.concat(Array.prototype.slice.call(document.getElementsByTagName(tags[i])));
                 }
