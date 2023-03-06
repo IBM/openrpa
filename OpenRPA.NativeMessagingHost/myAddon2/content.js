@@ -1,14 +1,68 @@
 document.openrpadebug = false;
 document.openrpauniquexpathids = ['ng-model', 'ng-reflect-name']; // aria-label
 
+class DOMUtils {
+    static isElementVisibleToUser(elem) {
+        //Element has dimentions
+        if (elem.offsetWidth === 0 || elem.offsetHeight === 0) return false;
 
-function inIframe() {
-    try {
-        return window.self !== window.top;
-    } catch (e) {
-        return true;
+        const bcr = elem.getBoundingClientRect();
+
+        //Element is vertically out of screen
+        //const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+        if (bcr.bottom < 0 || bcr.top - window.innerHeight >= 0) return false;
+
+        //Element is horizontally out of screen
+        //const viewWidth = Math.max(document.documentElement.clientWidth, window.innerWidth);
+        if (bcr.right < 0 || bcr.left - window.innerWidth >= 0) return false;
+
+        const isCenterVisible = elem === this.elementFromPoint((bcr.left + bcr.right) / 2, (bcr.top + bcr.bottom) / 2);
+        if (isCenterVisible) return true;
+        const isTopLeftVisible = elem === this.elementFromPoint(bcr.left, bcr.top);
+        if (isTopLeftVisible) return true;
+        const isTopRightVisible = elem === this.elementFromPoint(bcr.right - 1, bcr.top);
+        if (isTopRightVisible) return true;
+        const isBottomLeftVisible = elem === this.elementFromPoint(bcr.left, bcr.bottom - 1);
+        if (isBottomLeftVisible) return true;
+        const isBottomRightVisible = elem === this.elementFromPoint(bcr.right - 1, bcr.bottom - 1);
+        if (isBottomRightVisible) return true;
+        return false;
+    };
+
+    static elementFromPoint(x, y) {
+        const elems = document.elementsFromPoint(x, y);
+        const vpWidth = DOMUtils.getViewPortWidth();
+        const vpHeight = DOMUtils.getViewPortHeight();
+        if (elems?.length > 0) {
+            for (const element of elems) {
+                const elem = element;
+                const isPluginModalLayer = elem.id === 'chromium-plugin-modal-layer';
+                const isModalLayer = elem.offsetWidth === vpWidth
+                    && elem.offsetHeight === vpHeight
+                    && window.getComputedStyle(elem)["z-index"] !== 'auto';
+                if (!isPluginModalLayer && !isModalLayer)
+                    return elem;
+            }
+        }
+        return null;
+    };
+
+    static getViewPortWidth() { return Math.max(document?.documentElement?.clientWidth || 0, window?.innerWidth || 0); };
+    static getViewPortHeight() { return Math.max(document?.documentElement?.clientHeight || 0, window?.innerHeight || 0); };
+
+    static inIframe(){
+        try {
+            return window.self !== window.top;
+        } catch (e) {
+            return true;
+        }
+    }
+
+    static {
+        console.log('CustomUtils constructor');
     }
 }
+
 if (true == false) {
     console.debug('skip declaring openrpautil class');
     document.openrpautil = {};
@@ -172,7 +226,7 @@ if (true == false) {
                         }
                     });
 
-                    if (inIframe()) return;
+                    if (DOMUtils.inIframe()) return;
 
                     window.onfocus = function () {
                         isTabFocused = true;
@@ -287,7 +341,7 @@ if (true == false) {
                     actualVasKeys.set(inputHashKeyCounter, inputHashKeyCounter);
                     const inputHashKeyCounterValue = inputHashKey + '#' + inputCounter + '#' + UTILS.hash(inputValue);
 
-                    const isVisible = CustomUtils.isElementVisibleToUser(ele);
+                    const isVisible = DOMUtils.isElementVisibleToUser(ele);
                     const inputRectangle = {};
                     try {
                         if (isVisible) openrpautil.applyPhysicalCords(inputRectangle, ele);
@@ -497,7 +551,7 @@ if (true == false) {
                         message.uix = Math.round(ClientRect.left * devicePixelRatio);
                         message.uiy = Math.round(ClientRect.top * devicePixelRatio);
                     }
-                    if (inIframe() === false) {
+                    if (DOMUtils.inIframe() === false) {
                         let isAtMaxWidth = screen.availWidth - window.innerWidth === 0;
                         if (isAtMaxWidth) {
                             let isFirefox = typeof InstallTrigger !== 'undefined';
@@ -523,7 +577,7 @@ if (true == false) {
                     let currentParentWindow;
                     let positions = [];
                     let rect;
-                    if (inIframe()) {
+                    if (DOMUtils.inIframe()) {
                     }
                     currentParentWindow = parent;
                     while (currentWindow !== window.top) {
@@ -633,7 +687,7 @@ if (true == false) {
                             //message.y += parent.uiy;
                             //message.width += parent.width;
                             //message.height += parent.height;
-                        } else if (inIframe()) {
+                        } else if (DOMUtils.inIframe()) {
                             // TODO: exit?
                             //return;
                             let currentFramePosition = openrpautil.currentFrameAbsolutePosition();
@@ -1149,52 +1203,7 @@ if (true == false) {
                 cancelable: true
             }
 
-            const CustomUtils = {};
-            CustomUtils.isElementVisibleToUser = function (elem) {
-                //Element has dimentions
-                if (elem.offsetWidth === 0 || elem.offsetHeight === 0) return false;
 
-                const bcr = elem.getBoundingClientRect();
-
-                //Element is vertically out of screen
-                //const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-                if (bcr.bottom < 0 || bcr.top - window.innerHeight >= 0) return false;
-
-                //Element is horizontally out of screen
-                //const viewWidth = Math.max(document.documentElement.clientWidth, window.innerWidth);
-                if (bcr.right < 0 || bcr.left - window.innerWidth >= 0) return false;
-
-                const isCenterVisible = elem === this.elementFromPoint((bcr.left + bcr.right) / 2, (bcr.top + bcr.bottom) / 2);
-                if (isCenterVisible) return true;
-                const isTopLeftVisible = elem === this.elementFromPoint(bcr.left, bcr.top);
-                if (isTopLeftVisible) return true;
-                const isTopRightVisible = elem === this.elementFromPoint(bcr.right - 1, bcr.top);
-                if (isTopRightVisible) return true;
-                const isBottomLeftVisible = elem === this.elementFromPoint(bcr.left, bcr.bottom - 1);
-                if (isBottomLeftVisible) return true;
-                const isBottomRightVisible = elem === this.elementFromPoint(bcr.right - 1, bcr.bottom - 1);
-                if (isBottomRightVisible) return true;
-                return false;
-            };
-            CustomUtils.elementFromPoint = function (x, y) {
-                const elems = document.elementsFromPoint(x, y);
-                const vpWidth = CustomUtils.getViewPortWidth();
-                const vpHeight = CustomUtils.getViewPortHeight();
-                if (elems?.length > 0) {
-                    for (const element of elems) {
-                        const elem = element;
-                        const isPluginModalLayer = elem.id === 'chromium-plugin-modal-layer';
-                        const isModalLayer = elem.offsetWidth === vpWidth
-                            && elem.offsetHeight === vpHeight
-                            && window.getComputedStyle(elem)["z-index"] !== 'auto';
-                        if (!isPluginModalLayer && !isModalLayer)
-                            return elem;
-                    }
-                }
-                return null;
-            };
-            CustomUtils.getViewPortWidth = function () { return Math.max(document?.documentElement?.clientWidth || 0, window?.innerWidth || 0); };
-            CustomUtils.getViewPortHeight = function () { return Math.max(document?.documentElement?.clientHeight || 0, window?.innerHeight || 0); };
 
             // https://chromium.googlesource.com/chromium/blink/+/master/Source/devtools/front_end/components/DOMPresentationUtils.js
             // https://gist.github.com/asfaltboy/8aea7435b888164e8563
