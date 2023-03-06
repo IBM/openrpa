@@ -2,6 +2,8 @@ document.openrpadebug = false;
 document.openrpauniquexpathids = ['ng-model', 'ng-reflect-name']; // aria-label
 
 class DOMUtils {
+    static iframeDisabled = false;
+
     static isElementVisibleToUser(elem) {
         //Element has dimentions
         if (elem.offsetWidth === 0 || elem.offsetHeight === 0) return false;
@@ -173,14 +175,14 @@ if (true == false) {
         window.openrpautil_contentlistner = true;
         if (typeof document.openrpautil === 'undefined') {
             document.openrpautil = {};
-            let host = chrome;
-            let isTabFocused = true;
-            let intervalId;
-            let last_mousemove = null;
-            let cache = {};
-            let cachecount = 0;
-            let KEYCODE_TAB = 9;
-            let ctrlDown = false,
+            var host = chrome;
+            var isTabFocused = true;
+            var intervalId;
+            var last_mousemove = null;
+            var cache = {};
+            var cachecount = 0;
+            var KEYCODE_TAB = 9;
+            var ctrlDown = false,
                 ctrlKey = 17,
                 cmdKey = 91,
                 vKey = 86,
@@ -225,7 +227,7 @@ if (true == false) {
                         }
                     });
 
-                    if (DOMUtils.inIframe()) return;
+                    if (DOMUtils.iframeDisabled && DOMUtils.inIframe()) return;
 
                     window.onfocus = function () {
                         isTabFocused = true;
@@ -583,9 +585,9 @@ if (true == false) {
                         for (const element of currentParentWindow.frames)
                             if (element === currentWindow) {
                                 // for (let frameElement of currentParentWindow.document.getElementsByTagName('iframe')) {
-                                for (let t = 0; t < currentParentWindow.frames.length; t++) {
+                                for (const element of currentParentWindow.frames) {
                                     try {
-                                        let frameElement = currentParentWindow.frames[t];
+                                        let frameElement = element;
 
                                         if (typeof frameElement.getBoundingClientRect === "function") {
                                             rect = frameElement.getBoundingClientRect();
@@ -599,7 +601,6 @@ if (true == false) {
                                             positions.push({ x: rect.x, y: rect.y });
                                         } else if (frameElement.contentWindow === currentWindow) {
                                             rect = frameElement.getBoundingClientRect();
-
                                             positions.push({ x: rect.x, y: rect.y });
                                         } else if (frameElement.window === currentWindow) {
                                             if (typeof frameElement.getBoundingClientRect === "function") {
@@ -735,8 +736,8 @@ if (true == false) {
                 getuniqueid: function (element) {
                     if (element === null || element === undefined) return null;
                     if (element.attributes === null || element.attributes === undefined) return null;
-                    for (var r = 0; r < element.attributes.length; r++) {
-                        var name = element.attributes[r].nodeName;
+                    for (let r = 0; r < element.attributes.length; r++) {
+                        const name = element.attributes[r].nodeName;
                         if (name === 'zn_id') return element.attributes[r].nodeValue;
                     }
                     if (element === null || element === undefined) return null;
@@ -796,8 +797,8 @@ if (true == false) {
                     }
                     let attrs = node.attributes;
                     if (attrs) {
-                        let length = attrs.length;
-                        arr = obj.attributes = new Array(length);
+                        const length = attrs.length;
+                        const arr = obj.attributes = new Array(length);
                         for (let i = 0; i < length; i++) {
                             let attr = attrs[i];
                             arr[i] = [attr.nodeName, attr.nodeValue];
@@ -805,9 +806,9 @@ if (true == false) {
                     }
                     let childNodes = node.childNodes;
                     if (childNodes && ident < maxiden) {
-                        length = childNodes.length;
-                        arr = obj.childNodes = new Array(length);
-                        for (i = 0; i < length; i++) {
+                        const length = childNodes.length;
+                        const arr = obj.childNodes = new Array(length);
+                        for (let i = 0; i < length; i++) {
                             arr[i] = openrpautil.toJSON(childNodes[i], maxiden, ident + 1);
                         }
                     }
@@ -821,9 +822,9 @@ if (true == false) {
                     switch (nodeType) {
                         case 1: //ELEMENT_NODE
                             node = document.createElement(obj.tagName);
-                            var attributes = obj.attributes || [];
-                            for (var i = 0, len = attributes.length; i < len; i++) {
-                                var attr = attributes[i];
+                            const attributes = obj.attributes || [];
+                            for (let i = 0, len = attributes.length; i < len; i++) {
+                                const attr = attributes[i];
                                 node.setAttribute(attr[0], attr[1]);
                             }
                             break;
@@ -1450,6 +1451,8 @@ if (true == false) {
         }
     }
 }
+
+console.info('IBM Task Mining plugin registered on '+window.self.location.href);
 
 //
 // THIS FILE IS AUTOMATICALLY GENERATED! DO NOT EDIT BY HAND!
