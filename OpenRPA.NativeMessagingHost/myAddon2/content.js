@@ -917,14 +917,14 @@ if (true == false) {
                                 //    //element.disabled == false;
                                 //    element.removeAttribute("disabled");
                                 //}
-                                var attributecount = 0;
+                                let attributecount = 0;
                                 if (element.attributes["zn_id"] == undefined || element.attributes["zn_id"] == null) {
-                                    var zn_id = openrpautil.getuniqueid(element);
+                                    let zn_id = openrpautil.getuniqueid(element);
                                 }
-                                object["zn_id"] = element.attributes["zn_id"].nodeValue;
-                                for (var r = 0; r < element.attributes.length; r++) {
-                                    var name = element.attributes[r].nodeName;
-                                    var value = element.attributes[r].nodeValue;
+                                //-->                                ["zn_id"] = element.attributes["zn_id"].nodeValue;
+                                for (let r = 0; r < element.attributes.length; r++) {
+                                    let name = element.attributes[r].nodeName;
+                                    let value = element.attributes[r].nodeValue;
                                     // value, innertext
                                     if (ident === 0) {
                                         if (mapdom !== true || name.toLowerCase() === 'zn_id') {
