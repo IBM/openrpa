@@ -74,10 +74,7 @@ class DOMUtils {
         }
         return framesOutput;
     }
-
-    static {
-        console.log('CustomUtils constructor');
-    }
+    
 }
 
 if (true == false) {
