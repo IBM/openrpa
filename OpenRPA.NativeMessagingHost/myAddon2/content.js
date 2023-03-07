@@ -50,6 +50,7 @@ class DOMUtils {
     };
 
     static getViewPortWidth() { return Math.max(document?.documentElement?.clientWidth || 0, window?.innerWidth || 0); };
+
     static getViewPortHeight() { return Math.max(document?.documentElement?.clientHeight || 0, window?.innerHeight || 0); };
 
     static inIframe(){
@@ -58,6 +59,20 @@ class DOMUtils {
         } catch (e) {
             return true;
         }
+    }
+
+    static getAllSubFrames(){
+        const framesOutput = []; 
+        for(const frame of document.querySelectorAll('iframe, frame')){ 
+            if(typeof frame.getBoundingClientRect === 'function'){
+                const frameRect = frame.getBoundingClientRect();
+                framesOutput.push({
+                    x: frameRect.x,
+                    y: frameRect.y
+                });
+            }
+        }
+        return framesOutput;
     }
 
     static {
