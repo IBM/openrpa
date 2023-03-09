@@ -2,7 +2,9 @@ document.openrpadebug = false;
 document.openrpauniquexpathids = ['ng-model', 'ng-reflect-name']; // aria-label
 
 class DOMUtils {
+    static isDebug = false;
     static iframeDisabled = false;
+    static coordinatesOffset = { depth: 0, x: 0, y: 0 };
 
     static isElementVisibleToUser(elem) {
         //Element has dimentions
@@ -53,7 +55,7 @@ class DOMUtils {
 
     static getViewPortHeight() { return Math.max(document?.documentElement?.clientHeight || 0, window?.innerHeight || 0); };
 
-    static inIframe(){
+    static inIframe() {
         try {
             return window.self !== window.top;
         } catch (e) {
@@ -61,40 +63,82 @@ class DOMUtils {
         }
     }
 
-    static getAllSubFrames(){
-        const framesOutput = []; 
-        for(const frame of document.querySelectorAll('iframe, frame')){ 
-            if(typeof frame.getBoundingClientRect === 'function'){
-                const frameRect = frame.getBoundingClientRect();
-                framesOutput.push({
-                    x: frameRect.x,
-                    y: frameRect.y
-                });
+    static getAllSubFrames() {
+        return document.querySelectorAll('iframe, frame');
+    }
+
+    static notifyOffsetToSubFrames() {
+        const frames = DOMUtils.getAllSubFrames();
+        for (const frame of frames) {
+            const msg = {
+                functionName: 'notifyFrameOffset',
+                depth: DOMUtils.coordinatesOffset.depth + 1
+            };
+            try {
+                openrpautil.applyPhysicalCords(msg, frame);
+                msg.x += DOMUtils.coordinatesOffset.x;
+                msg.y += DOMUtils.coordinatesOffset.y;
+                frame.contentWindow.postMessage(msg, '*');
+            } catch (e) {
+                console.error(e);
             }
         }
-        return framesOutput;
     }
-    
 }
+
+class ContentListenerProxy {
+    documentOnScroll() {
+        DOMUtils.notifyOffsetToSubFrames();
+    }
+
+    init() {
+        this.register();
+    }
+
+    register() {
+        document.addEventListener("scroll", this.documentOnScroll, false);
+    }
+
+    unregister() {
+        document.removeEventListener("scroll", this.documentOnScroll, false);
+    }
+}
+
+document.contentListenerProxy = new ContentListenerProxy();
+document.contentListenerProxy.init();
 
 if (true == false) {
     console.debug('skip declaring openrpautil class');
     document.openrpautil = {};
 } else {
     if (window.openrpautil_contentlistner === null || window.openrpautil_contentlistner === undefined) {
+
         function remotePushEvent(evt) {
             if (evt.data != null && evt.data.functionName == "mousemove") {
                 openrpautil.parent = evt.data;
                 try {
                     notifyFrames();
-                } catch (e) {
-                }
+                } catch (e) { }
             }
         }
+
+        function notifyFrameOffset(event) {
+            if (DOMUtils.inIframe() && event?.data?.functionName === 'notifyFrameOffset' && (event.data.depth || 0) < 2) {
+                DOMUtils.coordinatesOffset = event.data;
+                if (DOMUtils.isDebug) console.debug(event);
+                DOMUtils.notifyOffsetToSubFrames();
+            }
+        }
+
+        function onMessage(event) {
+            remotePushEvent(event);
+            notifyFrameOffset(event);
+        }
+
         if (window.addEventListener) {
-            window.addEventListener("message", remotePushEvent, false);
+            window.addEventListener("message", onMessage, false);
         } else {
-            window.attachEvent("onmessage", remotePushEvent);
+            window.attachEvent("onmessage", onMessage);
         }
         const notifyFrames = (event) => {
             for (let targetElement of document.getElementsByTagName('iframe')) {
@@ -205,7 +249,7 @@ if (true == false) {
                 ping: function () {
                     return "pong";
                 },
-                
+
                 init: function () {
                     if (document.URL.startsWith("https://docs.google.com/spreadsheets/d")) {
                         console.log("skip google docs *");
@@ -214,9 +258,11 @@ if (true == false) {
                     document.addEventListener('mousemove', function (e) { openrpautil.pushEvent('mousemove', e); }, true);
 
                     window.onload = function () {
+                        if (!DOMUtils.inIframe()) DOMUtils.notifyOffsetToSubFrames();
                         intervalId = setInterval(function () {
                             try {
                                 if (isTabFocused) {
+                                    if (!DOMUtils.inIframe()) DOMUtils.notifyOffsetToSubFrames();
                                     openrpautil.checkFieldsChange(false);
                                 }
                             } catch (e) {
@@ -252,7 +298,7 @@ if (true == false) {
 
 
                     document.addEventListener('click', function (e) {
-                        if (e && e.target && e.target.id === 'chromium-plugin-modal-layer') {
+                        if (e?.target?.id === 'chromium-plugin-modal-layer') {
                             e.preventDefault();
                             e.stopImmediatePropagation();
                             return;
@@ -502,7 +548,7 @@ if (true == false) {
 
                     if (!fields) return;
                     try {
-                        var arrOfFields = Array.from(fields.values()).map(function (obj) {
+                        const arrOfFields = Array.from(fields.values()).map(function (obj) {
                             let result = {
                                 id: obj.id,
                                 name: obj.name,
@@ -549,7 +595,7 @@ if (true == false) {
                 },
                 applyPhysicalCords: function (message, ele) {
                     let ClientRect = ele.getBoundingClientRect();
-                    let devicePixelRatio = window.devicePixelRatio || 1;
+                    const devicePixelRatio = window.devicePixelRatio || 1;
                     let scrollLeft = (((t = document.documentElement) || (t = document.body.parentNode)) && typeof t.scrollLeft === 'number' ? t : document.body).scrollLeft;
                     message.x = Math.floor(ClientRect.left);
                     message.y = Math.floor(ClientRect.top);
@@ -582,6 +628,9 @@ if (true == false) {
                         //} else {
                         //    message.uix += 1;
                         //    message.uiy += 1;
+                    } else {
+                        message.x += DOMUtils.coordinatesOffset.x;
+                        message.y += DOMUtils.coordinatesOffset.y;
                     }
                 },
                 // https://stackoverflow.com/questions/53056796/getboundingclientrect-from-within-iframe
@@ -755,7 +804,7 @@ if (true == false) {
                     if (element === null || element === undefined) return null;
                     if (element.attributes === null || element.attributes === undefined) return null;
                     ++cachecount;
-//                    element.setAttribute('zn_id', cachecount);
+                    //                    element.setAttribute('zn_id', cachecount);
                     return cachecount;
                 },
                 executescript: function (message) {
@@ -1160,7 +1209,7 @@ if (true == false) {
             };
             document.openrpautil = openrpautil;
             openrpautil.init();
-            
+
             // https://chromium.googlesource.com/chromium/blink/+/master/Source/devtools/front_end/components/DOMPresentationUtils.js
             // https://gist.github.com/asfaltboy/8aea7435b888164e8563
             /*
@@ -1464,7 +1513,7 @@ if (true == false) {
     }
 }
 
-console.info('IBM Task Mining plugin registered on '+window?.self?.location?.href);
+console.info('IBM Task Mining plugin registered on ' + window?.self?.location?.href);
 
 //
 // THIS FILE IS AUTOMATICALLY GENERATED! DO NOT EDIT BY HAND!
