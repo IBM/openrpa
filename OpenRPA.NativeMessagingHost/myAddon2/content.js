@@ -639,21 +639,24 @@ if (true == false) {
                     }
                 },
                 applyPhysicalCords: function (message, ele) {
-                    let ClientRect = ele.getBoundingClientRect();
+                    const clientRect = ele.getBoundingClientRect();
                     const devicePixelRatio = window.devicePixelRatio || 1;
-                    let scrollLeft = (((t = document.documentElement) || (t = document.body.parentNode)) && typeof t.scrollLeft === 'number' ? t : document.body).scrollLeft;
-                    message.x = Math.floor(ClientRect.left);
-                    message.y = Math.floor(ClientRect.top);
-                    message.width = Math.floor(ele.offsetWidth);
-                    message.height = Math.floor(ele.offsetHeight);
-                    message.uiwidth = Math.round(ele.offsetWidth * devicePixelRatio);
-                    message.uiheight = Math.round(ele.offsetHeight * devicePixelRatio);
+                    const scrollLeft = (((t = document.documentElement) || (t = document.body.parentNode)) && typeof t.scrollLeft === 'number' ? t : document.body).scrollLeft;
+                    const eleWidth = ele.offsetWidth || clientRect.width;
+                    const eleHeight = ele.offsetHeight || clientRect.height;
+
+                    message.x = Math.floor(clientRect.left);
+                    message.y = Math.floor(clientRect.top);
+                    message.width = Math.floor(eleWidth);
+                    message.height = Math.floor(eleHeight);
+                    message.uiwidth = Math.round(eleWidth * devicePixelRatio);
+                    message.uiheight = Math.round(eleHeight * devicePixelRatio);
                     if (window.self === window.top) {
-                        message.uix = Math.round((ClientRect.left - scrollLeft) * devicePixelRatio);
-                        message.uiy = Math.round((ClientRect.top * devicePixelRatio) + (window.outerHeight - (window.innerHeight * devicePixelRatio)));
+                        message.uix = Math.round((clientRect.left - scrollLeft) * devicePixelRatio);
+                        message.uiy = Math.round((clientRect.top * devicePixelRatio) + (window.outerHeight - (window.innerHeight * devicePixelRatio)));
                     } else {
-                        message.uix = Math.round(ClientRect.left * devicePixelRatio);
-                        message.uiy = Math.round(ClientRect.top * devicePixelRatio);
+                        message.uix = Math.round(clientRect.left * devicePixelRatio);
+                        message.uiy = Math.round(clientRect.top * devicePixelRatio);
                     }
                     if (DOMUtils.inIframe() === false) {
                         let isAtMaxWidth = screen.availWidth - window.innerWidth === 0;
