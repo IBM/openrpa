@@ -506,7 +506,7 @@ if (true == false) {
                             openrpautil.pushEvent('change', e);
                         }
                     }, true);
-                    //document.addEventListener('mousedown', function (e) { openrpautil.pushEvent('mousedown', e); }, true);
+                    document.addEventListener('mousedown', function (e) { openrpautil.pushEvent('mousedown', e); }, true);
 
                     openrpautil.getRunningVersion();
                 },
