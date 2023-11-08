@@ -432,6 +432,10 @@ if (true == false) {
                                                 const nestedShadowRoots = getAllShadowRoots(shadowRootMutation.target);
 
                                                 nestedShadowRoots.forEach((nestedRoot) => {
+                                                    nestedRoot.removeEventListener('change', (e) => {
+                                                        if (e.isTrusted) handleChange(e);
+                                                    }, true);
+                                                    
                                                     nestedRoot.addEventListener('change', (e) => {
                                                         if (e.isTrusted) handleChange(e);
                                                     }, true);
