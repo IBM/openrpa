@@ -318,14 +318,14 @@ if (true == false) {
 
                     MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
-                    let observer = new MutationObserver(function (mutations, observer) {
+                    let iframeObserver = new MutationObserver(function (mutations, observer) {
                         if (document.onmousemove == null) {
                             console.log('registered again because was not correctly registred (probably an iframe)');
                             openrpautil.init();
                         }
                     });
 
-                    observer.observe(document, {
+                    iframeObserver.observe(document, {
                         childList: true
                     });
 
@@ -417,13 +417,18 @@ if (true == false) {
                     }, true);
                     document.addEventListener('mousedown', function (e) { openrpautil.pushEvent('mousedown', e); }, true);
 
-                    const mutationObserver = new MutationObserver((mutations) => {
-                         mutations.forEach((child) =>{
+                    observersOption = {
+                        childList: true,
+                        subtree: true,
+                    };
+
+                    const shadowRootsObserver = new MutationObserver((mutations) => {
+                         mutations.forEach((child) => {
                             if (child.target.nodeType === Node.ELEMENT_NODE) {
                                 const shadowRoots = getAllShadowRoots(child.target);
 
                                  shadowRoots.forEach((root) => {
-                                    const shadowRootObserver = new MutationObserver((shadowRootMutations) => {
+                                    const nestedShadowRootObserver = new MutationObserver((shadowRootMutations) => {
                                         let prevTarget;
 
                                         shadowRootMutations.forEach((shadowRootMutation) => {
@@ -444,19 +449,13 @@ if (true == false) {
                                         });
                                     })
 
-                                    shadowRootObserver.observe(root, {
-                                        childList: true,
-                                        subtree: true,
-                                    });
+                                    nestedShadowRootObserver.observe(root, observersOption);
                                 })
                             }
                         });
                     });
 
-                    mutationObserver.observe(document, {
-                        childList: true,
-                        subtree: true,
-                    });
+                    shadowRootsObserver.observe(document, observersOption);
 
                     openrpautil.getRunningVersion();
                 },
