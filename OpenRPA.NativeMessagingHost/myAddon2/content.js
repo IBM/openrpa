@@ -115,6 +115,8 @@ class DOMUtils {
     };
 }
 
+const shadowRootListeners = [];
+
 function getAllShadowRoots(element) {
     const shadowRoots = [];
     
@@ -297,7 +299,7 @@ if (true == false) {
                 cKey = 67;
             var inputTypes = ['text', 'textarea', 'select', 'radio', 'checkbox', 'search', 'tel', 'url', 'number', 'range', 'email', 'password', 'date', 'month', 'week', 'time', 'datetime-local', 'month', 'color', 'file'];
             const handleChange = (e) => {
-                if (inputTypes.some(i => e.target.type.includes(i))) {
+                if (e.target.type && inputTypes.some(i => e.target.type.includes(i))) {
                     openrpautil.pushEvent('change', e);
                 }
             }
@@ -423,34 +425,19 @@ if (true == false) {
                     };
 
                     const shadowRootsObserver = new MutationObserver((mutations) => {
-                         mutations.forEach((child) => {
+                        mutations.forEach((child) => {
                             if (child.target.nodeType === Node.ELEMENT_NODE) {
                                 const shadowRoots = getAllShadowRoots(child.target);
-
-                                 shadowRoots.forEach((root) => {
-                                    const nestedShadowRootObserver = new MutationObserver((shadowRootMutations) => {
-                                        let prevTarget;
-
-                                        shadowRootMutations.forEach((shadowRootMutation) => {
-                                            if (prevTarget !== shadowRootMutation.target) {
-                                                prevTarget = shadowRootMutation.target;
-                                                const nestedShadowRoots = getAllShadowRoots(shadowRootMutation.target);
-
-                                                nestedShadowRoots.forEach((nestedRoot) => {
-                                                    nestedRoot.removeEventListener('change', (e) => {
-                                                        if (e.isTrusted) handleChange(e);
-                                                    }, true);
-                                                    
-                                                    nestedRoot.addEventListener('change', (e) => {
-                                                        if (e.isTrusted) handleChange(e);
-                                                    }, true);
-                                                })
-                                            }
-                                        });
-                                    })
-
-                                    nestedShadowRootObserver.observe(root, observersOption);
-                                })
+                                
+                                shadowRoots.forEach((shadowRoot) => {
+                                     if (!shadowRootListeners.includes(shadowRoot)) {
+                                        shadowRootListeners.push(shadowRoot);
+                                        
+                                        shadowRoot.addEventListener('change', (e) => {
+                                            if (e.isTrusted) handleChange(e);
+                                        }, true);
+                                     }
+                                });
                             }
                         });
                     });
