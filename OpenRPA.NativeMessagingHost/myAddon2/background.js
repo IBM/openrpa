@@ -571,10 +571,6 @@ const allowExecuteScript = function (tab) {
     if (isChrome) {
         if (tab.url.startsWith("https://chrome.google.com")) return false;
     }
-    if (tab.url.startsWith("https://docs.google.com/spreadsheets/d")) {
-        console.log("skip google docs");
-        return false;
-    }
     return true;
 }
 

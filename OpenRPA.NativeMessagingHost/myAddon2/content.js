@@ -90,19 +90,26 @@ class DOMUtils {
             dims = { top: 0, left: 0 };
         }
 
-        let frames = win.parent.document.getElementsByTagName('iframe');
-        let frame;
         let found = false;
+        let frame;
 
-        for (let i = 0, len = frames.length; i < len; i++) {
-            frame = frames[i];
-            if (frame.contentWindow == win) {
-                found = true;
-                break;
+        try {
+            let frames = win.parent.document.getElementsByTagName('iframe');
+
+            for (let i = 0, len = frames.length; i < len; i++) {
+                frame = frames[i];
+                if (frame.contentWindow == win) {
+                    found = true;
+                    break;
+                }
             }
         }
+        catch
+        {
+            found = false;
+        }
 
-        if (found) {
+        if (found && frame) {
             let rect = frame.getBoundingClientRect();
             dims.left += Math.round(rect.left, 0);
             dims.top += Math.round(rect.top, 0);
@@ -249,11 +256,8 @@ if (true == false) {
             };
             doFrames();
         }
-        if (!document.URL.startsWith("https://docs.google.com/spreadsheets/d")) {
-            window.addEventListener('load', notifyFrames);
-        } else {
-            console.log("skip google docs");
-        }
+
+        window.addEventListener('load', notifyFrames);
 
 
         const runtimeOnMessage = function (sender, message, fnResponse) {
@@ -311,12 +315,12 @@ if (true == false) {
                 },
 
                 init: function () {
-                    console.info('IBM Task Mining plugin registered on ' + window?.self?.location?.href);
-
-                    if (document.URL.startsWith("https://docs.google.com/spreadsheets/d")) {
-                        console.log("skip google docs *");
+                    if (document.URL.startsWith("about:blank")) {
+                        console.info('IBM Task Mining plugin trying to register on ' + window?.self?.location?.href + ', skipped');
                         return;
                     }
+
+                    console.info('IBM Task Mining plugin registered on ' + window?.self?.location?.href);
 
                     MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
