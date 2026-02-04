@@ -1,3 +1,5 @@
+var lastRecording = null;
+
 document.openrpadebug = false;
 document.openrpauniquexpathids = ['ng-model', 'ng-reflect-name']; // aria-label
 
@@ -7,49 +9,74 @@ class DOMUtils {
     static coordinatesOffset = { depth: 0, x: 0, y: 0 };
 
     static isElementVisibleToUser(elem) {
-        //Element has dimentions
+        // Quick checks first
         if (elem.offsetWidth === 0 || elem.offsetHeight === 0) return false;
 
         const bcr = elem.getBoundingClientRect();
+        const winWidth = window.innerWidth;
+        const winHeight = window.innerHeight;
 
-        //Element is vertically out of screen
-        //const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-        if (bcr.bottom < 0 || bcr.top - window.innerHeight >= 0) return false;
+        // Element is vertically out of screen
+        if (bcr.bottom < 0 || bcr.top - winHeight >= 0) return false;
 
-        //Element is horizontally out of screen
-        //const viewWidth = Math.max(document.documentElement.clientWidth, window.innerWidth);
-        if (bcr.right < 0 || bcr.left - window.innerWidth >= 0) return false;
+        // Element is horizontally out of screen
+        if (bcr.right < 0 || bcr.left - winWidth >= 0) return false;
+
+        // Ok but what if it's hidden using the style?
+        const style = window.getComputedStyle(elem);
+        if (style.visibility === 'hidden' || style.display === 'none' || style.opacity === '0') {
+            return false;
+        }
+
+        // Dimensions to 0 is basically invisible?
+        if (bcr.width <= 0 || bcr.height <= 0) return false;        
 
         const isCenterVisible = elem === this.elementFromPoint((bcr.left + bcr.right) / 2, (bcr.top + bcr.bottom) / 2);
         if (isCenterVisible) return true;
+
+        // What if it's to small to for corner checks?
+        if (bcr.width < 3 || bcr.height < 3) return false;
+
         const isTopLeftVisible = elem === this.elementFromPoint(bcr.left, bcr.top);
         if (isTopLeftVisible) return true;
-        const isTopRightVisible = elem === this.elementFromPoint(bcr.right - 1, bcr.top);
-        if (isTopRightVisible) return true;
-        const isBottomLeftVisible = elem === this.elementFromPoint(bcr.left, bcr.bottom - 1);
-        if (isBottomLeftVisible) return true;
         const isBottomRightVisible = elem === this.elementFromPoint(bcr.right - 1, bcr.bottom - 1);
         if (isBottomRightVisible) return true;
+
+        // Only check remaining corners if element is large
+        if (bcr.width > 50 && bcr.height > 50) {
+            const isTopRightVisible = elem === this.elementFromPoint(bcr.right - 1, bcr.top);
+            if (isTopRightVisible) return true;
+            const isBottomLeftVisible = elem === this.elementFromPoint(bcr.left, bcr.bottom - 1);
+            if (isBottomLeftVisible) return true;
+        }
+        
         return false;
-    };
+    }
 
     static elementFromPoint(x, y) {
         const elems = document.elementsFromPoint(x, y);
+        if (!elems?.length) return null;
+
         const vpWidth = DOMUtils.getViewPortWidth();
         const vpHeight = DOMUtils.getViewPortHeight();
-        if (elems?.length > 0) {
-            for (const element of elems) {
-                const elem = element;
-                const isPluginModalLayer = elem.id === 'chromium-plugin-modal-layer';
-                const isModalLayer = elem.offsetWidth === vpWidth
-                    && elem.offsetHeight === vpHeight
-                    && window.getComputedStyle(elem)["z-index"] !== 'auto';
-                if (!isPluginModalLayer && !isModalLayer)
-                    return elem;
+
+        for (const elem of elems) {
+            if (elem.id === 'chromium-plugin-modal-layer') continue;
+
+            // Batch DOM reads to avoid layout thrashing
+            const width = elem.offsetWidth;
+            const height = elem.offsetHeight;
+
+            if (width === vpWidth && height === vpHeight) {
+                // Only compute style if dimensions match
+                const zIndex = window.getComputedStyle(elem)["z-index"];
+                if (zIndex !== 'auto') continue;
             }
+
+            return elem;
         }
         return null;
-    };
+    }
 
     static getViewPortWidth() { return Math.max(document?.documentElement?.clientWidth || 0, window?.innerWidth || 0); };
 
@@ -90,19 +117,26 @@ class DOMUtils {
             dims = { top: 0, left: 0 };
         }
 
-        let frames = win.parent.document.getElementsByTagName('iframe');
-        let frame;
         let found = false;
+        let frame;
 
-        for (let i = 0, len = frames.length; i < len; i++) {
-            frame = frames[i];
-            if (frame.contentWindow == win) {
-                found = true;
-                break;
+        try {
+            let frames = win.parent.document.getElementsByTagName('iframe');
+
+            for (let i = 0, len = frames.length; i < len; i++) {
+                frame = frames[i];
+                if (frame.contentWindow == win) {
+                    found = true;
+                    break;
+                }
             }
         }
+        catch
+        {
+            found = false;
+        }
 
-        if (found) {
+        if (found && frame) {
             let rect = frame.getBoundingClientRect();
             dims.left += Math.round(rect.left, 0);
             dims.top += Math.round(rect.top, 0);
@@ -193,6 +227,7 @@ if (true == false) {
         } else {
             window.attachEvent("onmessage", onMessage);
         }
+
         const notifyFrames = (event) => {
             for (let targetElement of document.getElementsByTagName('iframe')) {
                 let message = { functionName: 'mousemove', parents: 0, xpaths: [] };
@@ -249,12 +284,6 @@ if (true == false) {
             };
             doFrames();
         }
-        if (!document.URL.startsWith("https://docs.google.com/spreadsheets/d")) {
-            window.addEventListener('load', notifyFrames);
-        } else {
-            console.log("skip google docs");
-        }
-
 
         const runtimeOnMessage = function (sender, message, fnResponse) {
             try {
@@ -280,6 +309,7 @@ if (true == false) {
                 fnResponse(sender);
             }
         }
+        
         chrome.runtime.onMessage.addListener(runtimeOnMessage);
         window.openrpautil_contentlistner = true;
         if (typeof document.openrpautil === 'undefined') {
@@ -306,17 +336,15 @@ if (true == false) {
             var openrpautil = {
                 parent: null,
                 runningVersion: null,
+                recording: function(sender) {
+                    lastRecording = sender.data;
+                    return "record";
+                },
                 ping: function () {
                     return "pong";
                 },
-
                 init: function () {
                     console.info('IBM Task Mining plugin registered on ' + window?.self?.location?.href);
-
-                    if (document.URL.startsWith("https://docs.google.com/spreadsheets/d")) {
-                        console.log("skip google docs *");
-                        return;
-                    }
 
                     MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
@@ -447,30 +475,41 @@ if (true == false) {
                     openrpautil.getRunningVersion();
                 },
                 getElementTrackObjectValue: function (ele, inputIsText) {
+                    const tagName = ele?.tagName?.toUpperCase();
+                    const type = ele?.type?.toUpperCase();
 
-                    if (ele?.tagName === 'INPUT' && ele?.type?.toUpperCase() === 'PASSWORD') {
+                    if (tagName === 'INPUT' && type === 'PASSWORD') {
                         return 'PASSWORD';
                     }
 
                     if ((!inputIsText) &&
-                        ((ele.tagName === 'INPUT') || (ele.tagName === 'SELECT') || (ele.tagName === 'TEXTAREA')) &&
-                        (ele.type)) {
-                        return ele.type === 'checkbox' ? ele.checked : ele.value;
+                        ((tagName === 'INPUT') || (tagName === 'SELECT') || (tagName === 'TEXTAREA')) && (type)) {
+                        return type === 'CHECKBOX' ? ele.checked : ele.value;
                     }
 
-                    if ((inputIsText) &&
-                        ((!ele.children) || (ele.children.length === 0)) &&
-                        (ele.innerText.length <= 50)) {
 
-                        return ele.innerText;
+                    if (inputIsText) {
+                        const children = ele?.children;
+                        const innerText = ele?.innerText;
+                        const innerHTML = ele?.innerHTML;
+
+                        if (children?.length <= 0 && (innerText.length <= 50 || innerHTML.length <= 50)) {
+                            return innerText || innerHTML
+                        } else {
+                            const textNodes = Array.from(ele?.childNodes).filter(node =>
+                                node.nodeType === 3 && node.textContent.trim().length > 0
+                            );
+                            if (textNodes.length === 1) {
+                                return textNodes[0].textContent;
+                            }
+                        }
                     }
 
                     return null;
                 },
-
                 getElementTrackObject: function (ele, actualVasKeys) {
-                    const inputTagName = ele.tagName;
-                    const inputIsText = (inputTagName === 'A') || (inputTagName === 'DIV') || (inputTagName === 'SPAN');
+                    const inputTagName = ele.tagName?.toUpperCase();
+                    const inputIsText = (inputTagName === 'A') || (inputTagName === 'DIV') || (inputTagName === 'SPAN') || (inputTagName === 'TD');
 
                     const inputValue = openrpautil.getElementTrackObjectValue(ele, inputIsText);
                     if (inputValue === null) {
@@ -513,9 +552,10 @@ if (true == false) {
                     return { hashId: inputHashKeyCounterValue, id: inputId, name: inputName, type: inputType, class: inputClass, xPathFull: inputXpathFull, xPath: inputXpath, value: inputValue, ngModel: inputNgModel, counter: inputCounter, rectangle: inputRectangle };
                 },
                 extractFields: function () {
+                    const start = Date.now();
                     const actualFields = new Map();
                     const actualFieldKeys = new Map();
-                    const inputs = UTILS.getElementsByTagNames(['input', 'select', 'textarea', 'span', 'a', 'div']);
+                    const inputs = UTILS.getElementsToTrack();
                     for (let index = 0; index < inputs.length; ++index) {
                         const input = inputs[index];
                         if (input.id === 'chromium-plugin-modal-layer') continue; //skip capture of the plugin modal layer
@@ -524,7 +564,7 @@ if (true == false) {
                             actualFields.set(trackObject.hashId, trackObject);
                         }
                     }
-                    console.debug('actualFields', actualFields.values());
+                    console.debug('actualFields', actualFields.values(), Date.now() - start, 'ms');
                     return actualFields;
                 },
                 extractDiffFields: function () {
@@ -595,8 +635,7 @@ if (true == false) {
                     // key = hashKey#counter need for managing fields with same key, so need to increase the counter
                     const actualVasKeys = new Map();
                     let actualVasMatch = 0;
-                    const inputs = UTILS.getElementsByTagNames(['input', 'select', 'textarea', 'span', 'a', 'div']);
-                    // var inputs = UTILS.getElementsByTagNames(['input', 'select', 'textarea' ]);  
+                    const inputs = UTILS.getElementsToTrack();
                     for (index = 0; index < inputs.length; ++index) {
                         const trackObject = openrpautil.getElementTrackObject(inputs[index], actualVasKeys);
                         if (trackObject) {
@@ -816,17 +855,10 @@ if (true == false) {
                             }
                         }
 
-                        //if (targetElement.tagName == "IFRAME" || targetElement.tagName == "FRAME") {
                         message.xpaths.push(message.xPath);
-                        //if (document.openrpadebug)
-                        // console.log({ uix: message.uix, uiy: message.uiy, parent: message.parents })
-                        //console.log({ x: message.x, y: message.y, uix: message.uix, uiy: message.uiy, parent: message.parents })
-
-                        // console.log(targetElement.tagName + ' ' + message.xPath);
                         if (targetElement.contentWindow) {
                             const iframeWin = targetElement.contentWindow;
                             iframeWin.postMessage(message, '*');
-                            console.log('targetElement.tagName == iframe or frame');
                             return;
                         }
 
@@ -843,7 +875,6 @@ if (true == false) {
                     if (element === null || element === undefined) return null;
                     if (element.attributes === null || element.attributes === undefined) return null;
                     ++cachecount;
-                    //                    element.setAttribute('zn_id', cachecount);
                     return cachecount;
                 },
                 executescript: function (message) {
@@ -1233,7 +1264,6 @@ if (true == false) {
                 setRunningVersion: function (newV) {
                     if (newV !== null && !isNaN(newV) && newV >= 0) {
                         this.runningVersion = newV;
-                        console.debug("runningVersion = " + newV);
                     }
                 },
                 getRunningVersion: function () {
@@ -1512,10 +1542,12 @@ if (true == false) {
 
                 return new UTILS.DOMNodePathStep(result, false);
             };
+
             UTILS.DOMNodePathStep = function (value, optimized) {
                 this.value = value;
                 this.optimized = optimized || false;
             };
+
             UTILS.DOMNodePathStep.prototype = {
                 toString: function () {
                     return this.value;
@@ -1523,7 +1555,6 @@ if (true == false) {
             };
 
             UTILS.hash = function (str) {
-
                 let hash = 0, i, chr;
                 for (i = 0; i < str.length; i++) {
                     chr = str.charCodeAt(i);
@@ -1531,23 +1562,25 @@ if (true == false) {
                     hash |= 0; // Convert to 32bit integer
                 }
                 return hash;
-
             }
 
+            UTILS.getElementsToTrack = function () {
+                // If more than 10 seconds are passed since the last ping from TM Agent, we assume that no recording is active
+                if (openrpautil.getRunningVersion() >= 2 && Date.now() - lastRecording > (10 * 1000)) {
+                    console.debug("Skipping getElementsToTrack since no recording is currently active");
+                    return [];
+                }
+                return UTILS.getElementsByTagNames(['input', 'select', 'textarea', 'span', 'a', 'div', 'td']);
+            };            
 
             UTILS.getElementsByTagNames = function (tags) {
                 let elements = [];
-
                 for (let i = 0, n = tags.length; i < n; i++) {
                     // Concatenate the array created from a HTMLCollection object
                     elements = elements.concat(Array.prototype.slice.call(document.getElementsByTagName(tags[i])));
                 }
-
                 return elements;
             };
-
-
-
         }
     }
 }

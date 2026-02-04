@@ -224,6 +224,21 @@ async function OnPortMessage(message) {
         if (message.functionName === "ping") {
             return;
         }
+        if (message.functionName === "recording") {
+            const tabsList = await tabsquery({ active: true });
+
+            for (const tab of tabsList) {
+                try {
+                    await chrome.tabs.sendMessage(tab.id, {
+                        functionName: "recording",
+                        data: Date.now(),
+                    });
+                } catch (e) {
+                    console.trace("Failed to send recording message to tab", tab.id, e);
+                }
+            }
+            return;
+        }        
         if (isChrome) message.browser = "chrome";
         if (isFirefox) message.browser = "ff";
         if (isChromeEdge) message.browser = "edge";
@@ -253,7 +268,7 @@ async function OnPortMessage(message) {
         }
         if (message.functionName === "enumtabs") {
             await EnumTabs(message);
-            const _result = "";
+            let _result = "";
             for (const element of message.results) {
                 const _tab = element.tab;
                 _result += "(tabid " + _tab.id + "/index:" + _tab.index + ") ";
@@ -686,7 +701,7 @@ const tabshighlight = function (index) {
 const tabssendMessage = function (tabid, message) {
     return new Promise(async function (resolve, reject) {
         try {
-            const details = [];
+            let details = [];
             if (message.frameId == -1) {
                 details = await getAllFrames(tabid);
                 console.debug("tabssendMessage, found " + details.length + " frames in tab " + tabid);
@@ -934,7 +949,6 @@ setInterval(function () {
             if (isChrome) message.browser = "chrome";
             if (isFirefox) message.browser = "ff";
             if (isChromeEdge) message.browser = "edge";
-            // console.debug("[send]" + message.functionName);
             if (port != null) port.postMessage(JSON.parse(JSON.stringify(message)));
         } else {
             console.log("no port, cannot ping");
@@ -943,6 +957,22 @@ setInterval(function () {
         console.error(e);
     }
 }, 1000);
+
+setInterval(function () {
+    try {
+        if (port != null) {
+            var message = { functionName: "recorder" };
+            if (isChrome) message.browser = "chrome";
+            if (isFirefox) message.browser = "ff";
+            if (isChromeEdge) message.browser = "edge";
+            if (port != null) port.postMessage(JSON.parse(JSON.stringify(message)));
+        } else {
+            console.log("no port, cannot ping");
+        }
+    } catch (e) {
+        console.error(e);
+    }
+}, 5000);
 
 const downloadsSearch = function (id) {
     return new Promise(function (resolve, reject) {
