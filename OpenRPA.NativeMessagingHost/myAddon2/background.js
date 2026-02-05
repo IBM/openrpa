@@ -893,7 +893,7 @@ async function runtimeOnMessage(msg, sender, fnResponse) {
         if (msg.functionName !== "keydown" && msg.functionName !== "keyup") console.log("[send]" + msg.functionName);
     }
 
-    if (runningVersion !== null && runningVersion > 0 && (msg.functionName === 'click' || msg.functionName === 'tab' || msg.functionName === 'ctrlc' || msg.functionName === 'ctrlv' || msg.functionName === 'return')) {
+    if (runningVersion !== null && runningVersion > 0 && (msg.functionName === 'click' || msg.functionName === 'tab' || msg.functionName === 'ctrlc' || msg.functionName === 'ctrlv' || msg.functionName === 'enter')) {
         try {
             let dataUrl = await chrome.tabs.captureVisibleTab(
                 sender.tab.windowId,
