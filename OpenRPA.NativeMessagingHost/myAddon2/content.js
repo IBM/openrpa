@@ -8,68 +8,145 @@ class DOMUtils {
     static iframeDisabled = false;
     static coordinatesOffset = { depth: 0, x: 0, y: 0 };
 
+    static VIEWPORT_CACHE_MS = 100;
+    static VISIBILITY_CACHE_MS = 100;
+
+    static cachedViewport = null;
+    static viewportCacheTime = 0;
+    
+    // Cache for invisible elements
+    static invisibleElements = new WeakSet();
+    static cacheResetTime = 0;
+
     static isElementVisibleToUser(elem) {
-        // Quick checks first
-        if (elem.offsetWidth === 0 || elem.offsetHeight === 0) return false;
+        // Reset cache periodically (DOM can change)
+        const now = Date.now();
+        if (now - this.cacheResetTime > this.VISIBILITY_CACHE_MS) {
+            this.invisibleElements = new WeakSet();
+            this.cacheResetTime = now;
+        }
 
-        const bcr = elem.getBoundingClientRect();
-        const winWidth = window.innerWidth;
-        const winHeight = window.innerHeight;
+        // Check cache first
+        if (this.invisibleElements.has(elem)) return false;
 
-        // Element is vertically out of screen
-        if (bcr.bottom < 0 || bcr.top - winHeight >= 0) return false;
+        // Check if any parent is cached as invisible
+        let parent = elem.parentElement;
+        while (parent) {
+            if (this.invisibleElements.has(parent)) {
+                // Parent is invisible, so this element is too
+                this.invisibleElements.add(elem);
+                return false;
+            }
+            parent = parent.parentElement;
+        }
 
-        // Element is horizontally out of screen
-        if (bcr.right < 0 || bcr.left - winWidth >= 0) return false;
-
-        // Ok but what if it's hidden using the style?
-        const style = window.getComputedStyle(elem);
-        if (style.visibility === 'hidden' || style.display === 'none' || style.opacity === '0') {
+        // Quick dimension checks
+        if (elem.offsetWidth === 0 || elem.offsetHeight === 0) {
+            this.invisibleElements.add(elem);
             return false;
         }
 
-        // Dimensions to 0 is basically invisible?
-        if (bcr.width <= 0 || bcr.height <= 0) return false;        
+        const bcr = elem.getBoundingClientRect();
+        const width = bcr.width;
+        const height = bcr.height;
 
-        const isCenterVisible = elem === this.elementFromPoint((bcr.left + bcr.right) / 2, (bcr.top + bcr.bottom) / 2);
-        if (isCenterVisible) return true;
+        if (width <= 0 || height <= 0) {
+            this.invisibleElements.add(elem);
+            return false;
+        }
 
-        // What if it's to small to for corner checks?
-        if (bcr.width < 3 || bcr.height < 3) return false;
+        const winWidth = window.innerWidth;
+        const winHeight = window.innerHeight;
 
-        const isTopLeftVisible = elem === this.elementFromPoint(bcr.left, bcr.top);
-        if (isTopLeftVisible) return true;
-        const isBottomRightVisible = elem === this.elementFromPoint(bcr.right - 1, bcr.bottom - 1);
-        if (isBottomRightVisible) return true;
+        // Viewport check
+        if (bcr.bottom < 0 || bcr.top >= winHeight || 
+            bcr.right < 0 || bcr.left >= winWidth) {
+            this.invisibleElements.add(elem);
+            return false;
+        }
 
-        // Only check remaining corners if element is large
-        if (bcr.width > 50 && bcr.height > 50) {
-            const isTopRightVisible = elem === this.elementFromPoint(bcr.right - 1, bcr.top);
-            if (isTopRightVisible) return true;
-            const isBottomLeftVisible = elem === this.elementFromPoint(bcr.left, bcr.bottom - 1);
-            if (isBottomLeftVisible) return true;
+        // Quick inline style check before getComputedStyle
+        const inlineStyle = elem.style;
+        if (inlineStyle.display === 'none' || inlineStyle.visibility === 'hidden' || inlineStyle.opacity === '0') {
+            this.invisibleElements.add(elem);
+            return false;
+        }
+
+        // Style check - check multiple properties at once
+        const computedStyle = window.getComputedStyle(elem);
+        const vis = computedStyle.visibility;
+        const disp = computedStyle.display;
+        const opac = computedStyle.opacity;
+
+        if (vis === 'hidden' || disp === 'none' || opac === '0') {
+            this.invisibleElements.add(elem);
+            return false;
+        }
+
+        // Hit test checks
+        const centerX = (bcr.left + bcr.right) / 2;
+        const centerY = (bcr.top + bcr.bottom) / 2;
+        
+        // Center check
+        if (elem === this.elementFromPoint(centerX, centerY)) return true;
+
+        // Corner too small, cannot check
+        if (width < 3 || height < 3) {
+            this.invisibleElements.add(elem);
+            return false;
+        }
+
+        // Corner checks
+        // Top left
+        if (elem === this.elementFromPoint(bcr.left, bcr.top)) return true;
+        // Bottom right
+        if (elem === this.elementFromPoint(bcr.right - 1, bcr.bottom - 1)) return true;
+
+        if (width > 50 && height > 50) {
+            // Top right
+            if (elem === this.elementFromPoint(bcr.right - 1, bcr.top)) return true;
+            // Bottom left
+            if (elem === this.elementFromPoint(bcr.left, bcr.bottom - 1)) return true;
         }
         
+        this.invisibleElements.add(elem);
         return false;
+    }
+
+    static getViewportDimensions() {
+        const now = Date.now();
+        if (this.cachedViewport && (now - this.viewportCacheTime) < this.VIEWPORT_CACHE_MS) {
+            return this.cachedViewport;
+        }
+        this.cachedViewport = {
+            width: this.getViewPortWidth(),
+            height: this.getViewPortHeight()
+        };
+        this.viewportCacheTime = now;
+        return this.cachedViewport;
     }
 
     static elementFromPoint(x, y) {
         const elems = document.elementsFromPoint(x, y);
         if (!elems?.length) return null;
 
-        const vpWidth = DOMUtils.getViewPortWidth();
-        const vpHeight = DOMUtils.getViewPortHeight();
+        if (elems.length === 1) {
+            return elems[0].id === 'chromium-plugin-modal-layer' ? null : elems[0];
+        }
 
-        for (const elem of elems) {
+        let viewport;
+
+        for (let i = 0; i < elems.length; i++) {
+            const elem = elems[i];
             if (elem.id === 'chromium-plugin-modal-layer') continue;
 
-            // Batch DOM reads to avoid layout thrashing
             const width = elem.offsetWidth;
             const height = elem.offsetHeight;
 
-            if (width === vpWidth && height === vpHeight) {
-                // Only compute style if dimensions match
-                const zIndex = window.getComputedStyle(elem)["z-index"];
+            if (!viewport) viewport = this.getViewportDimensions();
+
+            if (width === viewport.width && height === viewport.height) {
+                const zIndex = window.getComputedStyle(elem).zIndex;
                 if (zIndex !== 'auto') continue;
             }
 
@@ -474,33 +551,54 @@ if (true == false) {
 
                     openrpautil.getRunningVersion();
                 },
-                getElementTrackObjectValue: function (ele, inputIsText) {
-                    const tagName = ele?.tagName?.toUpperCase();
+                getElementTrackObjectValue: function (ele, tagName, eleCanContainText) {
                     const type = ele?.type?.toUpperCase();
 
                     if (tagName === 'INPUT' && type === 'PASSWORD') {
                         return 'PASSWORD';
                     }
 
-                    if ((!inputIsText) &&
-                        ((tagName === 'INPUT') || (tagName === 'SELECT') || (tagName === 'TEXTAREA')) && (type)) {
+                    if (!eleCanContainText && 
+                        (tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA') && type) {
                         return type === 'CHECKBOX' ? ele.checked : ele.value;
                     }
 
-
-                    if (inputIsText) {
+                    if (eleCanContainText) {
                         const children = ele?.children;
-                        const innerText = ele?.innerText;
-                        const innerHTML = ele?.innerHTML;
-
-                        if (children?.length <= 0 && (innerText.length <= 50 || innerHTML.length <= 50)) {
-                            return innerText || innerHTML
-                        } else {
-                            const textNodes = Array.from(ele?.childNodes).filter(node =>
-                                node.nodeType === 3 && node.textContent.trim().length > 0
-                            );
-                            if (textNodes.length === 1) {
-                                return textNodes[0].textContent;
+                        if (!children || children.length === 0) {
+                            // No children - use innerText or innerHTML directly
+                            const innerText = ele?.innerText;
+                            if (innerText && innerText.length <= 50) {
+                                return innerText;
+                            }
+                            const innerHTML = ele?.innerHTML;
+                            if (innerHTML && innerHTML.length <= 50) {
+                                return innerHTML;
+                            }
+                        }
+                        
+                        // Has children or text too long - check text nodes
+                        const childNodes = ele?.childNodes;
+                        if (childNodes) {
+                            for (let i = 0; i < childNodes.length; i++) {
+                                const node = childNodes[i];
+                                if (node.nodeType === 3) { // TEXT_NODE
+                                    const text = node.textContent.trim();
+                                    if (text.length > 0) {
+                                        // Check if this is the only text node
+                                        let hasOtherTextNodes = false;
+                                        for (let j = i + 1; j < childNodes.length; j++) {
+                                            if (childNodes[j].nodeType === 3 && childNodes[j].textContent.trim().length > 0) {
+                                                hasOtherTextNodes = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!hasOtherTextNodes) {
+                                            return text;
+                                        }
+                                        break; // Multiple text nodes found, return null
+                                    }
+                                }
                             }
                         }
                     }
@@ -508,48 +606,65 @@ if (true == false) {
                     return null;
                 },
                 getElementTrackObject: function (ele, actualVasKeys) {
-                    const inputTagName = ele.tagName?.toUpperCase();
-                    const inputIsText = (inputTagName === 'A') || (inputTagName === 'DIV') || (inputTagName === 'SPAN') || (inputTagName === 'TD');
+                    const eleTagName = ele.tagName?.toUpperCase();
+                    const eleCanContainText = (eleTagName === 'A') || (eleTagName === 'DIV') || (eleTagName === 'SPAN') || (eleTagName === 'TD');
 
-                    const inputValue = openrpautil.getElementTrackObjectValue(ele, inputIsText);
+                    const inputValue = openrpautil.getElementTrackObjectValue(ele, eleTagName, eleCanContainText);
                     if (inputValue === null) {
                         return null;
                     }
 
                     let inputCounter = 0;
-                    const inputId = ele.id;
-                    const inputName = ele.name;
-                    const inputType = ele.type;
+                    const { id: inputId, name: inputName, type: inputType } = ele;
                     const inputClass = ele.getAttribute('class');
-                    const inputXpathFull = (inputIsText) ? null : UTILS.xPath(ele, false);
-                    const inputXpath = UTILS.xPath(ele, true);
                     const inputNgModel = ele.getAttribute('ng-model');
-                    const uniqueXpath = (inputIsText) ? inputXpath : inputXpathFull;
-                    const inputHashKey = UTILS.hash(inputId + inputName + inputType + inputNgModel + uniqueXpath);
-                    let inputHashKeyCounter = inputHashKey + '#' + inputCounter;
-                    if (actualVasKeys.has(inputHashKeyCounter)) {
-                        // manage conflict of ids : use a counter
-                        for (let conflictKey of actualVasKeys.keys()) {
-                            if (conflictKey.split('#')[0] === inputHashKey.toString()) {// the key has match : find the greater counter
-                                let conflictCounter = parseInt(conflictKey.split('#')[1]);
-                                inputCounter = conflictCounter > inputCounter ? conflictCounter : inputCounter;
-                            }
-                        }
-                        inputCounter = inputCounter + 1; // increase form gratest value
-                        inputHashKeyCounter = inputHashKey + '#' + inputCounter;
+                    const inputXpathFull = (eleCanContainText) ? null : UTILS.xPath(ele, false);
+                    const inputXpath = UTILS.xPath(ele, true);
+                    const uniqueXpath = (eleCanContainText) ? inputXpath : inputXpathFull;
+                    // Optimize: Build hash key string once, avoid repeated concatenation
+                    const hashKeyString = inputId + inputName + inputType + inputNgModel + uniqueXpath;
+                    const inputHashKey = UTILS.hash(hashKeyString);
+
+                    // Optimize: Use Map to track max counter per hash
+                    if (!actualVasKeys.counterMap) {
+                        actualVasKeys.counterMap = new Map();
                     }
+
+                    const currentMaxCounter = actualVasKeys.counterMap.get(inputHashKey);
+                    if (currentMaxCounter !== undefined) {
+                        inputCounter = currentMaxCounter + 1;
+                    }
+                    actualVasKeys.counterMap.set(inputHashKey, inputCounter);
+
+                    // Build final keys
+                    const inputHashKeyCounter = inputHashKey + '#' + inputCounter;
                     actualVasKeys.set(inputHashKeyCounter, inputHashKeyCounter);
-                    const inputHashKeyCounterValue = inputHashKey + '#' + inputCounter + '#' + UTILS.hash(inputValue);
+
+                    // Optimize: Build final hash value string once
+                    const inputHashKeyCounterValue = inputHashKeyCounter + '#' + UTILS.hash(inputValue);
 
                     const isVisible = DOMUtils.isElementVisibleToUser(ele);
                     const inputRectangle = {};
+
                     try {
                         if (isVisible) openrpautil.applyPhysicalCords(inputRectangle, ele);
                     } catch (e) {
                         console.error(e);
                     }
 
-                    return { hashId: inputHashKeyCounterValue, id: inputId, name: inputName, type: inputType, class: inputClass, xPathFull: inputXpathFull, xPath: inputXpath, value: inputValue, ngModel: inputNgModel, counter: inputCounter, rectangle: inputRectangle };
+                    return { 
+                        hashId: inputHashKeyCounterValue, 
+                        id: inputId, 
+                        name: inputName, 
+                        type: inputType, 
+                        class: inputClass, 
+                        xPathFull: inputXpathFull, 
+                        xPath: inputXpath, 
+                        value: inputValue, 
+                        ngModel: inputNgModel, 
+                        counter: inputCounter, 
+                        rectangle: inputRectangle 
+                    };
                 },
                 extractFields: function () {
                     const start = Date.now();
@@ -1314,6 +1429,7 @@ if (true == false) {
              */
 
             var UTILS = {};
+            
             UTILS.xPath = function (node, optimized) {
                 if (node.nodeType === Node.DOCUMENT_NODE)
                     return "/";
@@ -1331,6 +1447,7 @@ if (true == false) {
                 steps.reverse();
                 return (steps.length && steps[0].optimized ? "" : "/") + steps.join("/");
             };
+
             UTILS._xPathValue = function (node, optimized) {
                 let ownValue;
                 let ownIndex = UTILS._xPathIndex(node);
@@ -1340,14 +1457,16 @@ if (true == false) {
                     case Node.ELEMENT_NODE:
                         ownValue = node.localName;
                         if (optimized) {
-
                             for (const element of document.openrpauniquexpathids) {
                                 let id = element.toLowerCase();
-                                if (node.getAttribute(id))
-                                    return new UTILS.DOMNodePathStep("//" + ownValue + "[@" + id + "=\"" + node.getAttribute(id) + "\"]", true);
+                                let attrValue = node.getAttribute(id);
+                                if (attrValue)
+                                    return new UTILS.DOMNodePathStep("//" + ownValue + "[@" + id + "=\"" + attrValue + "\"]", true);
+                                
                                 id = id.toUpperCase();
-                                if (node.getAttribute(id))
-                                    return new UTILS.DOMNodePathStep("//" + ownValue + "[@" + id + "=\"" + node.getAttribute(id) + "\"]", true);
+                                attrValue = node.getAttribute(id);
+                                if (attrValue)
+                                    return new UTILS.DOMNodePathStep("//" + ownValue + "[@" + id + "=\"" + attrValue + "\"]", true);
                             }
                         }
                         if (optimized && node.getAttribute("id"))
@@ -1377,7 +1496,6 @@ if (true == false) {
                     ownValue += "[" + ownIndex + "]";
                 return new UTILS.DOMNodePathStep(ownValue, node.nodeType === Node.DOCUMENT_NODE);
             };
-
 
             UTILS._xPathIndex = function (node) {
                 // Returns -1 in case of error, 0 if no siblings matching the same expression, <XPath index among the same expression-matching sibling nodes> otherwise.
@@ -1566,19 +1684,35 @@ if (true == false) {
 
             UTILS.getElementsToTrack = function () {
                 // If more than 10 seconds are passed since the last ping from TM Agent, we assume that no recording is active
-                if (openrpautil.getRunningVersion() >= 2 && Date.now() - lastRecording > (10 * 1000)) {
+                if (openrpautil.getRunningVersion() >= 2 && Date.now() - (lastRecording ?? 0) > (10 * 1000)) {
                     console.debug("Skipping getElementsToTrack since no recording is currently active");
                     return [];
                 }
                 return UTILS.getElementsByTagNames(['input', 'select', 'textarea', 'span', 'a', 'div', 'td']);
-            };            
+            };
 
             UTILS.getElementsByTagNames = function (tags) {
-                let elements = [];
-                for (let i = 0, n = tags.length; i < n; i++) {
-                    // Concatenate the array created from a HTMLCollection object
-                    elements = elements.concat(Array.prototype.slice.call(document.getElementsByTagName(tags[i])));
+                const tagSet = new Set(tags.map(t => t.toUpperCase()));
+                const elements = [];
+                
+                // TreeWalker naturally traverses parent-first
+                const walker = document.createTreeWalker(
+                    document.body,
+                    NodeFilter.SHOW_ELEMENT,
+                    {
+                        acceptNode: function(node) {
+                            return tagSet.has(node.nodeName) 
+                                ? NodeFilter.FILTER_ACCEPT 
+                                : NodeFilter.FILTER_SKIP;
+                        }
+                    }
+                );
+                
+                let node;
+                while (node = walker.nextNode()) {
+                    elements.push(node);
                 }
+
                 return elements;
             };
         }
