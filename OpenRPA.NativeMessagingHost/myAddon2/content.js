@@ -1385,7 +1385,10 @@ if (true == false) {
                     if (this.runningVersion && this.runningVersion >= 0) {
                         return this.runningVersion;
                     } else {
-                        chrome.runtime.sendMessage(null, { functionName: "refreshRunningVersion" }, null, (newV) => { this.setRunningVersion(newV); });
+                        chrome.runtime.sendMessage(null, { functionName: "refreshRunningVersion" }, null, (newV) => {
+                            this.setRunningVersion(newV);
+                            console.debug("Set runningVersion to", newV);
+                        });
                         return 0;
                     }
                 },
