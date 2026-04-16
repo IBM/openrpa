@@ -12,7 +12,6 @@
 
     <script>
         provideGtagPlugin({
-            apiKey: 'e7879b2ae5246cd193d0468681902fba9589430ddcfc4e715bb90f1c8f6762bdd8da3b15a756b630',
             serviceProvider: 'dimension1',
             networkDomain: 'dimension2',
             networkType: 'dimension3',
