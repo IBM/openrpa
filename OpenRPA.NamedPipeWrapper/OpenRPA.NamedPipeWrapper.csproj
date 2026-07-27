@@ -7,7 +7,7 @@
     <PackageProjectUrl>https://github.com/open-rpa/openrpa</PackageProjectUrl>
     <RepositoryUrl>https://github.com/open-rpa/openrpa</RepositoryUrl>
     <PackageId>OpenRPA.NamedPipeWrapper</PackageId>
-    <Version>1.0.17.12+my1.0.142</Version>
+	<Version>1.0.17.14+my1.0.142</Version>
     <PackageReleaseNotes>1.0.18 Add thread names to improve debugging
 1.0.17 bump version
 1.0.15 update interfaces reference
@@ -53,7 +53,7 @@
     </PropertyGroup>
   </Target>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
   <Target Name="PushNugetPackage" AfterTargets="Pack" Condition="'$(Configuration)' == 'ReleaseNuget'">
     <Exec Command="nuget.exe push $(OutputPath)..\$(PackageId).$(PackageVersion).nupkg -Source nuget.org" />
