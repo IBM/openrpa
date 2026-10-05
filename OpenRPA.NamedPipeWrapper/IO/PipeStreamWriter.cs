@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.IO.Pipes;
-using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace OpenRPA.NamedPipeWrapper.IO
 {
@@ -22,8 +19,6 @@ namespace OpenRPA.NamedPipeWrapper.IO
         /// </summary>
         public PipeStream BaseStream { get; private set; }
 
-        private readonly BinaryFormatter _binaryFormatter = new BinaryFormatter();
-
         /// <summary>
         /// Constructs a new <c>PipeStreamWriter</c> object that writes to given <paramref name="stream"/>.
         /// </summary>
@@ -34,24 +29,6 @@ namespace OpenRPA.NamedPipeWrapper.IO
         }
 
         #region Private stream writers
-
-        /// <exception cref="SerializationException">An object in the graph of type parameter <typeparamref name="T"/> is not marked as serializable.</exception>
-        private byte[] Serialize(T obj)
-        {
-            try
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    _binaryFormatter.Serialize(memoryStream, obj);
-                    return memoryStream.ToArray();
-                }
-            }
-            catch
-            {
-                //if any exception in the serialize, it will stop named pipe wrapper, so there will ignore any exception.
-                return null;
-            }
-        }
 
         private void WriteLength(int len)
         {

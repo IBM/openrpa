@@ -1,13 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.IO.Pipes;
-using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace OpenRPA.NamedPipeWrapper.IO
 {
@@ -27,8 +24,6 @@ namespace OpenRPA.NamedPipeWrapper.IO
         /// Gets a value indicating whether the pipe is connected or not.
         /// </summary>
         public bool IsConnected { get; private set; }
-
-        //private readonly BinaryFormatter _binaryFormatter = new BinaryFormatter();
 
         /// <summary>
         /// Constructs a new <c>PipeStreamReader</c> object that reads data from the given <paramref name="stream"/>.
@@ -70,19 +65,6 @@ namespace OpenRPA.NamedPipeWrapper.IO
             BaseStream.Read(data, 0, len);
             string json = System.Text.Encoding.UTF8.GetString(data, 0, len);
             return JsonConvert.DeserializeObject<T>(json);
-
-            //using (var memoryStream = new MemoryStream(Decompress(data)))
-            //using (var memoryStream = new MemoryStream(Decompress2(data)))
-            //using (var memoryStream = new MemoryStream(data))
-            //{
-            //    return (T)_binaryFormatter.Deserialize(memoryStream);
-            //}
-            //var serializer = new Newtonsoft.Json.JsonSerializer();
-            //using (var sr = new StreamReader(BaseStream))
-            //using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(sr))
-            //{
-            //    return serializer.Deserialize<T>(jsonTextReader);
-            //}
         }
         public const int BUFFER_SIZE = 1024;
         public static byte[] Decompress2(byte[] data)
